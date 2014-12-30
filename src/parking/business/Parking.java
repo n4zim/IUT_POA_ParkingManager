@@ -1,7 +1,9 @@
 package parking.business;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class Parking {
 	Map<Integer, Place> places;
@@ -23,7 +25,7 @@ public class Parking {
 	
 	private Place getFirstFreePlaceTransporteur() {
 		for (Place p : places.values())
-			if(p instanceof Transporteur)
+			if(p instanceof Transporteur && p.isFree())
 				return p;
 		
 		return null;
@@ -31,7 +33,7 @@ public class Parking {
 
 	private Place getFirstFreePlace() {
 		for (Place p : places.values())
-			if(p instanceof Particulier)
+			if(p instanceof Particulier && p.isFree())
 				return p;
 		
 		return getFirstFreePlaceTransporteur();
@@ -64,8 +66,15 @@ public class Parking {
 	public Vehicule unpark(Integer numeroPlace) throws PlaceLibreException { 
 		Place place = places.get(numeroPlace);
 		return place.unparkVehicule();
-	}
+	}	
 	
+	public void EtatParking() {
+	    Iterator<Entry<Integer, Place>> it = places.entrySet().iterator();
+	    while (it.hasNext()) {
+	        Entry<Integer, Place> pairs = (Entry<Integer, Place>)it.next();
+	        System.out.println("Place " + pairs.getKey() + " : " + pairs.getValue());
+	    }
+	}
 	
 	@Override
 	public String toString() {
@@ -75,7 +84,21 @@ public class Parking {
 	public static void main(String[] args) {
 		Parking p = new Parking();
 		p.creerPlaces();
-		System.out.println(p);
+		Vehicule v = new Moto();
+		Vehicule v2 = new Voiture();
+		Vehicule v3 = new Camion();
+		Vehicule v4 = new Voiture();
+
+		try {
+			p.park(v);
+			p.park(v2, 6);
+			p.park(v3);
+			p.park(v4);
+		} catch (PlaceOccupeeException e) {
+			e.printStackTrace();
+		}
+		
+		p.EtatParking();
 	}
 
 }
