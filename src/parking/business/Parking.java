@@ -96,6 +96,23 @@ public class Parking {
 		placeReservee.reserved = true;
 	}
 	
+	public Integer getLocation(String numeroImmatriculation){
+		for (Integer i = 0; i < Constante.NOMBRE_PLACES; i++) {
+			if (places.get(i).vehiculeGare.numeroImmatriculation.equals(numeroImmatriculation))
+				return i;
+		}
+		return -1;
+	}
+	
+	public Vehicule retirerVehicule (String numeroImmatriculation) throws PlaceLibreException{
+		Integer numeroPlace = getLocation(numeroImmatriculation);
+		if (numeroPlace == -1)
+			return null;
+		Vehicule v = places.get(numeroPlace).vehiculeGare;
+		unpark(numeroPlace);
+		return v;
+	}
+	
 	@Override
 	public String toString() {
 		return "Parking [places=" + places + "]";
