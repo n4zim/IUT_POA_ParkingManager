@@ -1,17 +1,13 @@
 package parking.business;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Parking {
-	Collection<Place> places;
+	Map<Integer, Place> places;
 
 	public Parking() {
-		places = new ArrayList<Place>();
-	}
-	
-	public void ajouterPlace(Place place)  {
-		places.add(place);
+		places = new HashMap<Integer, Place>();
 	}
 	
 	public void creerPlaces() {
@@ -21,8 +17,7 @@ public class Parking {
 			if(Math.random() < 0.5) place = new Particulier();
 			else place = new Transporteur();
 			
-			place.setNumero(i);
-			places.add(place);
+			places.put(i, place);
 		}
 	}
 	
@@ -30,6 +25,7 @@ public class Parking {
 	public String toString() {
 		return "Parking [places=" + places + "]";
 	}
+	
 
 	public static void main(String[] args) {
 		Parking p = new Parking();
