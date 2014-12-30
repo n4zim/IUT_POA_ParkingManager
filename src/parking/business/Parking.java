@@ -12,6 +12,14 @@ public class Parking {
 		places = new HashMap<Integer, Place>();
 	}
 	
+	public boolean vehiculeExiste(Vehicule v){
+		boolean existe = false;
+		for (Integer i = 0; i < Constante.NOMBRE_PLACES && !existe; i++) {
+			existe = (places.get(i).vehiculeGare == v);
+		}
+		return existe;
+	}
+	
 	public void creerPlaces() {
 		for (int i = 0; i < Constante.NOMBRE_PLACES; i++) {
 			Place place;
