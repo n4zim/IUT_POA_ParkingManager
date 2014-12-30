@@ -2,6 +2,7 @@ package parking.business;
 
 public class Place {
 	Vehicule vehiculeGare;
+	boolean reserved = false;
 	
 	public Place() {
 		vehiculeGare = null;
@@ -20,7 +21,7 @@ public class Place {
 	}
 	
 	public boolean isFree() {
-		return vehiculeGare == null;			
+		return (vehiculeGare == null || reserved == false);			
 	}
 
 	@Override

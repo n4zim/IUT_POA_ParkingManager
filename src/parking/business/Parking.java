@@ -31,15 +31,15 @@ public class Parking {
 		}
 	}
 	
-	private Place getFirstFreePlaceTransporteur() {
+	private Place getFirstFreePlaceTransporteur() throws PlusAucunePlaceException {
 		for (Place p : places.values())
 			if(p instanceof Transporteur && p.isFree())
 				return p;
 		
-		return null;
-	}	
+		throw new PlusAucunePlaceException();
+	}
 
-	private Place getFirstFreePlace() {
+	private Place getFirstFreePlace() throws PlusAucunePlaceException {
 		for (Place p : places.values())
 			if(p instanceof Particulier && p.isFree())
 				return p;
@@ -48,7 +48,7 @@ public class Parking {
 	}
 	
 	
-	public void park(Vehicule vehicule) throws PlaceOccupeeException {
+	public void park(Vehicule vehicule) throws PlaceOccupeeException, PlusAucunePlaceException {
 		Place place;
 		
 		if(vehicule instanceof Camion) {
@@ -84,6 +84,18 @@ public class Parking {
 	    }
 	}
 	
+	public Place bookPlace () throws PlusAucunePlaceException {
+		Place bookedPlace = getFirstFreePlace();
+		bookedPlace.reserved = true;
+		return bookedPlace;
+	}
+	
+	public void freePlace (Place placeReservee) throws PlaceDisponibleException{
+		if (placeReservee.reserved == false) 
+			throw new PlaceDisponibleException();
+		placeReservee.reserved = true;
+	}
+	
 	@Override
 	public String toString() {
 		return "Parking [places=" + places + "]";
@@ -92,24 +104,26 @@ public class Parking {
 	public static void main(String[] args) {
 		Parking p = new Parking();
 		p.creerPlaces();
-		Vehicule v = new Moto();
+		Vehicule v1 = new Moto();
 		Vehicule v2 = new Voiture();
 		Vehicule v3 = new Camion();
 		Vehicule v4 = new Voiture();
 		Vehicule v5 = new Voiture();
 
 		try {
-			p.park(v);
+			p.park(v1);
 			p.park(v2, 6);
 			p.park(v3);
 			p.park(v4);
-			
-			System.out.println("v2 est dans le garage : " + p.vehiculeExiste(v2));
-			System.out.println("v5 est dans le garage : " + p.vehiculeExiste(v5));
-			
+
 		} catch (PlaceOccupeeException e) {
 			e.printStackTrace();
+		} catch (PlusAucunePlaceException e) {
+			e.printStackTrace();
 		}
+		
+		System.out.println("v2 est dans le garage : " + p.vehiculeExiste(v2));
+		System.out.println("v5 est dans le garage : " + p.vehiculeExiste(v5));
 		
 		p.EtatParking();
 	}
