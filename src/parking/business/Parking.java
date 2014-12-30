@@ -94,9 +94,11 @@ public class Parking {
 	}
 	// genre ya un mec qui va venir te bouger ta voiture comme ça, en plus ce code est dégueulasse
 	public Vehicule reorganiserPlaces (Integer numeroPlacePourParticulierAReorganiser){
-		Iterator<Entry<Integer, Place>> it = places.entrySet().iterator();
 		Place placePourParticulierAReorganiser = places.get(numeroPlacePourParticulierAReorganiser);
 		Vehicule vehiculeSortant = placePourParticulierAReorganiser.vehiculeGare;
+		placePourParticulierAReorganiser.vehiculeGare = null;
+		
+		Iterator<Entry<Integer, Place>> it = places.entrySet().iterator();
 	    while (it.hasNext()) {
 	    	Place placeCourrante = ((Entry<Integer, Place>)it.next()).getValue();
 			if (placeCourrante instanceof Transporteur && !(placeCourrante.vehiculeGare instanceof Camion)){
