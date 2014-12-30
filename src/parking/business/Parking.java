@@ -84,16 +84,20 @@ public class Parking {
 	    }
 	}
 	
-	public Place bookPlace () throws PlusAucunePlaceException {
-		Place bookedPlace = getFirstFreePlace();
-		bookedPlace.reserved = true;
+	public Place bookPlace (Vehicule v) throws PlusAucunePlaceException {
+		Place bookedPlace;
+		if (v instanceof Camion)
+			bookedPlace = getFirstFreePlaceTransporteur();
+		else 
+			bookedPlace = getFirstFreePlace();
+		bookedPlace.booked = true;
 		return bookedPlace;
 	}
 	
 	public void freePlace (Place placeReservee) throws PlaceDisponibleException{
-		if (placeReservee.reserved == false) 
+		if (placeReservee.booked == false) 
 			throw new PlaceDisponibleException();
-		placeReservee.reserved = true;
+		placeReservee.booked = true;
 	}
 	
 	public Integer getLocation(String numeroImmatriculation){
