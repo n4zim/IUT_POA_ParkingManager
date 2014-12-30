@@ -9,12 +9,19 @@ import parking.exception.*;
 
 public class Parking {
 	Map<Integer, Place> places;
-	double tarif;
+	double tarif; //tarif HT
 	int numeroFacture = 1;
 
 	public Parking() {
 		places = new HashMap<Integer, Place>();
 		tarif = 2.50;
+	}
+	
+	public void genererFacture(){
+		double montant = tarif * Constante.TVA;
+		System.out.println("Facture numéro " + numeroFacture++ +
+							"Prix TTC : " + montant +
+							"Merci d'avoir utilisé le parking POO.");
 	}
 	
 	public boolean vehiculeExiste(Vehicule v){
@@ -89,6 +96,7 @@ public class Parking {
 		Vehicule vehiculeSortant = place.unparkVehicule();
 		if (place instanceof Particulier)
 			reorganiserPlaces();
+		genererFacture();
 		return vehiculeSortant;
 	}
 	
