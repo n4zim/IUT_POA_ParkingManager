@@ -92,7 +92,7 @@ public class Parking {
 		if (place instanceof Particulier) reorganiserPlaces(numeroPlace);
 		return place.unparkVehicule();
 	}
-	// genre ya un mec qui va venir te bouger ta voiture comme ça
+	// genre ya un mec qui va venir te bouger ta voiture comme ça, en plus ce code est dégueulasse
 	public void reorganiserPlaces (Integer numeroPlaceLibérée) throws PlaceLibreException, PlaceInexistanteException, TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException{
 		Iterator<Entry<Integer, Place>> it = places.entrySet().iterator();
 	    while (it.hasNext()) {
@@ -102,6 +102,7 @@ public class Parking {
 				Vehicule vehiculeADeplacer = placeCourrante.vehiculeGare;
 				unpark(pairs.getKey());
 				park (vehiculeADeplacer, numeroPlaceLibérée);
+				return;
 			}
 	    }
 	}
