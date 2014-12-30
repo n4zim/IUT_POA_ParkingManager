@@ -89,22 +89,23 @@ public class Parking {
 		Place place = places.get(numeroPlace);
 		if (place.isFree())
 			throw new PlaceLibreException();
-		if (place instanceof Particulier) reorganiserPlaces(numeroPlace);
+		if (place instanceof Particulier) return reorganiserPlaces(numeroPlace);
 		return place.unparkVehicule();
 	}
 	// genre ya un mec qui va venir te bouger ta voiture comme ça, en plus ce code est dégueulasse
-	public void reorganiserPlaces (Integer numeroPlaceLibérée) throws PlaceLibreException, PlaceInexistanteException, TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException{
+	public Vehicule reorganiserPlaces (Integer numeroPlacePourParticulierAReorganiser){
 		Iterator<Entry<Integer, Place>> it = places.entrySet().iterator();
+		Place placePourParticulierAReorganiser = places.get(numeroPlacePourParticulierAReorganiser);
+		Vehicule vehiculeSortant = placePourParticulierAReorganiser.vehiculeGare;
 	    while (it.hasNext()) {
-	    	Entry<Integer, Place> pairs = (Entry<Integer, Place>)it.next();
 	    	Place placeCourrante = ((Entry<Integer, Place>)it.next()).getValue();
-			if(placeCourrante instanceof Transporteur && !(placeCourrante.vehiculeGare instanceof Camion)){
-				Vehicule vehiculeADeplacer = placeCourrante.vehiculeGare;
-				unpark(pairs.getKey());
-				park (vehiculeADeplacer, numeroPlaceLibérée);
-				return;
+			if (placeCourrante instanceof Transporteur && !(placeCourrante.vehiculeGare instanceof Camion)){
+				placePourParticulierAReorganiser.vehiculeGare = placeCourrante.vehiculeGare;
+				placeCourrante.vehiculeGare = null;
+				break;
 			}
 	    }
+	    return vehiculeSortant;
 	}
 	
 	public void EtatParking() {
