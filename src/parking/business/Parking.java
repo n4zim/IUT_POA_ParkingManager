@@ -5,19 +5,16 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import parking.exception.PlaceDisponibleException;
-import parking.exception.PlaceInexistanteException;
-import parking.exception.PlaceLibreException;
-import parking.exception.PlaceOccupeeException;
-import parking.exception.PlaceReserveeException;
-import parking.exception.PlusAucunePlaceException;
-import parking.exception.TypePlaceInvalideException;
+import parking.exception.*;
 
 public class Parking {
 	Map<Integer, Place> places;
+	double tarif;
+	int numeroFacture = 1;
 
 	public Parking() {
 		places = new HashMap<Integer, Place>();
+		tarif = 2.50;
 	}
 	
 	public boolean vehiculeExiste(Vehicule v){
@@ -83,31 +80,28 @@ public class Parking {
 		place.parkVehicule(vehicule);
 	}
 	
-	public Vehicule unpark(Integer numeroPlace) throws PlaceLibreException, PlaceInexistanteException, TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException { 
+	public Vehicule unpark(Integer numeroPlace) throws PlaceLibreException, PlaceInexistanteException, TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException, PlusAucunePlaceException { 
 		if (numeroPlace >= Constante.NOMBRE_PLACES)
 			throw new PlaceInexistanteException();
 		Place place = places.get(numeroPlace);
 		if (place.isFree())
 			throw new PlaceLibreException();
-		if (place instanceof Particulier) return reorganiserPlaces(numeroPlace);
-		return place.unparkVehicule();
+		Vehicule vehiculeSortant = place.unparkVehicule();
+		if (place instanceof Particulier)
+			reorganiserPlaces();
+		return vehiculeSortant;
 	}
-	// genre ya un mec qui va venir te bouger ta voiture comme ça, en plus ce code est dégueulasse
-	public Vehicule reorganiserPlaces (Integer numeroPlacePourParticulierAReorganiser){
-		Place placePourParticulierAReorganiser = places.get(numeroPlacePourParticulierAReorganiser);
-		Vehicule vehiculeSortant = placePourParticulierAReorganiser.getVehiculeGare();
-		placePourParticulierAReorganiser.setVehiculeGare(null);
-		
+	
+	public void reorganiserPlaces () throws PlusAucunePlaceException{
 		Iterator<Entry<Integer, Place>> it = places.entrySet().iterator();
 	    while (it.hasNext()) {
 	    	Place placeCourrante = ((Entry<Integer, Place>)it.next()).getValue();
 			if (placeCourrante instanceof Transporteur && !(placeCourrante.getVehiculeGare() instanceof Camion)){
-				placePourParticulierAReorganiser.setVehiculeGare(placeCourrante.getVehiculeGare());
-				placeCourrante.setVehiculeGare(null);
+				Vehicule vehiculeADeplacer = placeCourrante.unparkVehicule();
+				getFirstFreePlace().parkVehicule(vehiculeADeplacer);
 				break;
 			}
 	    }
-	    return vehiculeSortant;
 	}
 	
 	public void EtatParking() {
@@ -142,12 +136,12 @@ public class Parking {
 		return -1;
 	}
 	
-	public Vehicule retirerVehicule (String numeroImmatriculation) throws PlaceLibreException, PlaceInexistanteException, TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException{
+	public Vehicule retirerVehicule (String numeroImmatriculation) throws PlaceLibreException, PlaceInexistanteException, TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException, PlusAucunePlaceException{
 		Integer numeroPlace = getLocation(numeroImmatriculation);
 		if (numeroPlace == -1)
 			return null;
 		Vehicule v = places.get(numeroPlace).getVehiculeGare();
-		unpark(numeroPlace); // PlaceInexistanteException ne devrait pas avoir lieu ici mais il fait chier avec donc je le déclare
+		unpark(numeroPlace);
 		return v;
 	}
 	
