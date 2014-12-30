@@ -12,7 +12,7 @@ public class Place {
 		vehiculeGare = v;
 	}
 	
-	public Vehicule unparkVehicule() {
+	public Vehicule unparkVehicule() throws PlaceLibreException {
 		if(isFree()) throw new PlaceLibreException();
 		Vehicule unparked = vehiculeGare;
 		vehiculeGare = null;
