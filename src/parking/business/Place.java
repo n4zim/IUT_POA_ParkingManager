@@ -22,4 +22,13 @@ public class Place {
 	public boolean isFree() {
 		return vehiculeGare == null;			
 	}
+
+	@Override
+	public String toString() {
+		String description = "Place " + getClass();
+		
+		if(!isFree()) description += " occuppée : " + vehiculeGare;
+			
+		return description;
+	}
 }
