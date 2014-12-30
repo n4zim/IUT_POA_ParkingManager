@@ -1,8 +1,8 @@
 package parking.business;
 
 public class Place {
-	Vehicule vehiculeGare;
-	boolean booked = false;
+	private Vehicule vehiculeGare;
+	private boolean booked = false;
 	
 	public Place() {
 		vehiculeGare = null;
@@ -18,9 +18,26 @@ public class Place {
 		return unparked;
 	}
 	
+	public void setVehiculeGare(Vehicule vehiculeGare) {
+		this.vehiculeGare = vehiculeGare;
+	}
+
 	public boolean isFree() {
 		return (vehiculeGare == null && booked == false);			
 	}
+	
+	public Vehicule getVehiculeGare() {
+		return vehiculeGare;
+	}
+
+	public boolean isBooked() {
+		return booked;
+	}
+
+	public void setBooked(boolean booked) {
+		this.booked = booked;
+	}
+
 
 	@Override
 	public String toString() {

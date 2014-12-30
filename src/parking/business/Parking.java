@@ -23,7 +23,7 @@ public class Parking {
 	public boolean vehiculeExiste(Vehicule v){
 		boolean existe = false;
 		for (Integer i = 0; i < Constante.NOMBRE_PLACES && !existe; i++) {
-			existe = (places.get(i).vehiculeGare == v);
+			existe = (places.get(i).getVehiculeGare() == v);
 		}
 		return existe;
 	}
@@ -73,9 +73,9 @@ public class Parking {
 		
 		Place place = places.get(numeroPlace);
 		
-		if (place.vehiculeGare != null)
+		if (place.getVehiculeGare() != null)
 			throw new PlaceOccupeeException();
-		if (place.booked == true)
+		if (place.isBooked() == true)
 			throw new PlaceReserveeException();
 		if (place instanceof Particulier && vehicule instanceof Camion)
 			throw new TypePlaceInvalideException();
@@ -95,15 +95,15 @@ public class Parking {
 	// genre ya un mec qui va venir te bouger ta voiture comme ça, en plus ce code est dégueulasse
 	public Vehicule reorganiserPlaces (Integer numeroPlacePourParticulierAReorganiser){
 		Place placePourParticulierAReorganiser = places.get(numeroPlacePourParticulierAReorganiser);
-		Vehicule vehiculeSortant = placePourParticulierAReorganiser.vehiculeGare;
-		placePourParticulierAReorganiser.vehiculeGare = null;
+		Vehicule vehiculeSortant = placePourParticulierAReorganiser.getVehiculeGare();
+		placePourParticulierAReorganiser.setVehiculeGare(null);
 		
 		Iterator<Entry<Integer, Place>> it = places.entrySet().iterator();
 	    while (it.hasNext()) {
 	    	Place placeCourrante = ((Entry<Integer, Place>)it.next()).getValue();
-			if (placeCourrante instanceof Transporteur && !(placeCourrante.vehiculeGare instanceof Camion)){
-				placePourParticulierAReorganiser.vehiculeGare = placeCourrante.vehiculeGare;
-				placeCourrante.vehiculeGare = null;
+			if (placeCourrante instanceof Transporteur && !(placeCourrante.getVehiculeGare() instanceof Camion)){
+				placePourParticulierAReorganiser.setVehiculeGare(placeCourrante.getVehiculeGare());
+				placeCourrante.setVehiculeGare(null);
 				break;
 			}
 	    }
@@ -124,19 +124,19 @@ public class Parking {
 			bookedPlace = getFirstFreePlaceTransporteur();
 		else 
 			bookedPlace = getFirstFreePlace();
-		bookedPlace.booked = true;
+		bookedPlace.setBooked(true);
 		return bookedPlace;
 	}
 	
 	public void freePlace (Place placeReservee) throws PlaceDisponibleException{
-		if (placeReservee.booked == false) 
+		if (placeReservee.isBooked() == false) 
 			throw new PlaceDisponibleException();
-		placeReservee.booked = true;
+		placeReservee.setBooked(true);
 	}
 	
 	public Integer getLocation(String numeroImmatriculation){
 		for (Integer i = 0; i < Constante.NOMBRE_PLACES; i++) {
-			if (places.get(i).vehiculeGare.numeroImmatriculation.equals(numeroImmatriculation))
+			if (places.get(i).getVehiculeGare().numeroImmatriculation.equals(numeroImmatriculation))
 				return i;
 		}
 		return -1;
@@ -146,7 +146,7 @@ public class Parking {
 		Integer numeroPlace = getLocation(numeroImmatriculation);
 		if (numeroPlace == -1)
 			return null;
-		Vehicule v = places.get(numeroPlace).vehiculeGare;
+		Vehicule v = places.get(numeroPlace).getVehiculeGare();
 		unpark(numeroPlace); // PlaceInexistanteException ne devrait pas avoir lieu ici mais il fait chier avec donc je le déclare
 		return v;
 	}
