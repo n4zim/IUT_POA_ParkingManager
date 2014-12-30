@@ -16,8 +16,13 @@ public class Parking {
 	
 	public void creerPlaces() {
 		for (int i = 0; i < Constante.NOMBRE_PLACES; i++) {
-			if(Math.random() < 0.5) ajouterPlace(new Particulier());
-			else ajouterPlace(new Transporteur());
+			Place place;
+			
+			if(Math.random() < 0.5) place = new Particulier();
+			else place = new Transporteur();
+			
+			place.setNumero(i);
+			places.add(place);
 		}
 	}
 	

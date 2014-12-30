@@ -2,6 +2,7 @@ package parking.business;
 
 public class Place {
 	Vehicule vehiculeGare;
+	int numero;
 	
 	public Place() {
 		vehiculeGare = null;
@@ -21,5 +22,9 @@ public class Place {
 	
 	public boolean isFree() {
 		return vehiculeGare == null;			
+	}
+
+	public void setNumero(int numeroPlace) {
+		numero = numeroPlace;
 	}
 }
