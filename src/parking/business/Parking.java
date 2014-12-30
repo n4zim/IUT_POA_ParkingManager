@@ -5,6 +5,14 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import parking.exception.PlaceDisponibleException;
+import parking.exception.PlaceInexistanteException;
+import parking.exception.PlaceLibreException;
+import parking.exception.PlaceOccupeeException;
+import parking.exception.PlaceReserveeException;
+import parking.exception.PlusAucunePlaceException;
+import parking.exception.TypePlaceInvalideException;
+
 public class Parking {
 	Map<Integer, Place> places;
 
@@ -24,7 +32,7 @@ public class Parking {
 		for (int i = 0; i < Constante.NOMBRE_PLACES; i++) {
 			Place place;
 			
-			if(Math.random() < 0.5) place = new Particulier();
+			if(Math.random() < 0.7) place = new Particulier();
 			else place = new Transporteur();
 			
 			places.put(i, place);
@@ -47,32 +55,40 @@ public class Parking {
 		return getFirstFreePlaceTransporteur();
 	}
 	
-	
-	public void park(Vehicule vehicule) throws PlaceOccupeeException, PlusAucunePlaceException {
+	public void park(Vehicule vehicule) throws PlusAucunePlaceException {
 		Place place;
 		
-		if(vehicule instanceof Camion) {
+		if (vehicule instanceof Camion) {
 			place = getFirstFreePlaceTransporteur();
 		} else {
 			place = getFirstFreePlace();
 		}
 		
-		if(place == null) throw new PlaceOccupeeException();
-		
 		place.parkVehicule(vehicule);
 	}
 	
-	public void park(Vehicule vehicule, Integer numeroPlace) throws PlaceOccupeeException {
+	public void park(Vehicule vehicule, Integer numeroPlace) throws TypePlaceInvalideException, PlaceOccupeeException, PlaceInexistanteException, PlaceReserveeException {
+		if (numeroPlace >= Constante.NOMBRE_PLACES)
+			throw new PlaceInexistanteException();
+		
 		Place place = places.get(numeroPlace);
 		
-		if(place instanceof Particulier && vehicule instanceof Camion)
+		if (place.vehiculeGare != null)
 			throw new PlaceOccupeeException();
+		if (place.booked == true)
+			throw new PlaceReserveeException();
+		if (place instanceof Particulier && vehicule instanceof Camion)
+			throw new TypePlaceInvalideException();
 		
 		place.parkVehicule(vehicule);
 	}
 	
-	public Vehicule unpark(Integer numeroPlace) throws PlaceLibreException { 
+	public Vehicule unpark(Integer numeroPlace) throws PlaceLibreException, PlaceInexistanteException { 
+		if (numeroPlace >= Constante.NOMBRE_PLACES)
+			throw new PlaceInexistanteException();
 		Place place = places.get(numeroPlace);
+		if (place.isFree())
+			throw new PlaceLibreException();
 		return place.unparkVehicule();
 	}	
 	
@@ -108,12 +124,12 @@ public class Parking {
 		return -1;
 	}
 	
-	public Vehicule retirerVehicule (String numeroImmatriculation) throws PlaceLibreException{
+	public Vehicule retirerVehicule (String numeroImmatriculation) throws PlaceLibreException, PlaceInexistanteException{
 		Integer numeroPlace = getLocation(numeroImmatriculation);
 		if (numeroPlace == -1)
 			return null;
 		Vehicule v = places.get(numeroPlace).vehiculeGare;
-		unpark(numeroPlace);
+		unpark(numeroPlace); // PlaceInexistanteException ne devrait pas avoir lieu ici mais il fait chier avec donc je le déclare
 		return v;
 	}
 	
@@ -133,13 +149,12 @@ public class Parking {
 
 		try {
 			p.park(v1);
-			p.park(v2, 6);
+			p.park(v2, 3);
 			p.park(v3);
 			p.park(v4);
+			p.bookPlace(v5);
 
-		} catch (PlaceOccupeeException e) {
-			e.printStackTrace();
-		} catch (PlusAucunePlaceException e) {
+		} catch (parking.exception.ParkingException e) {
 			e.printStackTrace();
 		}
 		
@@ -147,6 +162,7 @@ public class Parking {
 		System.out.println("v5 est dans le garage : " + p.vehiculeExiste(v5));
 		
 		p.EtatParking();
+		
 	}
 
 }

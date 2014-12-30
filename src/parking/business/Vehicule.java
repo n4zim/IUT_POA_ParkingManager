@@ -20,9 +20,41 @@ public class Vehicule {
 
 	@Override
 	public String toString() {
-		return "Vehicule [numeroImmatriculation=" + numeroImmatriculation
+		return "[numeroImmatriculation=" + numeroImmatriculation
 				+ ", marque=" + marque + ", modele=" + modele
 				+ ", proprietaire=" + proprietaire + "]";
 	}
-		
+	
+	public String getNumeroImmatriculation() {
+		return numeroImmatriculation;
+	}
+
+	public void setNumeroImmatriculation(String numeroImmatriculation) {
+		this.numeroImmatriculation = numeroImmatriculation;
+	}
+
+	public String getMarque() {
+		return marque;
+	}
+
+	public void setMarque(String marque) {
+		this.marque = marque;
+	}
+
+	public String getModele() {
+		return modele;
+	}
+
+	public void setModele(String modele) {
+		this.modele = modele;
+	}
+
+	public String getProprietaire() {
+		return proprietaire;
+	}
+
+	public void setProprietaire(String proprietaire) {
+		this.proprietaire = proprietaire;
+	}
+	
 }

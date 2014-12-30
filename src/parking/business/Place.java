@@ -8,28 +8,28 @@ public class Place {
 		vehiculeGare = null;
 	}
 	
-	public void parkVehicule(Vehicule v) throws PlaceOccupeeException {
-		if(!isFree()) throw new PlaceOccupeeException();
+	public void parkVehicule(Vehicule v) {
 		vehiculeGare = v;
 	}
 	
-	public Vehicule unparkVehicule() throws PlaceLibreException {
-		if(isFree()) throw new PlaceLibreException();
+	public Vehicule unparkVehicule() {
 		Vehicule unparked = vehiculeGare;
 		vehiculeGare = null;
 		return unparked;
 	}
 	
 	public boolean isFree() {
-		return (vehiculeGare == null || booked == false);			
+		return (vehiculeGare == null && booked == false);			
 	}
 
 	@Override
 	public String toString() {
-		String description = "Place " + getClass();
+		String description = getClass().toString();
 		
-		if(!isFree()) description += " occuppée : " + vehiculeGare;
-			
+		if (vehiculeGare != null) description += " occuppée : " + vehiculeGare;
+		if (booked == true) description += " réservée";
+		else if (vehiculeGare == null) description += " libre";
+		
 		return description;
 	}
 }

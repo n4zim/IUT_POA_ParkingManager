@@ -1,5 +1,5 @@
 package parking.business;
 
 public class Constante {
-	public final static int NOMBRE_PLACES = 20;
+	public final static int NOMBRE_PLACES = 10;
 }
