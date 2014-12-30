@@ -96,12 +96,17 @@ public class Parking {
 		Vehicule v2 = new Voiture();
 		Vehicule v3 = new Camion();
 		Vehicule v4 = new Voiture();
+		Vehicule v5 = new Voiture();
 
 		try {
 			p.park(v);
 			p.park(v2, 6);
 			p.park(v3);
 			p.park(v4);
+			
+			System.out.println("v2 est dans le garage : " + p.vehiculeExiste(v2));
+			System.out.println("v5 est dans le garage : " + p.vehiculeExiste(v5));
+			
 		} catch (PlaceOccupeeException e) {
 			e.printStackTrace();
 		}
