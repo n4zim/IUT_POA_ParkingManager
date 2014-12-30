@@ -83,14 +83,28 @@ public class Parking {
 		place.parkVehicule(vehicule);
 	}
 	
-	public Vehicule unpark(Integer numeroPlace) throws PlaceLibreException, PlaceInexistanteException { 
+	public Vehicule unpark(Integer numeroPlace) throws PlaceLibreException, PlaceInexistanteException, TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException { 
 		if (numeroPlace >= Constante.NOMBRE_PLACES)
 			throw new PlaceInexistanteException();
 		Place place = places.get(numeroPlace);
 		if (place.isFree())
 			throw new PlaceLibreException();
+		if (place instanceof Particulier) reorganiserPlaces(numeroPlace);
 		return place.unparkVehicule();
-	}	
+	}
+	// genre ya un mec qui va venir te bouger ta voiture comme ça
+	public void reorganiserPlaces (Integer numeroPlaceLibérée) throws PlaceLibreException, PlaceInexistanteException, TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException{
+		Iterator<Entry<Integer, Place>> it = places.entrySet().iterator();
+	    while (it.hasNext()) {
+	    	Entry<Integer, Place> pairs = (Entry<Integer, Place>)it.next();
+	    	Place placeCourrante = ((Entry<Integer, Place>)it.next()).getValue();
+			if(placeCourrante instanceof Transporteur && !(placeCourrante.vehiculeGare instanceof Camion)){
+				Vehicule vehiculeADeplacer = placeCourrante.vehiculeGare;
+				unpark(pairs.getKey());
+				park (vehiculeADeplacer, numeroPlaceLibérée);
+			}
+	    }
+	}
 	
 	public void EtatParking() {
 	    Iterator<Entry<Integer, Place>> it = places.entrySet().iterator();
@@ -124,7 +138,7 @@ public class Parking {
 		return -1;
 	}
 	
-	public Vehicule retirerVehicule (String numeroImmatriculation) throws PlaceLibreException, PlaceInexistanteException{
+	public Vehicule retirerVehicule (String numeroImmatriculation) throws PlaceLibreException, PlaceInexistanteException, TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException{
 		Integer numeroPlace = getLocation(numeroImmatriculation);
 		if (numeroPlace == -1)
 			return null;

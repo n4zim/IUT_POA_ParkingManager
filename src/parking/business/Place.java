@@ -8,11 +8,11 @@ public class Place {
 		vehiculeGare = null;
 	}
 	
-	public void parkVehicule(Vehicule v) {
+	public void parkVehicule(Vehicule v) {//faudrait qu'elle soit appelable que par Parking (ou dans le package) comme j'ai délocalisé les contrôles vers Parking
 		vehiculeGare = v;
 	}
 	
-	public Vehicule unparkVehicule() {
+	public Vehicule unparkVehicule() {//faudrait qu'elle soit appelable que par Parking (ou dans le package) comme j'ai délocalisé les contrôles vers Parking
 		Vehicule unparked = vehiculeGare;
 		vehiculeGare = null;
 		return unparked;
