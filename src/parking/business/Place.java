@@ -8,11 +8,11 @@ public class Place {
 		vehiculeGare = null;
 	}
 	
-	public void parkVehicule(Vehicule v) {//faudrait qu'elle soit appelable que par Parking (ou dans le package) comme j'ai délocalisé les contrôles vers Parking
+	public void parkVehicule(Vehicule v) {//faudrait qu'elle soit appelable que par Parking (ou dans le package) comme j'ai dÃ©localisÃ© les contrÃ´les vers Parking
 		vehiculeGare = v;
 	}
 	
-	public Vehicule unparkVehicule() {//faudrait qu'elle soit appelable que par Parking (ou dans le package) comme j'ai délocalisé les contrôles vers Parking
+	public Vehicule unparkVehicule() {//faudrait qu'elle soit appelable que par Parking (ou dans le package) comme j'ai dÃ©localisÃ© les contrÃ´les vers Parking
 		Vehicule unparked = vehiculeGare;
 		vehiculeGare = null;
 		return unparked;
@@ -43,8 +43,8 @@ public class Place {
 	public String toString() {
 		String description = getClass().toString();
 		
-		if (vehiculeGare != null) description += " occuppée : " + vehiculeGare;
-		if (booked == true) description += " réservée";
+		if (vehiculeGare != null) description += " occuppÃ©e : " + vehiculeGare;
+		if (booked == true) description += " rÃ©servÃ©e";
 		else if (vehiculeGare == null) description += " libre";
 		
 		return description;

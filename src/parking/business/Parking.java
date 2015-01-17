@@ -14,7 +14,7 @@ public class Parking {
 	/**
 	 * Construit un nouveau parking
 	 * 
-	 * @param tarif Le prix du parking qui sera facturé à la sortie d'un véhicule
+	 * @param tarif Le prix du parking qui sera facturÃ© Ã  la sortie d'un vÃ©hicule
 	 */
 	public Parking(double tarif) {
 		this.places = new HashMap<Integer, Place>();
@@ -23,27 +23,27 @@ public class Parking {
 	}
 	
 	/**
-	 * Retourne le premier numéro de place du parking
-	 * @return premier numéro de place
+	 * Retourne le premier numÃ©ro de place du parking
+	 * @return premier numÃ©ro de place
 	 */
 	public Integer getPremierNumeroDePlace() {
 		return Constante.NUMERO_PREMIERE_PLACE;
 	}
 	
 	/**
-	 * Retourne le dernier numéro de place du parking
-	 * @return dernier numéro de place
+	 * Retourne le dernier numÃ©ro de place du parking
+	 * @return dernier numÃ©ro de place
 	 */
 	public Integer getDernierNumeroDePlace() {
 		return Constante.NUMERO_PREMIERE_PLACE + Constante.NUMERO_PREMIERE_PLACE;
 	}
 
 	/**
-	 * Vérifie si un véhicule est garé dans le parking
+	 * VÃ©rifie si un vÃ©hicule est garÃ© dans le parking
 	 * 
-	 * @param v Le véhicule à chercher
-	 * @return true si le véhicule à été trouvé
-	 * @return false si le véhicule n'a pas été trouvé
+	 * @param v Le vÃ©hicule Ã  chercher
+	 * @return true si le vÃ©hicule Ã  Ã©tÃ© trouvÃ©
+	 * @return false si le vÃ©hicule n'a pas Ã©tÃ© trouvÃ©
 	 */
 	public boolean vehiculeExiste(Vehicule v) {
 		boolean existe = false;
@@ -54,7 +54,7 @@ public class Parking {
 	}
 
 	/**
-	 * Génere les places du parking
+	 * GÃ©nere les places du parking
 	 */
 	private void creerPlaces() {
 		for (int i = getPremierNumeroDePlace(); i < getDernierNumeroDePlace(); i++) {
@@ -70,10 +70,10 @@ public class Parking {
 	}
 
 	/**
-	 * Retourne la première place adapté au type de véhicule Transporteur disponible
+	 * Retourne la premiÃ¨re place adaptÃ© au type de vÃ©hicule Transporteur disponible
 	 * 
 	 * @return La place disponible
-	 * @throws PlusAucunePlaceException Il n'y à plus de place disponible adaptée aux transporteurs
+	 * @throws PlusAucunePlaceException Il n'y Ã  plus de place disponible adaptÃ©e aux transporteurs
 	 */
 	private Place getFirstFreePlaceTransporteur() throws PlusAucunePlaceException {
 		for (Place p : places.values())
@@ -84,10 +84,10 @@ public class Parking {
 	}
 
 	/**
-	 * Retourne la première place disponible du parking
+	 * Retourne la premiÃ¨re place disponible du parking
 	 * 
 	 * @return La place disponible
-	 * @throws PlusAucunePlaceException Il n'y à plus de place disponible dans le parking
+	 * @throws PlusAucunePlaceException Il n'y Ã  plus de place disponible dans le parking
 	 */
 	private Place getFirstFreePlace() throws PlusAucunePlaceException {
 		for (Place p : places.values())
@@ -98,11 +98,11 @@ public class Parking {
 	}
 	
 	/**
-	 * Retourne la première place de parking disponible adaptée au véhicule donné
+	 * Retourne la premiÃ¨re place de parking disponible adaptÃ©e au vÃ©hicule donnÃ©
 	 * 
-	 * @param vehicule Véhicule pour lequel on cherche une place libre
+	 * @param vehicule VÃ©hicule pour lequel on cherche une place libre
 	 * @return La place disponible
-	 * @throws PlusAucunePlaceException Il n'y a plus de place dans le parking pour garer le véhicule
+	 * @throws PlusAucunePlaceException Il n'y a plus de place dans le parking pour garer le vÃ©hicule
 	 */
 	public Place getFirstFreePlaceAuto(Vehicule vehicule) throws PlusAucunePlaceException {
 		Place place;
@@ -115,10 +115,10 @@ public class Parking {
 	}
 
 	/**
-	 * Gare le véhicule dans le parking à la première place disponible
+	 * Gare le vÃ©hicule dans le parking Ã  la premiÃ¨re place disponible
 	 * 
-	 * @param vehicule Le véhicule à garer
-	 * @throws PlusAucunePlaceException Il n'y à plus de place, le véhicule n'a pas été garé
+	 * @param vehicule Le vÃ©hicule Ã  garer
+	 * @throws PlusAucunePlaceException Il n'y Ã  plus de place, le vÃ©hicule n'a pas Ã©tÃ© garÃ©
 	 */
 	public void park(Vehicule vehicule) throws PlusAucunePlaceException {
 		Place place = getFirstFreePlaceAuto(vehicule);
@@ -127,14 +127,14 @@ public class Parking {
 	}
 
 	/**
-	 * Gare un véhicule dans le parking à une place spécifique
+	 * Gare un vÃ©hicule dans le parking Ã  une place spÃ©cifique
 	 * 
-	 * @param vehicule Le véhicule à garer
-	 * @param numeroPlace Le numéro de la place souhaité
-	 * @throws TypePlaceInvalideException La place souhaitée n'est pas adapté au type de véhicule que l'on souhaite garer
-	 * @throws PlaceOccupeeException La place souhaitée est occupée
-	 * @throws PlaceInexistanteException La place souhaitée n'existe pas
-	 * @throws PlaceReserveeException La place souhaitée est réservée
+	 * @param vehicule Le vÃ©hicule Ã  garer
+	 * @param numeroPlace Le numÃ©ro de la place souhaitÃ©
+	 * @throws TypePlaceInvalideException La place souhaitÃ©e n'est pas adaptÃ© au type de vÃ©hicule que l'on souhaite garer
+	 * @throws PlaceOccupeeException La place souhaitÃ©e est occupÃ©e
+	 * @throws PlaceInexistanteException La place souhaitÃ©e n'existe pas
+	 * @throws PlaceReserveeException La place souhaitÃ©e est rÃ©servÃ©e
 	 */
 	public void park(Vehicule vehicule, Integer numeroPlace)
 			throws TypePlaceInvalideException, PlaceOccupeeException,
@@ -155,34 +155,34 @@ public class Parking {
 	}
 	
 	/**
-	 * Permet de retirer un véhicule de la place de parking spécifié
+	 * Permet de retirer un vÃ©hicule de la place de parking spÃ©cifiÃ©
 	 * 
-	 * @param numeroPlace Numéro de la place à libérer
-	 * @return Le véhicule qui à été libéré
-	 * @throws PlaceLibreException La place était déjà libre
+	 * @param numeroPlace NumÃ©ro de la place Ã  libÃ©rer
+	 * @return Le vÃ©hicule qui Ã  Ã©tÃ© libÃ©rÃ©
+	 * @throws PlaceLibreException La place Ã©tait dÃ©jÃ  libre
 	 * @throws PlaceInexistanteException La place n'existe pas
 	 */
 	public Vehicule unpark(Integer numeroPlace) throws PlaceLibreException,
 			PlaceInexistanteException {
-		// Si on essaye de libérer une place dont le numéro est impossible
+		// Si on essaye de libÃ©rer une place dont le numÃ©ro est impossible
 		if (numeroPlace >= getDernierNumeroDePlace() || numeroPlace < getPremierNumeroDePlace())
 			throw new PlaceInexistanteException();
 		
-		// On récupère l'objet Place correspondant au numéro
+		// On rÃ©cupÃ¨re l'objet Place correspondant au numÃ©ro
 		Place place = places.get(numeroPlace);
 		
-		// Si c'est libre, impossible de libérer
+		// Si c'est libre, impossible de libÃ©rer
 		if (place.isFree())
 			throw new PlaceLibreException();
 		
-		// Sinon on libère la place en récupérant le véhicule
+		// Sinon on libÃ¨re la place en rÃ©cupÃ©rant le vÃ©hicule
 		Vehicule vehiculeSortant = place.unparkVehicule();
 		
-		// On appelle la réorganisation du parking
+		// On appelle la rÃ©organisation du parking
 		if (place instanceof Particulier)
 			reorganiserPlaces();
 		
-		// On génère la facture
+		// On gÃ©nÃ¨re la facture
 		FabriqueFacture f = new FabriqueFacture(tarif);
 		f.genererFacture();
 		
@@ -190,7 +190,7 @@ public class Parking {
 	}
 
 	/**
-	 * Réorganise les places du parking
+	 * RÃ©organise les places du parking
 	 */
 	public void reorganiserPlaces() {
 		Iterator<Entry<Integer, Place>> it = places.entrySet().iterator();
@@ -200,8 +200,8 @@ public class Parking {
 					&& !(placeCourrante.getVehiculeGare() instanceof Camion)) {
 				Vehicule vehiculeADeplacer = placeCourrante.unparkVehicule();
 				
-				// on ne devrait jamais arriver dans le catch puisque l'on s'assure de libérer une
-				// place avant de garer le véhicule sur une nouvelle place.
+				// on ne devrait jamais arriver dans le catch puisque l'on s'assure de libÃ©rer une
+				// place avant de garer le vÃ©hicule sur une nouvelle place.
 				try {
 					getFirstFreePlace().parkVehicule(vehiculeADeplacer);
 				} catch (PlusAucunePlaceException e) {}
@@ -211,7 +211,7 @@ public class Parking {
 	}
 
 	/**
-	 * Affiche dans la console l'état actuel du parking
+	 * Affiche dans la console l'Ã©tat actuel du parking
 	 */
 	public void EtatParking() {
 		Iterator<Entry<Integer, Place>> it = places.entrySet().iterator();
@@ -223,11 +223,11 @@ public class Parking {
 	}
 
 	/**
-	 * Réserve une place à un véhicule
+	 * RÃ©serve une place Ã  un vÃ©hicule
 	 * 
-	 * @param v Le véhicule pour lequel la place sera réservée
-	 * @return La place qui à été réservée
-	 * @throws PlusAucunePlaceException Il n'y à plus de place dans le parking
+	 * @param v Le vÃ©hicule pour lequel la place sera rÃ©servÃ©e
+	 * @return La place qui Ã  Ã©tÃ© rÃ©servÃ©e
+	 * @throws PlusAucunePlaceException Il n'y Ã  plus de place dans le parking
 	 */
 	public Place bookPlace(Vehicule v) throws PlusAucunePlaceException {
 		Place bookedPlace;
@@ -240,10 +240,10 @@ public class Parking {
 	}
 
 	/**
-	 * Annulle une réservation sur une place
+	 * Annulle une rÃ©servation sur une place
 	 * 
-	 * @param placeReservee La place qui à été resérvée
-	 * @throws PlaceDisponibleException La place dont on veut annuller la réservation n'était pas réservée
+	 * @param placeReservee La place qui Ã  Ã©tÃ© resÃ©rvÃ©e
+	 * @throws PlaceDisponibleException La place dont on veut annuller la rÃ©servation n'Ã©tait pas rÃ©servÃ©e
 	 */
 	public void freePlace(Place placeReservee) throws PlaceDisponibleException {
 		if (placeReservee.isBooked() == false)
@@ -252,11 +252,11 @@ public class Parking {
 	}
 
 	/**
-	 * Retourne le numéro de la place occupée par le véhicule dont l'immatriculation est donnée.
+	 * Retourne le numÃ©ro de la place occupÃ©e par le vÃ©hicule dont l'immatriculation est donnÃ©e.
 	 * 
-	 * @param numeroImmatriculation Numéro d'immatriculation de la voiture à chercher
-	 * @return Le numéro de place occupé par le véhicule si il à été trouvé
-	 * @return -1 si le véhicule n'a pas été trouvé
+	 * @param numeroImmatriculation NumÃ©ro d'immatriculation de la voiture Ã  chercher
+	 * @return Le numÃ©ro de place occupÃ© par le vÃ©hicule si il Ã  Ã©tÃ© trouvÃ©
+	 * @return -1 si le vÃ©hicule n'a pas Ã©tÃ© trouvÃ©
 	 */
 	public Integer getLocation(String numeroImmatriculation) {
 		for (Integer i = 0; i < Constante.NOMBRE_PLACES; i++) {
@@ -268,11 +268,11 @@ public class Parking {
 	}
 
 	/**
-	 * Permet de retirer un véhicule du parking à partir de son numéro d'immatriculation
+	 * Permet de retirer un vÃ©hicule du parking Ã  partir de son numÃ©ro d'immatriculation
 	 * 
-	 * @param numeroImmatriculation Le numéro d'immatriculation du véhicule
-	 * @return Le véhicule retiré du parking
-	 * @throws PlaceLibreException La place était déjà libre
+	 * @param numeroImmatriculation Le numÃ©ro d'immatriculation du vÃ©hicule
+	 * @return Le vÃ©hicule retirÃ© du parking
+	 * @throws PlaceLibreException La place Ã©tait dÃ©jÃ  libre
 	 * @throws PlaceInexistanteException La place n'existe pas
 	 */
 	public Vehicule retirerVehicule(String numeroImmatriculation) throws PlaceLibreException, PlaceInexistanteException {
