@@ -77,6 +77,6 @@ public class Place {
 	public String toString() {
 		if (vehiculeGare != null) return "occuppée par : " + vehiculeGare.toString();
 		if (booked == true) return "réservée";
-		else if (vehiculeGare == null) return "libre";
+		return "libre";
 	}
 }
