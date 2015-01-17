@@ -10,16 +10,35 @@ import java.util.Map.Entry;
 import parking.exception.*;
 
 public class Parking {
+	/**
+	 * Map de places indexés par des entiers
+	 * À chaque numéro de place correspond une Place
+	 */
 	private Map<Integer, Place> places;
+	
+	/**
+	 * Tarif hors taxe du parking
+	 */
 	private double tarifHT;
+	
+	/**
+	 * Collection de factures générées
+	 */
 	private Collection<Facture> factures;
+	
+	/**
+	 * Instance unique de la classe Parking
+	 * Sera initialisé par getInstance()
+	 */
+	private static Parking instanceUniqueParking;
 
 	/**
 	 * Construit un nouveau parking
+	 * Privé pour que la classe Parking soit un singleton
 	 * 
 	 * @param tarif Le prix du parking qui sera facturé à la sortie d'un véhicule
 	 */
-	public Parking(double tarif) {
+	private Parking(double tarif) {
 		// Initialisation des collections
 		this.places = new HashMap<Integer, Place>();
 		this.factures = new ArrayList<Facture>();
@@ -39,6 +58,20 @@ public class Parking {
 			places.put(i, place);
 		}
 	}
+	
+	/**
+	 * Retourne une instance unique de Parking
+	 * 
+	 * Utilise la technique de lazy loading qui crée l'instance si elle n'est pas encore définie 
+	 * @return instance de Parking
+	 */
+	public static Parking getInstance() {
+		if(instanceUniqueParking == null)
+			instanceUniqueParking = new Parking(2.5d);
+		
+		return instanceUniqueParking;
+	}
+	
 
 	/**
 	 * Vérifie si un véhicule est garé dans le parking
