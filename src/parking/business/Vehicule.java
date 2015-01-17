@@ -1,15 +1,44 @@
 package parking.business;
 
+/**
+ * Décrit un véhicule
+ */
 public class Vehicule {
-	String numeroImmatriculation;
-	String marque;
-	String modele;
-	String proprietaire;
+	/**
+	 * Plaque d'immatriculation du véhicule
+	 */
+	private String numeroImmatriculation;
 	
+	/**
+	 * Marque du véhicule
+	 */
+	private String marque;
+	
+	/**
+	 * Modèle du véhicule
+	 */
+	private String modele;
+	
+	/**
+	 * Nom du propriétaire du véhicule
+	 */
+	private String proprietaire;
+	
+	/**
+	 * Constructeur par défaut
+	 */
 	public Vehicule() {
 		
 	}
 	
+	/**
+	 * Construit un véhicule
+	 * 
+	 * @param numeroImmatriculation Numéro d'immatriculation
+	 * @param marque Marque du véhicule
+	 * @param modele Modèle du véhicule
+	 * @param proprietaire Nom du propriétaire du véhicule
+	 */
 	public Vehicule(String numeroImmatriculation, String marque, String modele,
 			String proprietaire) {
 		this.numeroImmatriculation = numeroImmatriculation;
@@ -17,44 +46,19 @@ public class Vehicule {
 		this.modele = modele;
 		this.proprietaire = proprietaire;
 	}
+	
+	public String getNumeroImmatriculation() {
+		return numeroImmatriculation;
+	}
 
+	public String getProprietaire() {
+		return proprietaire;
+	}
+	
 	@Override
 	public String toString() {
 		return "[numeroImmatriculation=" + numeroImmatriculation
 				+ ", marque=" + marque + ", modele=" + modele
 				+ ", proprietaire=" + proprietaire + "]";
 	}
-	
-	public String getNumeroImmatriculation() {
-		return numeroImmatriculation;
-	}
-
-	public void setNumeroImmatriculation(String numeroImmatriculation) {
-		this.numeroImmatriculation = numeroImmatriculation;
-	}
-
-	public String getMarque() {
-		return marque;
-	}
-
-	public void setMarque(String marque) {
-		this.marque = marque;
-	}
-
-	public String getModele() {
-		return modele;
-	}
-
-	public void setModele(String modele) {
-		this.modele = modele;
-	}
-
-	public String getProprietaire() {
-		return proprietaire;
-	}
-
-	public void setProprietaire(String proprietaire) {
-		this.proprietaire = proprietaire;
-	}
-	
 }

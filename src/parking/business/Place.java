@@ -1,25 +1,43 @@
 package parking.business;
 
+/**
+ * Place de parking
+ */
 public class Place {
+	/**
+	 * Véhicule garé
+	 * Est nul si aucun véhicule n'est garé
+	 */
 	private Vehicule vehiculeGare;
+	
+	/**
+	 * Place réservée
+	 */
 	private boolean booked = false;
 	
+	/**
+	 * Constructeur par défaut
+	 */
 	public Place() {
 		vehiculeGare = null;
 	}
 	
-	public void parkVehicule(Vehicule v) {//faudrait qu'elle soit appelable que par Parking (ou dans le package) comme j'ai délocalisé les contrôles vers Parking
+	/**
+	 * Gare un véhicule
+	 * @param v le véhicule à garer
+	 */
+	public void parkVehicule(Vehicule v) {
 		vehiculeGare = v;
 	}
 	
-	public Vehicule unparkVehicule() {//faudrait qu'elle soit appelable que par Parking (ou dans le package) comme j'ai délocalisé les contrôles vers Parking
+	/**
+	 * Retire un véhicule
+	 * @return le véhicule retiré
+	 */
+	public Vehicule unparkVehicule() {
 		Vehicule unparked = vehiculeGare;
 		vehiculeGare = null;
 		return unparked;
-	}
-	
-	public void setVehiculeGare(Vehicule vehiculeGare) {
-		this.vehiculeGare = vehiculeGare;
 	}
 
 	public boolean isFree() {
