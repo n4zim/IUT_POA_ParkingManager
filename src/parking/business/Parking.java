@@ -201,9 +201,20 @@ public class Parking {
 		if (place instanceof Particulier)
 			reorganiserPlaces();
 		
+		facturer(vehiculeSortant);
+		
+		return vehiculeSortant;
+	}
+	
+	/**
+	 * Permet de factuer un véhicule sortant
+	 * 
+	 * @param vehicule à facturer
+	 */
+	private void facturer(Vehicule vehicule) {
 		// On génère la facture
 		FabriqueFacture fabFacture = new FabriqueFacture();
-		fabFacture.setFacturation(new Facturation(vehiculeSortant.getProprietaire(), tarifHT));
+		fabFacture.setFacturation(new Facturation(vehicule.getProprietaire(), tarifHT));
 		Facture facture = fabFacture.genererFacture();
 		
 		// On stocke la facture
@@ -211,8 +222,6 @@ public class Parking {
 		
 		// On affiche la facture
 		System.out.println(facture);
-		
-		return vehiculeSortant;
 	}
 
 	/**
@@ -285,7 +294,7 @@ public class Parking {
 	 * @return -1 si le véhicule n'a pas été trouvé
 	 */
 	public Integer getLocation(String numeroImmatriculation) {
-		for (Integer i = 0; i < Constante.NOMBRE_PLACES; i++) {
+		for (Integer i = getPremierNumeroDePlace(); i < getDernierNumeroDePlace(); i++) {
 			Vehicule vehiculeGare = places.get(i).getVehiculeGare();
 			if (vehiculeGare != null && vehiculeGare.getNumeroImmatriculation()
 					.equals(numeroImmatriculation))
