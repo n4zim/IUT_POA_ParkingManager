@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -16,7 +17,7 @@ public class ParkingView extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	ParkingView() {
-		super("Test GUI");
+		super("Etat du parking");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		Container contenu = getContentPane();
 
@@ -60,6 +61,11 @@ public class ParkingView extends JFrame {
 		contenu.add(bouton);
 
 		pack();
+
+		setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2,
+				(Toolkit.getDefaultToolkit().getScreenSize().height)/2);
+		setLocationRelativeTo(null);
+		
 		setVisible(true);
 	}
 
