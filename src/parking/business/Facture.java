@@ -2,6 +2,7 @@ package parking.business;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 
 public class Facture {
@@ -43,10 +44,15 @@ public class Facture {
 	 * @param nomFichier le nom du fichier de destination
 	 */
 	public void sauverDansFichier(String nomFichier) {
-		File fichier = new File(Constante.DOSSIER_FACTURES+File.pathSeparator+nomFichier);
+		File dossier = new File(Constante.DOSSIER_FACTURES);
+		File fichier = new File(Constante.DOSSIER_FACTURES+File.separator+nomFichier);
 		
 		try {
-			fichier.mkdirs();
+			dossier.mkdirs();
+			if(!fichier.exists()) {
+			    fichier.createNewFile();
+			} 
+			
 			PrintStream out = new PrintStream(fichier);
 			out.println(toString());
 			out.close();
@@ -56,6 +62,8 @@ public class Facture {
 		} catch (FileNotFoundException e) {
 			System.out.println("Erreur : impossible d'écrire dans le fichier.");
 			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Erreur : I/O error");
 		}
 	}
 	
@@ -63,9 +71,18 @@ public class Facture {
      * @return une String représentant la facture
      */
 	public String toString() {
+<<<<<<< HEAD
 		return "=== FACTURE " + numFacture + " ===\n"
                + ((nomClient == null) ? "Client non enregistré" : " Client : " + nomClient) + "\n"
                + " Tarif HT  : " + tarifHT + "\n"
                + " Tarif TTC : " + tarifTTC + "\n";
+=======
+		String output = "=== FACTURE " + numFacture + " ===\n";
+		output += " Client : " + ((nomClient == null) ? "Annonymous" : nomClient) + "\n";
+		output += " Tarif HT  : " + tarifHT + "\n";
+		output += " Tarif TTC : " + tarifTTC + "\n";
+		
+		return output;
+>>>>>>> 7a20d2fb14b1f0fac6a85a7d088d93edbfde5b5b
 	}
 }
