@@ -1,27 +1,24 @@
 package parking.gui;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class VehiculesView extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 
 	public VehiculesView() {
 		super(new GridLayout(1, 0));
 
-		String[] columnNames = { "Immatriculation", "Marque", "Modèle", "Propriétaire", "Emplacement" };
+		String[] colonnes = { "Immatriculation", "Marque", "Modèle", "Propriétaire", "Emplacement" };
 
 		Object[][] data = {
 				{ "TestA", "TestB", "TestC", new Integer(5), "TestC" }
-			};
+		};
 
-		final JTable table = new JTable(data, columnNames);
-		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		final JTable table = new JTable(data, colonnes);
+		table.setPreferredScrollableViewportSize(new Dimension(600, 200));
 		table.setFillsViewportHeight(true);
 
 			table.addMouseListener(new MouseAdapter() {
@@ -48,8 +45,7 @@ public class VehiculesView extends JPanel {
 		add(scrollPane);
 	}
 
-	private static void afficher() {
-
+	static void afficher() {
 		JFrame frame = new JFrame("Véhicules");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -57,16 +53,8 @@ public class VehiculesView extends JPanel {
 		newContentPane.setOpaque(true);
 		frame.setContentPane(newContentPane);
 
-		frame.setSize(700, 700);
 		frame.pack();
 		frame.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				afficher();
-			}
-		});
-	}
 }
