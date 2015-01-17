@@ -11,19 +11,19 @@ public class FabriqueFacture implements IFabriqueFacture {
 	private static int numFacture = 0;
 	
 	/**
-	 * Tarif à appliquer aux factures
+	 * Paramètres de facturation
 	 */
-	private static double tarif;
-	
+	private static Facturation facturation;
+
 	/**
-	 * Construit une fabrique de factures avec un tarif spécifié
+	 * Définit les paramètres de facturation
 	 * @param TarifHT Tarif hors taxe des factures
 	 */
-	public FabriqueFacture(double TarifHT) {
-		this.tarif = tarif;
+	public void setFacturation(Facturation facturation) {
+		this.facturation = facturation;
 	}
 
 	public Facture genererFacture() {
-		return new Facture(numFacture++, tarif);
+		return new Facture(numFacture++, facturation);
 	}
 }

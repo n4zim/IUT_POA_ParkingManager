@@ -19,6 +19,11 @@ public class Facture {
 	 * Tarif toutes taxes comprises
 	 */
 	private double tarifTTC;
+
+	/**
+	 * Nom du client pour qui les factures sont générées
+	 */
+	private String nomClient;
 	
 	/**
 	 * Construit une facture
@@ -26,10 +31,11 @@ public class Facture {
 	 * @param numFacture Le numéro de la facture
 	 * @param tarifHT Le tarif hors taxe
 	 */
-	public Facture(int numFacture, double tarifHT) {
+	public Facture(int numFacture, Facturation facturation) {
 		this.numFacture = numFacture;
-		this.tarifHT = tarifHT;
-		this.tarifTTC = tarifHT * Constante.TVA; 
+		this.tarifHT = facturation.getTarif();
+		this.tarifTTC = this.tarifHT * Constante.TVA;
+		this.nomClient = facturation.getNomClient();
 	}
 	
 	public void sauverDansFichier(String nomFichier) {
@@ -51,8 +57,9 @@ public class Facture {
 	
 	public String toString() {
 		String output = "=== FACTURE " + numFacture + " ===\n";
-		output += " Tarif HT  : " + tarifHT;
-		output += " Tarif TTC : " + tarifTTC;
+		output += " Client : " + ((nomClient == null) ? "Annonymous" : "") + "\n";
+		output += " Tarif HT  : " + tarifHT + "\n";
+		output += " Tarif TTC : " + tarifTTC + "\n";
 		
 		return output;
 	}

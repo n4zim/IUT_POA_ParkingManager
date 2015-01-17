@@ -202,8 +202,9 @@ public class Parking {
 			reorganiserPlaces();
 		
 		// On génère la facture
-		FabriqueFacture fabFabcture = new FabriqueFacture(tarifHT);
-		Facture facture = fabFabcture.genererFacture();
+		FabriqueFacture fabFacture = new FabriqueFacture();
+		fabFacture.setFacturation(new Facturation(vehiculeSortant.getProprietaire(), tarifHT));
+		Facture facture = fabFacture.genererFacture();
 		
 		// On stocke la facture
 		factures.add(facture);
@@ -285,7 +286,8 @@ public class Parking {
 	 */
 	public Integer getLocation(String numeroImmatriculation) {
 		for (Integer i = 0; i < Constante.NOMBRE_PLACES; i++) {
-			if (places.get(i).getVehiculeGare().numeroImmatriculation
+			Vehicule vehiculeGare = places.get(i).getVehiculeGare();
+			if (vehiculeGare != null && vehiculeGare.getNumeroImmatriculation()
 					.equals(numeroImmatriculation))
 				return i;
 		}
@@ -335,6 +337,6 @@ public class Parking {
 	 * @return dernier numéro de place
 	 */
 	public Integer getDernierNumeroDePlace() {
-		return Constante.NUMERO_PREMIERE_PLACE + Constante.NUMERO_PREMIERE_PLACE;
+		return Constante.NOMBRE_PLACES + Constante.NUMERO_PREMIERE_PLACE;
 	}
 }
