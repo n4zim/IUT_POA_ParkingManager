@@ -38,22 +38,6 @@ public class Parking {
 			places.put(i, place);
 		}
 	}
-	
-	/**
-	 * Retourne le premier numéro de place du parking
-	 * @return premier numéro de place
-	 */
-	public Integer getPremierNumeroDePlace() {
-		return Constante.NUMERO_PREMIERE_PLACE;
-	}
-	
-	/**
-	 * Retourne le dernier numéro de place du parking
-	 * @return dernier numéro de place
-	 */
-	public Integer getDernierNumeroDePlace() {
-		return Constante.NUMERO_PREMIERE_PLACE + Constante.NUMERO_PREMIERE_PLACE;
-	}
 
 	/**
 	 * Vérifie si un véhicule est garé dans le parking
@@ -294,5 +278,29 @@ public class Parking {
 	@Override
 	public String toString() {
 		return "Parking [places=" + places + "]";
+	}
+
+	/**
+	 * Récupère les factures générées
+	 * @return Collection de factures
+	 */
+	public Collection<Facture> getFactures() {
+		return factures;
+	}
+	
+	/**
+	 * Retourne le premier numéro de place du parking
+	 * @return premier numéro de place
+	 */
+	public Integer getPremierNumeroDePlace() {
+		return Constante.NUMERO_PREMIERE_PLACE;
+	}
+	
+	/**
+	 * Retourne le dernier numéro de place du parking
+	 * @return dernier numéro de place
+	 */
+	public Integer getDernierNumeroDePlace() {
+		return Constante.NUMERO_PREMIERE_PLACE + Constante.NUMERO_PREMIERE_PLACE;
 	}
 }
