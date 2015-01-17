@@ -2,7 +2,7 @@ package parking.business;
 
 public class TestParking {
 	public static void main(String[] args) {
-		Parking p = new Parking(2.5d);
+		Parking p = Parking.getInstance();
 
 		Vehicule v1 = new Moto();
 		Vehicule v2 = new Voiture();
