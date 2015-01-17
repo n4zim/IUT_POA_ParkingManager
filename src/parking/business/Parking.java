@@ -1,5 +1,6 @@
 package parking.business;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
@@ -8,8 +9,9 @@ import java.util.Map.Entry;
 import parking.exception.*;
 
 public class Parking {
-	Map<Integer, Place> places;
-	double tarif; // tarif HT
+	private Map<Integer, Place> places;
+	private double tarifHT;
+	private Collection<Facture> factures;
 
 	/**
 	 * Construit un nouveau parking
@@ -17,9 +19,24 @@ public class Parking {
 	 * @param tarif Le prix du parking qui sera facturé à la sortie d'un véhicule
 	 */
 	public Parking(double tarif) {
+		// Initialisation des collections
 		this.places = new HashMap<Integer, Place>();
-		this.tarif = tarif;
-		creerPlaces();
+		this.factures = new ArrayList<Facture>();
+		
+		// Réglage des données membres
+		this.tarifHT = tarif;
+		
+		// Création des places du parking
+		for (int i = getPremierNumeroDePlace(); i < getDernierNumeroDePlace(); i++) {
+			Place place;
+
+			if (Math.random() < 0.7)
+				place = new Particulier();
+			else
+				place = new Transporteur();
+
+			places.put(i, place);
+		}
 	}
 	
 	/**
@@ -51,22 +68,6 @@ public class Parking {
 			existe = (places.get(i).getVehiculeGare() == v);
 		}
 		return existe;
-	}
-
-	/**
-	 * Génere les places du parking
-	 */
-	private void creerPlaces() {
-		for (int i = getPremierNumeroDePlace(); i < getDernierNumeroDePlace(); i++) {
-			Place place;
-
-			if (Math.random() < 0.7)
-				place = new Particulier();
-			else
-				place = new Transporteur();
-
-			places.put(i, place);
-		}
 	}
 
 	/**
@@ -183,8 +184,14 @@ public class Parking {
 			reorganiserPlaces();
 		
 		// On génère la facture
-		FabriqueFacture f = new FabriqueFacture(tarif);
-		f.genererFacture();
+		FabriqueFacture fabFabcture = new FabriqueFacture(tarifHT);
+		Facture facture = fabFabcture.genererFacture();
+		
+		// On stocke la facture
+		factures.add(facture);
+		
+		// On affiche la facture
+		System.out.println(facture);
 		
 		return vehiculeSortant;
 	}
@@ -283,37 +290,9 @@ public class Parking {
 		unpark(numeroPlace);
 		return v;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Parking [places=" + places + "]";
 	}
-
-	public static void main(String[] args) {
-		Parking p = new Parking(2.5d);
-		p.creerPlaces();
-		Vehicule v1 = new Moto();
-		Vehicule v2 = new Voiture();
-		Vehicule v3 = new Camion();
-		Vehicule v4 = new Voiture();
-		Vehicule v5 = new Voiture();
-
-		try {
-			p.park(v1);
-			p.park(v2, 3);
-			p.park(v3);
-			p.park(v4);
-			p.bookPlace(v5);
-
-		} catch (parking.exception.ParkingException e) {
-			e.printStackTrace();
-		}
-
-		System.out.println("v2 est dans le garage : " + p.vehiculeExiste(v2));
-		System.out.println("v5 est dans le garage : " + p.vehiculeExiste(v5));
-
-		p.EtatParking();
-
-	}
-
 }
