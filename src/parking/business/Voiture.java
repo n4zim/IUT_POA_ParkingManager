@@ -18,6 +18,9 @@ public class Voiture extends Vehicule {
 		super(numeroImmatriculation, marque, modele, proprietaire);
 	}
 	
+    /**
+     * @return une String qui donne le type de véhicule et ses informations
+     */
 	@Override
 	public String toString() {
 		return "Voiture : " + super.toString();

@@ -1,5 +1,8 @@
 package parking.business;
 
+/**
+ * Décrit un camion
+ */
 public class Camion extends Vehicule {
 
 	/**
@@ -15,6 +18,9 @@ public class Camion extends Vehicule {
 		super(numeroImmatriculation, marque, modele, proprietaire);
 	}
 	
+    /**
+     * @return une String qui donne le type de véhicule et ses informations
+     */
 	@Override
 	public String toString() {
 		return "Camion : " + super.toString();

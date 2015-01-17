@@ -8,9 +8,9 @@ public class TestParking {
 		Parking p = Parking.getInstance();
 
 		Vehicule v1 = new Moto("1234", "marque", "modele", "John Stone");
-		Vehicule v2 = new Voiture("acxv", "marque", "modele", "John Stone");
-		Vehicule v3 = new Camion("fqsdfas", "marque", "modele", "John Pas Stone");
-		Vehicule v4 = new Voiture("g43ewvrsd", "marque", "modele", "John Quelqu'un");
+		Vehicule v2 = new Voiture("acxv", "marque", "modele", "John Stoned");
+		Vehicule v3 = new Camion("fqsdfas", "marque", "modele", "John Aimar");
+		Vehicule v4 = new Voiture("g43ewvrsd", "marque", "modele", "John Michael");
 		Vehicule v5 = new Voiture("FAf90ajsd", "marque", "modele", "John D'oeuf");
 
 		try {
@@ -32,10 +32,8 @@ public class TestParking {
 		try {
 			p.unpark(p.getLocation(v2.getNumeroImmatriculation()));
 		} catch (PlaceLibreException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (PlaceInexistanteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

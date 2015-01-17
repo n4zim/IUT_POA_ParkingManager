@@ -5,7 +5,7 @@ package parking.business;
  */
 public class Vehicule {
 	/**
-	 * Plaque d'immatriculation du véhicule
+	 * Numéro d'immatriculation du véhicule
 	 */
 	private String numeroImmatriculation;
 	
@@ -27,14 +27,12 @@ public class Vehicule {
 	/**
 	 * Constructeur par défaut
 	 */
-	public Vehicule() {
-		
-	}
+	public Vehicule() {}
 	
 	/**
 	 * Construit un véhicule
 	 * 
-	 * @param numeroImmatriculation Numéro d'immatriculation
+	 * @param numeroImmatriculation Numéro d'immatriculation du véhicule
 	 * @param marque Marque du véhicule
 	 * @param modele Modèle du véhicule
 	 * @param proprietaire Nom du propriétaire du véhicule
@@ -54,11 +52,14 @@ public class Vehicule {
 	public String getProprietaire() {
 		return proprietaire;
 	}
-	
+    
+    /**
+     * @return une String qui donne les informations sur le véhicule
+     */
 	@Override
 	public String toString() {
-		return "[numeroImmatriculation=" + numeroImmatriculation
-				+ ", marque=" + marque + ", modele=" + modele
-				+ ", proprietaire=" + proprietaire + "]";
+		return "[numero d'mmatriculation: " + numeroImmatriculation
+				+ ", marque: " + marque + ", modele: " + modele
+				+ ", proprietaire: " + proprietaire + "]";
 	}
 }
