@@ -11,8 +11,8 @@ import parking.exception.*;
 
 public class Parking {
 	/**
-	 * Map de places indexés par des entiers
-	 * À chaque numéro de place correspond une Place
+	 * Map de places indexées par des entiers
+	 * À chaque numéro correspond une Place
 	 */
 	private Map<Integer, Place> places;
 	

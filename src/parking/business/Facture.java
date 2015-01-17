@@ -38,13 +38,17 @@ public class Facture {
 		this.nomClient = facturation.getNomClient();
 	}
 	
+    /**
+	 * Sauvegarde une facture dans un fichier
+	 * @param nomFichier le nom du fichier de destination
+	 */
 	public void sauverDansFichier(String nomFichier) {
 		File fichier = new File(Constante.DOSSIER_FACTURES+File.pathSeparator+nomFichier);
 		
 		try {
 			fichier.mkdirs();
 			PrintStream out = new PrintStream(fichier);
-			out.println(toString());		
+			out.println(toString());
 			out.close();
 		} catch (SecurityException e) {
 			System.out.println("Erreur : impossible de créer le dossier");
@@ -55,12 +59,13 @@ public class Facture {
 		}
 	}
 	
+    /**
+     * @return une String représentant la facture
+     */
 	public String toString() {
-		String output = "=== FACTURE " + numFacture + " ===\n";
-		output += " Client : " + ((nomClient == null) ? "Annonymous" : "") + "\n";
-		output += " Tarif HT  : " + tarifHT + "\n";
-		output += " Tarif TTC : " + tarifTTC + "\n";
-		
-		return output;
+		return "=== FACTURE " + numFacture + " ===\n"
+               + ((nomClient == null) ? "Client non enregistré" : " Client : " + nomClient) + "\n"
+               + " Tarif HT  : " + tarifHT + "\n"
+               + " Tarif TTC : " + tarifTTC + "\n";
 	}
 }
