@@ -1,15 +1,14 @@
 package parking.business;
 
-import parking.exception.PlaceInexistanteException;
-import parking.exception.PlaceLibreException;
+import parking.exception.*;
 
 public class TestParking {
 	public static void main(String[] args) {
 		Parking p = Parking.getInstance();
 
-		Vehicule v1 = new Moto("1234", "marque", "modele", "John Stone");
-		Vehicule v2 = new Voiture("acxv", "marque", "modele", "John Stoned");
-		Vehicule v3 = new Camion("fqsdfas", "marque", "modele", "John Aimar");
+		Vehicule v1 = new Moto("3D", "marquise", "j'ai une frite qui déconne", "Jean Beurre-Gueurre");
+		Vehicule v2 = new Camion("fqsdfas", "marque", "modele", "Jean Aimar");
+		Vehicule v3 = new Voiture("acxv", "marque", "modele", "John Stone");
 		Vehicule v4 = new Voiture("g43ewvrsd", "marque", "modele", "John Michael");
 		Vehicule v5 = new Voiture("FAf90ajsd", "marque", "modele", "John D'oeuf");
 
