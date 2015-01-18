@@ -12,8 +12,10 @@ public class TestProgramme {
 	private void myAssert(boolean assertion) {
 		if(assertion)
 			System.out.println(" - OK - ");
-		else
+		else {
 			System.out.println(" - ERREUR - ");
+			System.exit(-1);
+		}
 	}
 	
 	private void testerVehicules() {
@@ -68,20 +70,7 @@ public class TestProgramme {
 		return false;
 	}
 	
-	
-	public void testerParking() {
-		Parking p = Parking.getInstance();
-		
-		Vehicule moto = new Moto("3D", "marquise", "j'ai une frite qui déconne", "Jean Beurre-Gueurre");
-		Vehicule camion = new Camion("fqsdfas", "marque", "modele", "Jean Aimar");
-		Vehicule voiture = new Voiture("acxv", "marque", "modele", "John Stone");
-		Vehicule vehicule = new Vehicule("g43ewvrsd", "marque", "modele", "John Michael");
-		Vehicule v5 = new Voiture("FAf90ajsd", "marque", "modele", "John D'oeuf");
-		
-		
-		System.out.println("-- Test de park --\n");
-
-		/* Places */
+	public void testerParkingPlaces(Parking p) {
 		Set<Integer> numPlaces = p.getPlacesMap().keySet();
 		
 		System.out.print("1er numéro de place = "+Constante.NUMERO_PREMIERE_PLACE);
@@ -124,8 +113,20 @@ public class TestProgramme {
 		else myAssert(dernierePlace.getClass().getName().equals(Transporteur.class.getName()));
 		
 		System.out.println();
+	}
+	
+	public void testerParking() {
+		Parking p = Parking.getInstance();
+		
+		Vehicule moto = new Moto("3D", "marquise", "j'ai une frite qui déconne", "Jean Beurre-Gueurre");
+		Vehicule camion = new Camion("fqsdfas", "marque", "modele", "Jean Aimar");
+		Vehicule voiture = new Voiture("acxv", "marque", "modele", "John Stone");
+		Vehicule vehicule = new Vehicule("g43ewvrsd", "marque", "modele", "John Michael");
+		Vehicule v5 = new Voiture("FAf90ajsd", "marque", "modele", "John D'oeuf");
 		
 		
+		System.out.println("-- Test de park --\n");
+		testerParkingPlaces(p);
 		
 		/* Park */
 		System.out.println("Garer n'importe quel type de véhicule :");
