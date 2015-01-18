@@ -70,6 +70,9 @@ public class VehiculesView extends JPanel {
         helpMenu.add(ProgramHelp);
         JMenuItem ProgramAbout = new JMenuItem("A propos...");
         helpMenu.add(ProgramAbout);
+        
+        /*ProgramAbout.addActionListener(new WindowAdapter() {
+        JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");*/
 		
 		VehiculesView newContentPane = new VehiculesView();
 		newContentPane.setOpaque(true);
