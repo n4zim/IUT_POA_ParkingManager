@@ -9,30 +9,27 @@ import parking.exception.PlaceOccupeeException;
 import parking.exception.PlaceReserveeException;
 import parking.exception.TypePlaceInvalideException;
 
+/**
+ * Orchestre la GUI en créeant et syncrhonisant les différentes fenêtres
+ */
 public class ControlleurInterfaceGraphique extends JFrame {
-
-	private static final long serialVersionUID = 1L;
-	
-	/*private static void message(int type, String title, String msg, JFrame frame) {
-		switch (type) {
-		case 1:
-			JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");
-			break;
-		case 2:
-			JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.", "Inane error", JOptionPane.ERROR_MESSAGE);
-			break;
-		case 3:
-			JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.", "Inane warning", JOptionPane.WARNING_MESSAGE);
-			break;
-		default:
-			break;
-		}
-	}*/
-	
+	/**
+	 * Fenêtre avec les menus
+	 */
 	ParkingControlView pcv;
+	/**
+	 * Fenêtre affichant l'état du parking
+	 */
 	ParkingView pv;
+	/**
+	 * Parking à gérer
+	 */
 	Parking parking;
 	
+	/**
+	 * Construit les interfaces
+	 * @param parking le parking à gérer
+	 */
 	public ControlleurInterfaceGraphique(Parking parking) {
 		this.parking = parking;
 		
@@ -43,6 +40,10 @@ public class ControlleurInterfaceGraphique extends JFrame {
 		notifyParkingStateChanged();
 	}
 	
+	/**
+	 * Rend le parking
+	 * @return
+	 */
 	public Parking getParking() {
 		return parking;
 	}
