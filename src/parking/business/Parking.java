@@ -107,12 +107,12 @@ public class Parking {
 	}
 
 	/**
-	 * Retourne la première place disponible du parking
+	 * Retourne la première place disponible du parking pour un véhicule particulier
 	 * 
 	 * @return La place disponible
 	 * @throws PlusAucunePlaceException Il n'y à plus de place disponible dans le parking
 	 */
-	private Place getFirstFreePlace() throws PlusAucunePlaceException {
+	private Place getFirstFreePlaceParticulier() throws PlusAucunePlaceException {
 		for (Place p : places.values())
 			if (p instanceof Particulier && p.isFree())
 				return p;
@@ -127,12 +127,12 @@ public class Parking {
 	 * @return La place disponible
 	 * @throws PlusAucunePlaceException Il n'y a plus de place dans le parking pour garer le véhicule
 	 */
-	public Place getFirstFreePlaceAuto(Vehicule vehicule) throws PlusAucunePlaceException {
+	public Place getFirstFreePlace(Vehicule vehicule) throws PlusAucunePlaceException {
 		Place place;
 		if (vehicule instanceof Camion) {
 			place = getFirstFreePlaceTransporteur();
 		} else {
-			place = getFirstFreePlace();
+			place = getFirstFreePlaceParticulier();
 		}
 		return place;
 	}
@@ -144,7 +144,7 @@ public class Parking {
 	 * @throws PlusAucunePlaceException Il n'y à plus de place, le véhicule n'a pas été garé
 	 */
 	public void park(Vehicule vehicule) throws PlusAucunePlaceException {
-		Place place = getFirstFreePlaceAuto(vehicule);
+		Place place = getFirstFreePlace(vehicule);
 
 		place.parkVehicule(vehicule);
 	}
@@ -242,7 +242,7 @@ public class Parking {
 				// on ne devrait jamais arriver dans le catch puisque l'on s'assure de libérer une
 				// place avant de garer le véhicule sur une nouvelle place.
 				try {
-					getFirstFreePlace().parkVehicule(vehiculeADeplacer);
+					getFirstFreePlaceParticulier().parkVehicule(vehiculeADeplacer);
 				} catch (PlusAucunePlaceException e) {}
 				break;
 			}
@@ -273,7 +273,7 @@ public class Parking {
 		if (v instanceof Camion)
 			bookedPlace = getFirstFreePlaceTransporteur();
 		else
-			bookedPlace = getFirstFreePlace();
+			bookedPlace = getFirstFreePlaceParticulier();
 		bookedPlace.setBooked(true);
 		return bookedPlace;
 	}
@@ -351,5 +351,13 @@ public class Parking {
 	 */
 	public Integer getDernierNumeroDePlace() {
 		return Constante.NOMBRE_PLACES + Constante.NUMERO_PREMIERE_PLACE;
+	}
+	
+	/**
+	 * Retourne la map avec les places
+	 * @return la map
+	 **/
+	protected Map<Integer, Place> getPlacesMap() {
+		return places;
 	}
 }
