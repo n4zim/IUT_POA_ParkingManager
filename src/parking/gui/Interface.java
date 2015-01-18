@@ -22,6 +22,12 @@ public class Interface extends JFrame {
 		}
 	}*/
 	
+	public Interface() {
+		ParkingControlView pcv = new ParkingControlView();
+		ParkingView pv = new ParkingView();
+		pcv.afficher();
+	}
+	
 	public static void main(String[] args) {
 		
 		Parking p = Parking.getInstance();
@@ -41,11 +47,6 @@ public class Interface extends JFrame {
 			e.printStackTrace();
 		}
 		
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new ParkingView();
-				ParkingControlView.afficher();
-			}
-		});
+		new Interface();
 	}
 }
