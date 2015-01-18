@@ -32,6 +32,23 @@ public class ParkingControlView extends JPanel {
 		if (PromptResult == JOptionPane.YES_OPTION)
 			System.exit(0);
 	}
+	
+	private void fenetreImpression() {
+	      PrinterJob pj = PrinterJob.getPrinterJob();
+	      HashPrintRequestAttributeSet printAttr = new HashPrintRequestAttributeSet();
+	      if(pj.printDialog(printAttr))
+	      {
+	    	  try
+	    	  {
+	    		  pj.print(printAttr);
+	    	  }
+	    	  catch(PrinterException e)
+	    	  {
+	    		  JOptionPane.showMessageDialog(this,"Echec lors de l'impression "+e,"Error",JOptionPane.ERROR_MESSAGE);
+	    	  }
+	      }
+	}
+	
 
 	/**
 	 * Crée et affiche la fenêtre
@@ -51,7 +68,7 @@ public class ParkingControlView extends JPanel {
 		JMenu printMenu = new JMenu("Imprimer");
 		printMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/* ACTION DU BOUTON */
+				fenetreImpression();
 			}
 		});
 
