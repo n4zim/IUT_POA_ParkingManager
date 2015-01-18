@@ -57,11 +57,6 @@ public class TestProgramme {
 		System.out.println();		
 	}
 	
-	public void testerPlace() {
-		System.out.println("-- Test de place --\n");
-		
-	}
-	
 	public boolean verifierVehiculeDansParking(Parking p, Vehicule v) {
 		Collection<Place> places = p.getPlacesMap().values();
 		
@@ -208,8 +203,9 @@ public class TestProgramme {
 		}
 		myAssert(parkImpossible);
 
-		
-
+		// remise à zéro du parking
+		Parking.resetInstance();
+		p = Parking.getInstance();
 	}
 	
 	public static void main(String[] args) {
