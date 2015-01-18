@@ -15,6 +15,7 @@ public class ParkingControlView extends JPanel {
 	 */
 	public ParkingControlView() {
 		super(new GridLayout(0, 1));
+		setOpaque(true);
 	}
 
 	/**
@@ -105,16 +106,8 @@ public class ParkingControlView extends JPanel {
 			}
 		});
 
-		ParkingControlView newContentPane = new ParkingControlView();
-		newContentPane.setOpaque(true);
-		frame.setContentPane(newContentPane);
+		frame.setContentPane(this);
 		frame.pack();
-		/*
-		 * frame.setLocation(
-		 * (Toolkit.getDefaultToolkit().getScreenSize().width-500)/2,
-		 * (Toolkit.getDefaultToolkit().getScreenSize().height-500)/2 );
-		 */
-		// frame.setLocation(200, 200);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
