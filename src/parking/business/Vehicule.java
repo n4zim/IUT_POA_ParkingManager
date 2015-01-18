@@ -45,10 +45,18 @@ public class Vehicule {
 		this.proprietaire = proprietaire;
 	}
 	
+	/**
+	 * Renvoie le numéro d'immatriculation du véhicule
+	 * @return le numéro d'immatriculation
+	 */
 	public String getNumeroImmatriculation() {
 		return numeroImmatriculation;
 	}
 
+	/**
+	 * Renvoie le nom du propriétaire du véhicule
+	 * @return nom du propriétaire
+	 */
 	public String getProprietaire() {
 		return proprietaire;
 	}
