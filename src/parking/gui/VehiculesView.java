@@ -17,7 +17,7 @@ public class VehiculesView extends JPanel {
 		final JTable table = new JTable(data,
 				new String[] { "Immatriculation", "Marque", "Modèle", "Propriétaire", "Emplacement" });
 		
-		table.setPreferredScrollableViewportSize(new Dimension(500, 500));
+		table.setPreferredScrollableViewportSize(new Dimension(600, 30));
 		table.setFillsViewportHeight(true);
 
 		table.addMouseListener(new MouseAdapter() {
@@ -44,6 +44,7 @@ public class VehiculesView extends JPanel {
 	}
 	
 	static void afficher() {
+<<<<<<< HEAD
 		JFrame frame = new JFrame("Véhicules");
 
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -73,6 +74,9 @@ public class VehiculesView extends JPanel {
         
         /*ProgramAbout.addActionListener(new WindowAdapter() {
         JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");*/
+=======
+		JFrame frame = new JFrame("Véhicule");
+>>>>>>> 4f90e62897593febf718f404083fab0b55ba31b9
 		
 		VehiculesView newContentPane = new VehiculesView();
 		newContentPane.setOpaque(true);
@@ -86,11 +90,4 @@ public class VehiculesView extends JPanel {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-
-	public static void ajouterLigne(String a, String b, String c, String d) {		
-	}
-	
-	public static void retirerLigne(String a, String b, String c, String d) {		
-	}
-
 }

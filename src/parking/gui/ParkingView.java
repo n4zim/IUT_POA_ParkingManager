@@ -1,11 +1,16 @@
 package parking.gui;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 //import java.awt.Toolkit;
 import java.util.Random;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class ParkingView extends JFrame {
 
@@ -13,42 +18,6 @@ public class ParkingView extends JFrame {
 
 	ParkingView() {
 		super("Etat du parking");
-
-		JPopupMenu popup = new JPopupMenu();
-		JMenuItem menuEtat = new JMenuItem("Libre");
-		menuEtat.getAccessibleContext().setAccessibleDescription("New Project");
-		menuEtat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Libéré !");
-			}
-		});
-		popup.add(menuEtat);
-
-		menuEtat = new JMenuItem("Réserver");
-		menuEtat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Réservé !");
-			}
-		});
-		popup.add(menuEtat);
-
-		menuEtat = new JMenuItem("Occupée");
-		menuEtat.setMnemonic(KeyEvent.VK_F);
-		menuEtat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Occupé !");
-			}
-		});
-		popup.add(menuEtat);
-		
-		/*addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) { showPopup(e); }
-			public void mouseReleased(MouseEvent e) { showPopup(e); }
-			private void showPopup(MouseEvent e) {
-				if(e.isPopupTrigger()) popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});*/
-
 		setUndecorated(true);
 		Container contenu = getContentPane();
 
@@ -76,20 +45,10 @@ public class ParkingView extends JFrame {
 				if (nombre == 2) {
 					alea = Prise;
 				}
-				
 				Bouton place = new Bouton(alea, alea);
 				place.setText(Integer.toString(i));
 				place.setPreferredSize(new Dimension(50, 50));
-				
-				place.addActionListener(new ActionListener() {
-		            public void actionPerformed(ActionEvent e) {
-		            	popup.show(place, (getX() - 20), (getY() - 20));
-		            }
-		        });
-				
-				
 				grille.add(place);
-				
 				JPanel panneau = new JPanel();
 				panneau.add(place);
 				grille.add(panneau);
@@ -101,13 +60,11 @@ public class ParkingView extends JFrame {
 		contenu.add(bouton);
 
 		pack();
-		/*
-		 * setLocation((Toolkit.getDefaultToolkit().getScreenSize().width+600)/3,
-		 * (Toolkit.getDefaultToolkit().getScreenSize().height-600)/2);
-		 */
-		// setLocation(800, 200);
+		/*setLocation((Toolkit.getDefaultToolkit().getScreenSize().width+600)/3,
+				(Toolkit.getDefaultToolkit().getScreenSize().height-600)/2);*/
+		//setLocation(800, 200);
 		setLocation(50, 50);
-
+		
 		setVisible(true);
 	}
 
