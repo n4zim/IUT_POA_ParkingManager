@@ -7,8 +7,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 //import java.awt.Toolkit;
 import java.util.Random;
 
@@ -33,6 +31,22 @@ public class ParkingView extends JFrame {
 		popup.add(menuReserver);
 		JMenuItem menuOccuper = new JMenuItem("Occuper");
 		popup.add(menuOccuper);
+		
+		menuLiberer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Libérée");
+			}
+		});
+		menuReserver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Réservée");
+			}
+		});
+		menuOccuper.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Occupée");
+			}
+		});
 
 		setUndecorated(true);
 		Container contenu = getContentPane();
@@ -65,23 +79,6 @@ public class ParkingView extends JFrame {
 				place.setText(Integer.toString(i));
 				place.setPreferredSize(new Dimension(50, 50));
 				grille.add(place);
-
-				
-				menuLiberer.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						System.out.println("Libérée");
-					}
-				});
-				menuReserver.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						System.out.println("Réservée");
-					}
-				});
-				menuOccuper.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						System.out.println("Occupée");
-					}
-				});
 				
 				place.addActionListener(new ActionListener() {
 		            public void actionPerformed(ActionEvent e) {

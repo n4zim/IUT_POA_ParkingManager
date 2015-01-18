@@ -132,15 +132,15 @@ public class AjouterVehicule extends JDialog {
 
 	public static void main(String[] args) {
 		final JFrame frame = new JFrame("Fenête à ouvrir");
-		final JButton btnLogin = new JButton("AJOUTER");
+		final JButton addButton = new JButton("AJOUTER");
 
-		btnLogin.addActionListener(new ActionListener() {
+		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AjouterVehicule loginDlg = new AjouterVehicule(frame);
-				loginDlg.setVisible(true);
-				if (loginDlg.isSucceeded()) {
-					btnLogin.setText("Immatriculation "
-							+ loginDlg.getImmatriculation() + " OK");
+				AjouterVehicule buttonAdd = new AjouterVehicule(frame);
+				buttonAdd.setVisible(true);
+				if (buttonAdd.isSucceeded()) {
+					addButton.setText("Immatriculation "
+							+ buttonAdd.getImmatriculation() + " OK");
 				}
 			}
 		});
@@ -148,7 +148,7 @@ public class AjouterVehicule extends JDialog {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(300, 100);
 		frame.setLayout(new FlowLayout());
-		frame.getContentPane().add(btnLogin);
+		frame.getContentPane().add(addButton);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
