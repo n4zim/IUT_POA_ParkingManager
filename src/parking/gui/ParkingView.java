@@ -124,9 +124,23 @@ public class ParkingView extends JFrame {
 	 *            le numéro de la place
 	 */
 	public void garer(Integer numPlace) {
-		Vehicule aGarer = parent.demanderVehicule();
+		parent.demanderVehicule();
+		
+		parent.getGestionVechicule().ok.addActionListener(new ActionListener() {
+			boolean runnedOnce = false;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("aa");
+				if(!runnedOnce)
+					vehiculeSelectionne(numPlace);
+				runnedOnce = true;
+			}
+		});
+	}
+
+	public void vehiculeSelectionne(Integer numPlace) {
 		try {
-			parent.garerVehicule(aGarer, numPlace);
+			parent.garerVehicule(parent.getGestionVechicule().getVehiculeSelectionne(), numPlace);
 		} catch (TypePlaceInvalideException e) {
 			JOptionPane.showMessageDialog(this,
 					"Cette place est inadaptée à ce véhicule.", "Erreur",
@@ -140,7 +154,7 @@ public class ParkingView extends JFrame {
 					"Erreur", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+	
 	/**
 	 * Doit être appellé quand l'état du parking change Met à jour la grille
 	 * ainsi que le message de status
