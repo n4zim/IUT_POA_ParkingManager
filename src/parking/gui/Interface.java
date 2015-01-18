@@ -11,6 +11,10 @@ public class Interface extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
+	private static void addLine() {
+		VehiculesView.ajouterLigne("1234", "marque", "modele", "John Stone");
+	}
+	
 	public static void main(String[] args) {
 		
 		Parking p = Parking.getInstance();
@@ -32,8 +36,9 @@ public class Interface extends JFrame {
 		
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				VehiculesView.afficher();
 				new ParkingView();
+				VehiculesView.afficher();
+				addLine();
 			}
 		});
 	}
