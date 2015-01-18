@@ -18,7 +18,7 @@ public class ParkingView extends JFrame {
 
 	ParkingView() {
 		super("Etat du parking");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setUndecorated(true);
 		Container contenu = getContentPane();
 
 		Container grille = new Container();
@@ -62,7 +62,8 @@ public class ParkingView extends JFrame {
 		pack();
 		/*setLocation((Toolkit.getDefaultToolkit().getScreenSize().width+600)/3,
 				(Toolkit.getDefaultToolkit().getScreenSize().height-600)/2);*/
-		setLocation(800, 200);
+		//setLocation(800, 200);
+		setLocation(50, 50);
 		
 		setVisible(true);
 	}

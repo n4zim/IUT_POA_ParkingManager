@@ -45,7 +45,18 @@ public class VehiculesView extends JPanel {
 	
 	static void afficher() {
 		JFrame frame = new JFrame("Véhicules");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent we) {
+				String YesNo[] = {"Oui", "Non"};
+				int PromptResult = JOptionPane.showOptionDialog(null,
+						"Fermer le programme ?", "Marre des parkings ?",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+						null, YesNo, YesNo[1]);
+			  if(PromptResult==JOptionPane.YES_OPTION) System.exit(0);
+			}
+		});
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -68,7 +79,8 @@ public class VehiculesView extends JPanel {
 				(Toolkit.getDefaultToolkit().getScreenSize().width-500)/2,
 				(Toolkit.getDefaultToolkit().getScreenSize().height-500)/2
 				);*/
-		frame.setLocation(200, 200);
+		//frame.setLocation(200, 200);
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 
