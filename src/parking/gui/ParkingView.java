@@ -10,7 +10,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -45,10 +47,11 @@ public class ParkingView extends JFrame {
 		nbLignes = (int) Math.ceil(((double) nbCases)/nbColonnes);
 
 		JMenuItem menuLiberer = new JMenuItem("Libérer");
-		popup.add(menuLiberer);
 		JMenuItem menuReserver = new JMenuItem("Réserver");
-		popup.add(menuReserver);
 		JMenuItem menuOccuper = new JMenuItem("Occuper");
+		
+		popup.add(menuReserver);
+		popup.add(menuLiberer);
 		popup.add(menuOccuper);
 
 		menuLiberer.addActionListener(new ActionListener() {
@@ -72,13 +75,10 @@ public class ParkingView extends JFrame {
 		Container grille = new Container();
 		grille.setLayout(new GridLayout(nbLignes, nbColonnes));
 
-		Color reserve = new Color(240, 177, 146);
-		Color libre = new Color(181, 229, 29);
-		Color prise = new Color(232, 60, 60);
-
+		// on génere les cases pour chauqe place de parking
 		for (int i = 0; i < nbLignes; i++)
 			for (int j = 0; j < nbColonnes; j++) {
-				final Integer index = i*nbColonnes+j + parent.getParking().getPremierNumeroDePlace();
+				final Integer index = (i * nbColonnes) + j + parent.getParking().getPremierNumeroDePlace();
 				
 				Random rand = new Random();
 				int nombre = rand.nextInt(3);
@@ -87,11 +87,11 @@ public class ParkingView extends JFrame {
 				place.setOpaque(true);
 				
 				if (nombre == 0)
-					place.setBackground(libre);
+					place.setEtat(Bouton.ETAT_LIBRE);
 				if (nombre == 1)
-					place.setBackground(reserve);
+					place.setEtat(Bouton.ETAT_RESERVE);
 				if (nombre == 2)
-					place.setBackground(prise);
+					place.setEtat(Bouton.ETAT_PRIS);
 
 				place.setText(index.toString());
 				place.setPreferredSize(new Dimension(50, 50));
@@ -121,9 +121,31 @@ public class ParkingView extends JFrame {
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setVisible(true);
 	}
-
+	
 	public void notifyParkingStateChanged(Map<Integer, Place> placesMap) {
+		Integer nbPlaces = parent.getParking().getNombrePlaces();
+		Integer nbLibres = 0;
+		Integer nbPrises = 0;
+
+	    Iterator<Map.Entry<Integer, Place>> it = placesMap.entrySet().iterator();
+	    while (it.hasNext()) {
+	        Map.Entry<Integer, Place> pairs = (Entry<Integer, Place>) it.next();
+	        System.out.println(pairs.getKey() + " = " + pairs.getValue());
+	        
+	        Bouton b = boutons.get(pairs.getKey());
+	        
+	        if(!pairs.getValue().isFree()) {
+	        	b.setEtat(Bouton.ETAT_PRIS);
+	        	nbPrises++;
+	        } else if(pairs.getValue().isBooked())
+	        	b.setEtat(Bouton.ETAT_RESERVE);
+	        else {
+	        	b.setEtat(Bouton.ETAT_LIBRE);
+	        	nbLibres++;
+	        }
+	    }
 		
+		statusButton.setText(nbPlaces + " places, " + nbPrises + " prises et " + nbLibres + " libres"); 
 	}
 
 }
