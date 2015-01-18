@@ -12,67 +12,135 @@ public class ParkingControlView extends JPanel {
 	public ParkingControlView() {
 		super(new GridLayout(0, 1));
 	}
-	
-	private static void fenetreConfirmationFermer (){
-		String YesNo[] = {"Oui", "Non"};
+
+	private static void fenetreConfirmationFermer() {
+		String YesNo[] = { "Oui", "Non" };
 		int PromptResult = JOptionPane.showOptionDialog(null,
 				"Fermer le programme ?", "Marre des parkings ?",
-				JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-				null, YesNo, YesNo[1]);
-		if(PromptResult==JOptionPane.YES_OPTION) System.exit(0);
+				JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,
+				YesNo, YesNo[1]);
+		if (PromptResult == JOptionPane.YES_OPTION)
+			System.exit(0);
 	}
-	
+
 	static void afficher() {
 		JFrame frame = new JFrame("Parking");
 
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
-				fenetreConfirmationFermer ();
+				fenetreConfirmationFermer();
 			}
 		});
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		JMenu printMenu = new JMenu("Imprimer");
-        JMenu helpMenu = new JMenu("Aide");
-        JMenu quitMenu = new JMenu("Quitter");
-        quitMenu.addMouseListener(new MouseListener() {
-        	
-			@Override
-			public void mouseReleased(MouseEvent e) {}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-			
-			@Override
+		printMenu.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
-				fenetreConfirmationFermer ();
+				/* ACTION DU BOUTON */
+			}
+
+			public void mouseEntered(MouseEvent arg0) {
+			}
+
+			public void mouseExited(MouseEvent arg0) {
+			}
+
+			public void mousePressed(MouseEvent arg0) {
+			}
+
+			public void mouseReleased(MouseEvent arg0) {
 			}
 		});
-        menuBar.add(printMenu);
-        menuBar.add(helpMenu);
-        menuBar.add(quitMenu);
-        JMenuItem ProgramHelp = new JMenuItem("Documentation");
-        helpMenu.add(ProgramHelp);
-        JMenuItem ProgramAbout = new JMenuItem("A propos");
-        helpMenu.add(ProgramAbout);
-		
+		JMenu helpMenu = new JMenu("Aide");
+		helpMenu.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				/* ACTION DU BOUTON */
+			}
+
+			public void mouseEntered(MouseEvent arg0) {
+			}
+
+			public void mouseExited(MouseEvent arg0) {
+			}
+
+			public void mousePressed(MouseEvent arg0) {
+			}
+
+			public void mouseReleased(MouseEvent arg0) {
+			}
+		});
+		JMenu quitMenu = new JMenu("Quitter");
+		quitMenu.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				fenetreConfirmationFermer();
+			}
+
+			public void mouseEntered(MouseEvent arg0) {
+			}
+
+			public void mouseExited(MouseEvent arg0) {
+			}
+
+			public void mousePressed(MouseEvent arg0) {
+			}
+
+			public void mouseReleased(MouseEvent arg0) {
+			}
+		});
+		menuBar.add(printMenu);
+		menuBar.add(helpMenu);
+		menuBar.add(quitMenu);
+		JMenuItem ProgramHelp = new JMenuItem("Documentation");
+		ProgramHelp.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				/* ACTION DU BOUTON */
+			}
+
+			public void mouseEntered(MouseEvent arg0) {
+			}
+
+			public void mouseExited(MouseEvent arg0) {
+			}
+
+			public void mousePressed(MouseEvent arg0) {
+			}
+
+			public void mouseReleased(MouseEvent arg0) {
+			}
+		});
+		helpMenu.add(ProgramHelp);
+		JMenuItem ProgramAbout = new JMenuItem("A propos");
+		ProgramAbout.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				/* ACTION DU BOUTON */
+			}
+
+			public void mouseEntered(MouseEvent arg0) {
+			}
+
+			public void mouseExited(MouseEvent arg0) {
+			}
+
+			public void mousePressed(MouseEvent arg0) {
+			}
+
+			public void mouseReleased(MouseEvent arg0) {
+			}
+		});
+		helpMenu.add(ProgramAbout);
+
 		ParkingControlView newContentPane = new ParkingControlView();
 		newContentPane.setOpaque(true);
 		frame.setContentPane(newContentPane);
 		frame.pack();
-		/*frame.setLocation(
-				(Toolkit.getDefaultToolkit().getScreenSize().width-500)/2,
-				(Toolkit.getDefaultToolkit().getScreenSize().height-500)/2
-				);*/
-		//frame.setLocation(200, 200);
+		/*
+		 * frame.setLocation(
+		 * (Toolkit.getDefaultToolkit().getScreenSize().width-500)/2,
+		 * (Toolkit.getDefaultToolkit().getScreenSize().height-500)/2 );
+		 */
+		// frame.setLocation(200, 200);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}

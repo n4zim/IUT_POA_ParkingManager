@@ -59,7 +59,7 @@ public class ParkingView extends JFrame {
 			}
 		});
 
-		setUndecorated(true);
+		//setUndecorated(true);
 		Container contenu = getContentPane();
 
 		Container grille = new Container();
@@ -79,7 +79,6 @@ public class ParkingView extends JFrame {
 				Bouton place = new Bouton(index);
 				place.setOpaque(true);
 				
-				String alea = new String();
 				if (nombre == 0)
 					place.setBackground(libre);
 				if (nombre == 1)
