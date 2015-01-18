@@ -7,23 +7,7 @@ import parking.exception.*;
 public class ControlleurInterfaceGraphique extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	
-	/*private static void message(int type, String title, String msg, JFrame frame) {
-		switch (type) {
-		case 1:
-			JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");
-			break;
-		case 2:
-			JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.", "Inane error", JOptionPane.ERROR_MESSAGE);
-			break;
-		case 3:
-			JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.", "Inane warning", JOptionPane.WARNING_MESSAGE);
-			break;
-		default:
-			break;
-		}
-	}*/
-	
+		
 	ParkingControlView pcv;
 	ParkingView pv;
 	Parking parking;
