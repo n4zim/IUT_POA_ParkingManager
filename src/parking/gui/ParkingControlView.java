@@ -1,9 +1,13 @@
 package parking.gui;
 
 import javax.swing.*;
+import javax.swing.event.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 
 public class ParkingControlView extends JPanel {
 
@@ -36,41 +40,14 @@ public class ParkingControlView extends JPanel {
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		JMenu printMenu = new JMenu("Imprimer");
-		printMenu.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
+		printMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				/* ACTION DU BOUTON */
 			}
-
-			public void mouseEntered(MouseEvent arg0) {
-			}
-
-			public void mouseExited(MouseEvent arg0) {
-			}
-
-			public void mousePressed(MouseEvent arg0) {
-			}
-
-			public void mouseReleased(MouseEvent arg0) {
-			}
 		});
+
 		JMenu helpMenu = new JMenu("Aide");
-		helpMenu.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-				/* ACTION DU BOUTON */
-			}
 
-			public void mouseEntered(MouseEvent arg0) {
-			}
-
-			public void mouseExited(MouseEvent arg0) {
-			}
-
-			public void mousePressed(MouseEvent arg0) {
-			}
-
-			public void mouseReleased(MouseEvent arg0) {
-			}
-		});
 		JMenu quitMenu = new JMenu("Quitter");
 		quitMenu.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
@@ -92,44 +69,35 @@ public class ParkingControlView extends JPanel {
 		menuBar.add(printMenu);
 		menuBar.add(helpMenu);
 		menuBar.add(quitMenu);
+
 		JMenuItem ProgramHelp = new JMenuItem("Documentation");
-		ProgramHelp.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-				/* ACTION DU BOUTON */
-			}
+		ProgramHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					java.awt.Desktop
+							.getDesktop()
+							.browse(java.net.URI
+									.create("http://sereth.nerdbox.fr/parking-doc"));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 
-			public void mouseEntered(MouseEvent arg0) {
-			}
-
-			public void mouseExited(MouseEvent arg0) {
-			}
-
-			public void mousePressed(MouseEvent arg0) {
-			}
-
-			public void mouseReleased(MouseEvent arg0) {
 			}
 		});
 		helpMenu.add(ProgramHelp);
+
 		JMenuItem ProgramAbout = new JMenuItem("A propos");
-		ProgramAbout.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-				/* ACTION DU BOUTON */
-			}
-
-			public void mouseEntered(MouseEvent arg0) {
-			}
-
-			public void mouseExited(MouseEvent arg0) {
-			}
-
-			public void mousePressed(MouseEvent arg0) {
-			}
-
-			public void mouseReleased(MouseEvent arg0) {
+		helpMenu.add(ProgramAbout);
+		ProgramAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(frame,
+						"Gestion de parking\nProjet CPOA 2015\nIUT Aix-en-Provence\n\n"
+								+ "Team :\n" + "Josua Gonzalez\n"
+								+ "Carole Lai\n" + "Nazim Lachter\n"
+								+ "Alexis Delieux\n", "A propos...",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-		helpMenu.add(ProgramAbout);
 
 		ParkingControlView newContentPane = new ParkingControlView();
 		newContentPane.setOpaque(true);
