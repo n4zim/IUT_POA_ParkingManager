@@ -22,10 +22,20 @@ public class Interface extends JFrame {
 		}
 	}*/
 	
-	public Interface() {
-		ParkingControlView pcv = new ParkingControlView();
-		ParkingView pv = new ParkingView();
+	ParkingControlView pcv;
+	ParkingView pv;
+	Parking parking;
+	
+	public Interface(Parking p) {
+		pcv = new ParkingControlView();
+		pv = new ParkingView(this);
+		
 		pcv.afficher();
+		notifyParkingStateChanged();
+	}
+	
+	public void notifyParkingStateChanged() {
+		pv.notifyParkingStateChanged(parking.getPlacesMap());
 	}
 	
 	public static void main(String[] args) {
@@ -47,6 +57,6 @@ public class Interface extends JFrame {
 			e.printStackTrace();
 		}
 		
-		new Interface();
+		new Interface(p);
 	}
 }
