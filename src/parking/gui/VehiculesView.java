@@ -1,6 +1,7 @@
 package parking.gui;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -11,13 +12,11 @@ public class VehiculesView extends JPanel {
 	public VehiculesView() {
 		super(new GridLayout(1, 0));
 
-		String[] colonnes = { "Immatriculation", "Marque", "Modèle",
-				"Propriétaire", "Emplacement" };
+		Object[][] data = { { "TestA", "TestB", "TestC", "TestD", "TestE" } };
 
-		Object[][] data = { { "TestA", "TestB", "TestC", new Integer(5),
-				"TestC" } };
-
-		final JTable table = new JTable(data, colonnes);
+		final JTable table = new JTable(data,
+				new String[] { "Immatriculation", "Marque", "Modèle", "Propriétaire", "Emplacement" });
+		
 		table.setPreferredScrollableViewportSize(new Dimension(500, 500));
 		table.setFillsViewportHeight(true);
 
@@ -43,7 +42,7 @@ public class VehiculesView extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(table);
 		add(scrollPane);
 	}
-
+	
 	static void afficher() {
 		JFrame frame = new JFrame("Véhicules");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,11 +64,18 @@ public class VehiculesView extends JPanel {
 		newContentPane.setOpaque(true);
 		frame.setContentPane(newContentPane);
 		frame.pack();
-		frame.setLocation(
+		/*frame.setLocation(
 				(Toolkit.getDefaultToolkit().getScreenSize().width-500)/2,
 				(Toolkit.getDefaultToolkit().getScreenSize().height-500)/2
-				);
+				);*/
+		frame.setLocation(200, 200);
 		frame.setVisible(true);
+	}
+
+	public static void ajouterLigne(String a, String b, String c, String d) {		
+	}
+	
+	public static void retirerLigne(String a, String b, String c, String d) {		
 	}
 
 }
