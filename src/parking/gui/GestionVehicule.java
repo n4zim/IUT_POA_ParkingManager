@@ -14,10 +14,6 @@ import parking.business.Vehicule;
 
 /**
  * Gère les véhicules
- * C'est un essai raté
- * Puisque la problématique était de faire attendre le programme jusqu'à ce que l'utilisateur clique sur ok
- * pour sélectionner son véhicule dans la liste
- * Sauf que je n'a pas réussi à le faire marcher
  */
 public class GestionVehicule extends JDialog {
 	private static final long serialVersionUID = 1L;
