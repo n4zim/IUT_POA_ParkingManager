@@ -19,33 +19,23 @@ import javax.swing.JPopupMenu;
 public class ParkingView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
-	private int Ligne = 0;
-	private int Col = 0;
-
 	final JPopupMenu popup = new JPopupMenu();
 
+	private int nbCases = 40;
+	
 	ParkingView() {
 		super("Etat du parking");
 		
-		int nbCases = 40;
-		for (int i = 2; i < nbCases; i++) {
-			if (nbCases%i == 0) {
-				
-				 Ligne = i;
-				 Col = nbCases/Ligne;
-				
-				break;
-			}
-		}
-		
+		int Colonnes = 10;
+		int Lignes = (int) Math.ceil(((double) nbCases)/Colonnes);
+
 		JMenuItem menuLiberer = new JMenuItem("Libérer");
 		popup.add(menuLiberer);
 		JMenuItem menuReserver = new JMenuItem("Réserver");
 		popup.add(menuReserver);
 		JMenuItem menuOccuper = new JMenuItem("Occuper");
 		popup.add(menuOccuper);
-		
+
 		menuLiberer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Libérée");
@@ -66,13 +56,13 @@ public class ParkingView extends JFrame {
 		Container contenu = getContentPane();
 
 		Container grille = new Container();
-		grille.setLayout(new GridLayout(Ligne, Col));
+		grille.setLayout(new GridLayout(Lignes, Colonnes));
 
 		String Reserver = "data/reserver.jpg";
 		String Prise = "data/prise.jpg";
 		String Libre = "data/libre.jpg";
-		for (int i = 0; i < Ligne; i++)
-			for (int j = 0; j < Col; j++) {
+		for (int i = 0; i < Lignes; i++)
+			for (int j = 0; j < Colonnes; j++) {
 
 				Random rand = new Random();
 				int nombre = rand.nextInt(3);
@@ -93,13 +83,13 @@ public class ParkingView extends JFrame {
 				place.setText(Integer.toString(i));
 				place.setPreferredSize(new Dimension(50, 50));
 				grille.add(place);
-				
+
 				place.addActionListener(new ActionListener() {
-		            public void actionPerformed(ActionEvent e) {
-		            	popup.show(place, (getX() - 25), (getY() - 25));
-		            }
+					public void actionPerformed(ActionEvent e) {
+						popup.show(place, (getX() - 25), (getY() - 25));
+					}
 				});
-				
+
 				JPanel panneau = new JPanel();
 				panneau.add(place);
 				grille.add(panneau);
