@@ -68,6 +68,13 @@ public class Facture {
 	}
 	
     /**
+	 * Sauvegarde une facture dans un fichier nommé automatiquement
+	 */
+	public void sauverDansFichier() {
+		sauverDansFichier(numFacture + " - " + ((nomClient == null) ? "" : nomClient));
+	}
+	
+    /**
      * @return une String représentant la facture
      */
 	public String toString() {
