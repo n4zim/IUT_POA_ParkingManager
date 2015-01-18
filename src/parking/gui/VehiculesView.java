@@ -60,13 +60,13 @@ public class VehiculesView extends JPanel {
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		JMenu fileMenu = new JMenu("Fichier");
-        JMenu editMenu = new JMenu("Edition");
+		JMenu printMenu = new JMenu("Imprimer");
         JMenu helpMenu = new JMenu("Aide");
-        menuBar.add(fileMenu);
-        menuBar.add(editMenu);
+        JMenu quitMenu = new JMenu("Quitter");
+        menuBar.add(printMenu);
         menuBar.add(helpMenu);
-        JMenuItem ProgramHelp = new JMenuItem("Aide");
+        menuBar.add(quitMenu);
+        JMenuItem ProgramHelp = new JMenuItem("Documentation");
         helpMenu.add(ProgramHelp);
         JMenuItem ProgramAbout = new JMenuItem("A propos...");
         helpMenu.add(ProgramAbout);
