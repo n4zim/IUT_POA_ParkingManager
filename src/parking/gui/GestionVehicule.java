@@ -27,19 +27,23 @@ public class GestionVehicule extends JDialog {
 	java.util.List<Vehicule> vehicules;
 	
 	List liste;
+
+	JButton ok = new JButton("ok");
+	public List getListe() {
+		return liste;
+	}
 	
 	public GestionVehicule() {
 		vehicules = new ArrayList<Vehicule>();
 		liste = new List();
 
-		JButton ok = new JButton("ok");
 		JButton nv = new JButton("nouvelle voiture");
 		JButton nv2 = new JButton("nouvelle moto");
 		JButton nv3 = new JButton("nouveau camion");
 		ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				valier();
+				setVisible(false);
 			}
 		});
 		nv.addActionListener(new ActionListener() {
@@ -72,39 +76,15 @@ public class GestionVehicule extends JDialog {
 		
 		mettreAJour();
 	}
-
-	boolean wait = true;
-	Vehicule vChoisi = null;
 	
-	private void valier() {
-		wait = false;
-		
-		vChoisi = vehicules.get(liste.getSelectedIndex());
-	}
-	
-	public Vehicule demanderVehicule() {
+	public void afficher() {
 		setVisible(true);
 		setModal(true);
-		
-		/* La problématique ici est de faire attendre le programme jusqu'à ce que l'utilisateur clique sur ok */
-		
-		
-		while(wait) {
-	    try {
-	       Thread.sleep(200);
-	       validate();
-	       repaint();
-	    } catch(InterruptedException e) {
-	    }
-		}
-		
-	    setVisible(false);
-		
-		return vChoisi;
 	}
 	
-	public boolean getWait() {
-		return wait;
+	public void cacher() {
+		setVisible(false);
+		setModal(false);
 	}
 	
 	public void mettreAJour() {
@@ -115,7 +95,7 @@ public class GestionVehicule extends JDialog {
 	}
 	
 	public Vehicule getVehiculeSelectionne() {
-		return vChoisi;
+		return vehicules.get(liste.getSelectedIndex());
 	}
 	
 	public void creerNouveau() {
