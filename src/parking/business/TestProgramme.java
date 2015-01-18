@@ -1,5 +1,8 @@
 package parking.business;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
@@ -172,9 +175,17 @@ public class TestProgramme {
 		System.out.print("Il y à 4 factures enregistrés");
 		myAssert(p.getFactures().size() == 4);
 		
-		Facture factureCorrecte = new Facture(3, new Facturation(vehicule.getProprietaire(), p.getTarifHT()));
-		System.out.print("La dernière facture est correcte");
-		myAssert(p.getDerniereFacture().equals(factureCorrecte));
+		Facture facture = p.getDerniereFacture();
+		System.out.print("Test d'enregistrement de facture");
+		facture.sauverDansFichier();
+		String str = null;
+		try {
+			str = new String(Files.readAllBytes(Paths.get(Constante.DOSSIER_FACTURES+"/"+facture.getNomFichier()+".txt")));
+		} catch (IOException e) {
+			System.out.print("Impossible d'ouvrir le fichier");
+			myAssert(false);
+		}
+		myAssert(str.trim().equals(facture.toString().trim()));
 		
 		
 		// remise à zéro du parking
