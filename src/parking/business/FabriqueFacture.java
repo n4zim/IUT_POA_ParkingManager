@@ -16,7 +16,7 @@ public class FabriqueFacture implements IFabriqueFacture {
 	private static Facturation facturation;
 
 	public void setFacturation(Facturation facturation) {
-		this.facturation = facturation;
+		FabriqueFacture.facturation = facturation;
 	}
 
     /**
