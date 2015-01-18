@@ -389,4 +389,12 @@ public class Parking {
 	protected double getTarifHT() {
 		return tarifHT;
 	}
+
+	/**
+	 * Donne le nombre de places de parking au total
+	 * @return le nombre de places
+	 */
+	public int getNombrePlaces() {
+		return getDernierNumeroDePlace() - getPremierNumeroDePlace();
+	}
 }
