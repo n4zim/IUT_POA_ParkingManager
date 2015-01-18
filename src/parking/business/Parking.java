@@ -49,14 +49,18 @@ public class Parking {
 		// Création des places du parking
 		for (int i = getPremierNumeroDePlace(); i < getDernierNumeroDePlace(); i++) {
 			Place place;
-
-			if (Math.random() < 0.7)
+			
+			if(i == getPremierNumeroDePlace()) // la première place est toujours une place particulier
 				place = new Particulier();
-			else
+			else if(i == getDernierNumeroDePlace() - 1) // la dernière toujours une place transporteur
 				place = new Transporteur();
-
+			else { // les autres sont réparties aléatoirement
+				if (Math.random() < 0.7) place = new Particulier();
+				else place = new Transporteur();
+			}
+			
 			places.put(i, place);
-		}
+		}		
 	}
 	
 	/**
