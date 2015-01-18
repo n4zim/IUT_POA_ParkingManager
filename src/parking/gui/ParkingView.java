@@ -148,6 +148,7 @@ public class ParkingView extends JFrame {
 		Integer nbPlaces = parent.getParking().getNombrePlaces();
 		Integer nbLibres = 0;
 		Integer nbPrises = 0;
+		Integer nbResa = 0;
 
 	    Iterator<Map.Entry<Integer, Place>> it = placesMap.entrySet().iterator();
 	    while (it.hasNext()) {
@@ -156,9 +157,10 @@ public class ParkingView extends JFrame {
 	        
 	        Bouton b = boutons.get(pairs.getKey());
 	        
-	        if(pairs.getValue().isBooked())
+	        if(pairs.getValue().isBooked()) {
 	        	b.setEtat(Bouton.ETAT_RESERVE);
-	        else if(!pairs.getValue().isFree()) {
+	        	nbResa++;
+	        } else if(!pairs.getValue().isFree()) {
 	        	b.setEtat(Bouton.ETAT_PRIS);
 	        	nbPrises++;
 	        } else {
@@ -167,7 +169,7 @@ public class ParkingView extends JFrame {
 	        }
 	    }
 		
-		statusButton.setText(nbPlaces + " places, " + nbPrises + " prises et " + nbLibres + " libres"); 
+		statusButton.setText(nbPlaces + " places, " + nbPrises + " prises et " + nbLibres + " libres, " + nbResa + " réservées"); 
 	}
 
 }
