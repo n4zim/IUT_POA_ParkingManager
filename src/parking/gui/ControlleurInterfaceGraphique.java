@@ -9,7 +9,7 @@ import parking.exception.PlaceOccupeeException;
 import parking.exception.PlaceReserveeException;
 import parking.exception.TypePlaceInvalideException;
 
-public class Interface extends JFrame {
+public class ControlleurInterfaceGraphique extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -33,7 +33,7 @@ public class Interface extends JFrame {
 	ParkingView pv;
 	Parking parking;
 	
-	public Interface(Parking parking) {
+	public ControlleurInterfaceGraphique(Parking parking) {
 		this.parking = parking;
 		
 		pcv = new ParkingControlView();
@@ -82,7 +82,7 @@ public class Interface extends JFrame {
 			e.printStackTrace();
 		}
 		
-		new Interface(p);
+		new ControlleurInterfaceGraphique(p);
 	}
 
 	public void libererPlace(Integer numPlace) throws PlaceLibreException {
