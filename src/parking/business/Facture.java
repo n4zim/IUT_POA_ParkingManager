@@ -25,7 +25,7 @@ public class Facture {
 	 * Construit une facture
 	 * 
 	 * @param numFacture Le numéro de la facture
-	 * @param tarifHT Le tarif hors taxe
+	 * @param facturation paramètres de facturation
 	 */
 	public Facture(int numFacture, Facturation facturation) {
 		this.numFacture = numFacture;

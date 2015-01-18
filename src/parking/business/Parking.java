@@ -320,7 +320,6 @@ public class Parking {
 	 * @param numeroImmatriculation Le numéro d'immatriculation du véhicule
 	 * @return Le véhicule retiré du parking
 	 * @throws PlaceLibreException La place était déjà libre
-	 * @throws PlaceInexistanteException La place n'existe pas
 	 */
 	public Vehicule retirerVehicule(String numeroImmatriculation) throws PlaceLibreException {
 		Integer numeroPlace = getLocation(numeroImmatriculation);

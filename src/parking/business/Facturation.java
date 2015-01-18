@@ -18,6 +18,8 @@ public class Facturation {
 	
     /**
      * Construit une facturation
+     * @param nomClient le nom du client
+     * @param tarif le prix hors taxe
      */
 	public Facturation(String nomClient, double tarif) {
 		this.nomClient = nomClient;
