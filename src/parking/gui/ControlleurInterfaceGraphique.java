@@ -60,17 +60,10 @@ public class ControlleurInterfaceGraphique extends JFrame {
 	}
 	
 	/**
-	 * Demande à l'utilisateur de sélectionner un véhicule
-	 * @return véhicule sélectionné
+	 * Affiche la fenêtre pour sélectionner un véhicule
 	 */
-	public Vehicule demanderVehicule() {
-		gVehicules.demanderVehicule();
-		
-		while(gVehicules.getWait()) {
-			
-		}
-		
-		return gVehicules.getVehiculeSelectionne();
+	public void demanderVehicule() {
+		gVehicules.afficher();
 	}
 
 	/**
@@ -103,6 +96,10 @@ public class ControlleurInterfaceGraphique extends JFrame {
 			e.printStackTrace();
 		}
 		notifyParkingStateChanged();
+	}
+	
+	public GestionVehicule getGestionVechicule() {
+		return gVehicules;
 	}
 	
 	/**
