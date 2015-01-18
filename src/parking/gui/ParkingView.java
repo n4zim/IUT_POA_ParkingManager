@@ -71,7 +71,6 @@ public class ParkingView extends JFrame {
 				Bouton place = new Bouton(i+j);
 				place.setOpaque(true);
 				
-				String alea = new String();
 				if (nombre == 0)
 					place.setBackground(libre);
 				if (nombre == 1)
