@@ -60,6 +60,25 @@ public class ControlleurInterfaceGraphique extends JFrame {
 		
 		return new Vehicule(immat, marque, modele, proprio);
 	}
+
+	public void libererPlace(Integer numPlace) throws PlaceLibreException {
+		try {
+			parking.unpark(numPlace);
+		} catch (PlaceInexistanteException e) {
+			e.printStackTrace();
+		}
+		
+		notifyParkingStateChanged();
+	}
+
+	public void garerVehicule(Vehicule aGarer, Integer place) throws TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException {
+		try {
+			parking.park(aGarer, place);
+		} catch (PlaceInexistanteException e) {
+			e.printStackTrace();
+		}
+		notifyParkingStateChanged();
+	}
 	
 	public static void main(String[] args) {
 		
@@ -81,24 +100,5 @@ public class ControlleurInterfaceGraphique extends JFrame {
 		}
 		
 		new ControlleurInterfaceGraphique(p);
-	}
-
-	public void libererPlace(Integer numPlace) throws PlaceLibreException {
-		try {
-			parking.unpark(numPlace);
-		} catch (PlaceInexistanteException e) {
-			e.printStackTrace();
-		}
-		
-		notifyParkingStateChanged();
-	}
-
-	public void garerVehicule(Vehicule aGarer, Integer place) throws TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException {
-		try {
-			parking.park(aGarer, place);
-		} catch (PlaceInexistanteException e) {
-			e.printStackTrace();
-		}
-		notifyParkingStateChanged();
 	}
 }
