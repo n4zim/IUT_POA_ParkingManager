@@ -123,12 +123,12 @@ public class ParkingView extends JFrame {
 	        
 	        Bouton b = boutons.get(pairs.getKey());
 	        
-	        if(!pairs.getValue().isFree()) {
+	        if(pairs.getValue().isBooked())
+	        	b.setEtat(Bouton.ETAT_RESERVE);
+	        else if(!pairs.getValue().isFree()) {
 	        	b.setEtat(Bouton.ETAT_PRIS);
 	        	nbPrises++;
-	        } else if(pairs.getValue().isBooked())
-	        	b.setEtat(Bouton.ETAT_RESERVE);
-	        else {
+	        } else {
 	        	b.setEtat(Bouton.ETAT_LIBRE);
 	        	nbLibres++;
 	        }

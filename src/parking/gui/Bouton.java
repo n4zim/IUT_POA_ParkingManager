@@ -26,9 +26,9 @@ public class Bouton extends JButton {
 	public void setEtat(int etat) {
 		if(etat == ETAT_PRIS)
 			setBackground(new Color(232, 60, 60));
-		else if(etat == ETAT_RESERVE)
+		else if(etat == ETAT_RESERVE) {
 			setBackground(new Color(240, 177, 146));
-		else
+		} else
 			setBackground(new Color(181, 229, 29));
 	}
 }
