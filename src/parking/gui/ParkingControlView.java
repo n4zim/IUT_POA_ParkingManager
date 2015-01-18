@@ -1,6 +1,5 @@
 package parking.gui;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +12,6 @@ import java.awt.print.PrinterJob;
 import java.io.IOException;
 
 import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -86,7 +84,8 @@ public class ParkingControlView extends JPanel {
 				AjouterVehicule buttonAdd = new AjouterVehicule(frame);
 				buttonAdd.setVisible(true);
 				if (buttonAdd.hasSucceeded()) {
-					System.out.println("Emplacement " + buttonAdd.getEmplacement());
+					System.out.println("Emplacement "
+							+ buttonAdd.getEmplacement());
 				}
 			}
 
