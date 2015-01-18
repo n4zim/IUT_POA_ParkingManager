@@ -69,9 +69,7 @@ public class ParkingControlView extends JPanel {
 	 */
 	public void afficher() {
 		JFrame frame = new JFrame("Parking");
-		
-		frame.getContentPane().add(new VehiculesView());
-		
+
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
@@ -81,6 +79,21 @@ public class ParkingControlView extends JPanel {
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
+		
+		JMenu addVh = new JMenu("AJOUTER");
+		addVh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AjouterVehicule av = new AjouterVehicule(frame);
+			}
+		});
+		
+		JMenu delVh = new JMenu("SUPPRIMER");
+		delVh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		
 		JMenu printMenu = new JMenu("Imprimer");
 		printMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -108,6 +121,8 @@ public class ParkingControlView extends JPanel {
 			public void mouseReleased(MouseEvent arg0) {
 			}
 		});
+		menuBar.add(addVh);
+		menuBar.add(delVh);
 		menuBar.add(printMenu);
 		menuBar.add(helpMenu);
 		menuBar.add(quitMenu);
@@ -141,7 +156,7 @@ public class ParkingControlView extends JPanel {
 			}
 		});
 
-		frame.setContentPane(this);
+		frame.getContentPane().add(new VehiculesView());
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
