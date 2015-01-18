@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
+//import java.awt.Toolkit;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -29,7 +29,6 @@ public class ParkingView extends JFrame {
 		String Libre = "data/libre.jpg";
 		for (int i = 0; i < 3; i++)
 			for (int j = 0; j < 4; j++) {
-				// test juste pour afficher différente types de place
 
 				Random rand = new Random();
 				int nombre = rand.nextInt(3);
@@ -61,10 +60,9 @@ public class ParkingView extends JFrame {
 		contenu.add(bouton);
 
 		pack();
-
-		setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2,
-				(Toolkit.getDefaultToolkit().getScreenSize().height)/2);
-		setLocationRelativeTo(null);
+		/*setLocation((Toolkit.getDefaultToolkit().getScreenSize().width+600)/3,
+				(Toolkit.getDefaultToolkit().getScreenSize().height-600)/2);*/
+		setLocation(800, 200);
 		
 		setVisible(true);
 	}
