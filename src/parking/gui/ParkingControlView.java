@@ -1,13 +1,9 @@
 package parking.gui;
 
 import javax.swing.*;
-import javax.swing.event.*;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 
 public class ParkingControlView extends JPanel {
 
