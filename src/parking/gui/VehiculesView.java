@@ -11,8 +11,8 @@ public class VehiculesView extends JPanel {
 	public VehiculesView() {
 		super(new GridLayout(1, 0));
 
-		String[] colonnes = { "Immatriculation", "Marque", "Modèle",
-				"Propriétaire", "Emplacement" };
+		String[] colonnes = { "Immatriculation", "Marque", "ModÃ¨le",
+				"PropriÃ©taire", "Emplacement" };
 
 		Object[][] data = { { "TestA", "TestB", "TestC", new Integer(5),
 				"TestC" } };
@@ -45,9 +45,22 @@ public class VehiculesView extends JPanel {
 	}
 
 	static void afficher() {
-		JFrame frame = new JFrame("Véhicules");
+		JFrame frame = new JFrame("VÃ©hicules");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+		JMenu fileMenu = new JMenu("Fichier");
+        JMenu editMenu = new JMenu("Edition");
+        JMenu helpMenu = new JMenu("Aide");
+        menuBar.add(fileMenu);
+        menuBar.add(editMenu);
+        menuBar.add(helpMenu);
+        JMenuItem ProgramHelp = new JMenuItem("Aide");
+        helpMenu.add(ProgramHelp);
+        JMenuItem ProgramAbout = new JMenuItem("A propos...");
+        helpMenu.add(ProgramAbout);
+		
 		VehiculesView newContentPane = new VehiculesView();
 		newContentPane.setOpaque(true);
 		frame.setContentPane(newContentPane);
