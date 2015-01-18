@@ -26,9 +26,6 @@ import parking.business.Place;
 import parking.exception.PlaceDisponibleException;
 
 public class ParkingView extends JFrame {
-	private static final long serialVersionUID = 1L;
-	
-	private final JPopupMenu popup = new JPopupMenu();
 	private JButton statusButton;
 
 	private int nbCases;
@@ -48,29 +45,6 @@ public class ParkingView extends JFrame {
 		nbColonnes = 10;
 		nbLignes = (int) Math.ceil(((double) nbCases)/nbColonnes);
 
-		JMenuItem menuLiberer = new JMenuItem("Libérer");
-		JMenuItem menuReserver = new JMenuItem("Réserver");
-		JMenuItem menuOccuper = new JMenuItem("Occuper");
-		
-		popup.add(menuReserver);
-		popup.add(menuLiberer);
-		popup.add(menuOccuper);
-
-		menuLiberer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Libérée");
-			}
-		});
-		menuReserver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Réservée");
-			}
-		});
-		menuOccuper.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Occupée");
-			}
-		});
 
 		Container contenu = getContentPane();
 
@@ -82,22 +56,22 @@ public class ParkingView extends JFrame {
 			for (int j = 0; j < nbColonnes; j++) {
 				final Integer index = (i * nbColonnes) + j + parent.getParking().getPremierNumeroDePlace();
 
-				Bouton place = new Bouton(index);
-				place.setOpaque(true);
-				place.setText(index.toString());
-				place.setPreferredSize(new Dimension(50, 50));
-				grille.add(place);
+				Bouton boutonPlace = new Bouton(index);
+				boutonPlace.setOpaque(true);
+				boutonPlace.setText(index.toString());
+				boutonPlace.setPreferredSize(new Dimension(50, 50));
+				grille.add(boutonPlace);
 
-				boutons.put(index, place);
-
-				place.addActionListener(new ActionListener() {
+				boutonPlace.getMenuLiberer().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						popup.show(boutons.get(index), (getX() - 25), (getY() - 25));
+						liberer(index);
 					}
 				});
+				
+				boutons.put(index, boutonPlace);
 
 				JPanel panneau = new JPanel();
-				panneau.add(place);
+				panneau.add(boutonPlace);
 				grille.add(panneau);
 			}
 		contenu.add(grille, BorderLayout.NORTH);
