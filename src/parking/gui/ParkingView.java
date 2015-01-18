@@ -20,21 +20,20 @@ public class ParkingView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final int Ligne = 0;
-
-	private static final int Col = 0;
+	private int Ligne = 0;
+	private int Col = 0;
 
 	final JPopupMenu popup = new JPopupMenu();
 
 	ParkingView() {
 		super("Etat du parking");
 		
-		int nbCases = 15;
-		for (int i = 0; i < nbCases; i++) {
+		int nbCases = 40;
+		for (int i = 2; i < nbCases; i++) {
 			if (nbCases%i == 0) {
 				
-				 Col = i;
-				 Ligne = nbCases/Col;
+				 Ligne = i;
+				 Col = nbCases/Ligne;
 				
 				break;
 			}
