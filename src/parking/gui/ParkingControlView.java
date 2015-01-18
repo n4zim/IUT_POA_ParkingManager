@@ -5,14 +5,21 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
+/**
+ * Fenêtre principale du programme, affiche les menus
+ */
 public class ParkingControlView extends JPanel {
 
-	private static final long serialVersionUID = 1L;
-
+	/**
+	 * Constructeur
+	 */
 	public ParkingControlView() {
 		super(new GridLayout(0, 1));
 	}
 
+	/**
+	 * Demande à l'utilisateur si il est certain de vouloir quitter le programme.
+	 */
 	private void fenetreConfirmationFermer() {
 		String YesNo[] = { "Oui", "Non" };
 		int PromptResult = JOptionPane.showOptionDialog(null,
@@ -23,6 +30,9 @@ public class ParkingControlView extends JPanel {
 			System.exit(0);
 	}
 
+	/**
+	 * Crée et affiche la fenêtre
+	 */
 	public void afficher() {
 		JFrame frame = new JFrame("Parking");
 
