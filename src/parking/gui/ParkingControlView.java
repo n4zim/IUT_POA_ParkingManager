@@ -1,6 +1,5 @@
 package parking.gui;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,8 +18,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 /**
  * Fenêtre principale du programme, affiche les menus
@@ -73,9 +70,8 @@ public class ParkingControlView extends JPanel {
 	public void afficher() {
 		JFrame frame = new JFrame("Parking");
 		
-		VehiculesView scrollPane = new VehiculesView();
-		frame.add(scrollPane);
-
+		frame.getContentPane().add(new VehiculesView());
+		
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
