@@ -20,11 +20,26 @@ public class ParkingView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
+	private static final int Ligne = 0;
+
+	private static final int Col = 0;
+
 	final JPopupMenu popup = new JPopupMenu();
 
 	ParkingView() {
 		super("Etat du parking");
-
+		
+		int nbCases = 15;
+		for (int i = 0; i < nbCases; i++) {
+			if (nbCases%i == 0) {
+				
+				 Col = i;
+				 Ligne = nbCases/Col;
+				
+				break;
+			}
+		}
+		
 		JMenuItem menuLiberer = new JMenuItem("Libérer");
 		popup.add(menuLiberer);
 		JMenuItem menuReserver = new JMenuItem("Réserver");
@@ -52,13 +67,13 @@ public class ParkingView extends JFrame {
 		Container contenu = getContentPane();
 
 		Container grille = new Container();
-		grille.setLayout(new GridLayout(3, 4));
+		grille.setLayout(new GridLayout(Ligne, Col));
 
 		String Reserver = "data/reserver.jpg";
 		String Prise = "data/prise.jpg";
 		String Libre = "data/libre.jpg";
-		for (int i = 0; i < 3; i++)
-			for (int j = 0; j < 4; j++) {
+		for (int i = 0; i < Ligne; i++)
+			for (int j = 0; j < Col; j++) {
 
 				Random rand = new Random();
 				int nombre = rand.nextInt(3);
@@ -75,7 +90,7 @@ public class ParkingView extends JFrame {
 				if (nombre == 2) {
 					alea = Prise;
 				}
-				Bouton place = new Bouton(alea, alea);
+				Bouton place = new Bouton(1, alea, alea);
 				place.setText(Integer.toString(i));
 				place.setPreferredSize(new Dimension(50, 50));
 				grille.add(place);
