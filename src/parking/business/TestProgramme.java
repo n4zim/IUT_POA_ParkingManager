@@ -140,6 +140,7 @@ public class TestProgramme {
 		Vehicule camion = new Camion("IMMATRICULATION", "marque", "modele", "Jean Aimar");
 		Vehicule voiture = new Voiture("PLAQUE", "marque", "modele", "John Stone");
 		Vehicule vehicule = new Vehicule("BONJOUR", "marque", "modele", "John Michael");
+		@SuppressWarnings("unused")
 		Vehicule voiture2 = new Voiture("DEVIL", "marque", "modele", "John Duff");
 		
 		System.out.println("-- Test de park --\n");

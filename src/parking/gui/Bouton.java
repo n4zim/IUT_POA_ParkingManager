@@ -3,8 +3,6 @@ package parking.gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.*;
-import java.io.Externalizable;
-
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -14,6 +12,9 @@ import javax.swing.SwingConstants;
  * Extention de JButton qui représente une case de parking
  */
 public class Bouton extends JButton {
+
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * La place est libre
 	 */
