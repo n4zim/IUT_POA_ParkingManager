@@ -2,8 +2,12 @@ package parking.gui;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
+
+import parking.business.*;
+import parking.exception.PlaceInexistanteException;
 
 public class AjouterVehicule extends JDialog {
 
@@ -15,6 +19,18 @@ public class AjouterVehicule extends JDialog {
 	private JTextField textProprietaire;
 	private JTextField textEmplacement;
 
+	private void setGridBagConstraints (GridBagConstraints cs, boolean isLabel, int rowNumber){
+		cs.gridy = rowNumber;
+		if (isLabel){
+			cs.gridx = 0;
+			cs.gridwidth = 1;
+		}
+		else {
+			cs.gridx = 1;
+			cs.gridwidth = 2;
+		}
+	}
+	
 	public AjouterVehicule(Frame parent) {
 		super(parent, "Ajout d'un véhicule", true);
 		JPanel panel = new JPanel(new GridBagLayout());
@@ -22,59 +38,41 @@ public class AjouterVehicule extends JDialog {
 
 		cs.fill = GridBagConstraints.HORIZONTAL;
 
+		int rowNumber = 0;
+		
 		JLabel lblImmatriculation = new JLabel("Immatriculation : ");
-		cs.gridx = 0;
-		cs.gridy = 0;
-		cs.gridwidth = 1;
+		setGridBagConstraints (cs, true, rowNumber);
 		panel.add(lblImmatriculation, cs);
 		textImmatriculation = new JTextField(20);
-		cs.gridx = 1;
-		cs.gridy = 0;
-		cs.gridwidth = 2;
+		setGridBagConstraints (cs, false, rowNumber++);
 		panel.add(textImmatriculation, cs);
 
 		JLabel lblMarque = new JLabel("Marque : ");
-		cs.gridx = 0;
-		cs.gridy = 1;
-		cs.gridwidth = 1;
+		setGridBagConstraints (cs, true, rowNumber);
 		panel.add(lblMarque, cs);
 		textMarque = new JTextField(20);
-		cs.gridx = 1;
-		cs.gridy = 1;
-		cs.gridwidth = 2;
+		setGridBagConstraints (cs, false, rowNumber++);
 		panel.add(textMarque, cs);
 		
 		JLabel lblModele = new JLabel("Modèle : ");
-		cs.gridx = 0;
-		cs.gridy = 2;
-		cs.gridwidth = 1;
+		setGridBagConstraints (cs, true, rowNumber);
 		panel.add(lblModele, cs);
 		textModele = new JTextField(20);
-		cs.gridx = 1;
-		cs.gridy = 2;
-		cs.gridwidth = 2;
+		setGridBagConstraints (cs, false, rowNumber++);
 		panel.add(textModele, cs);
 
 		JLabel lblProprietaire = new JLabel("Propriétaire : ");
-		cs.gridx = 0;
-		cs.gridy = 3;
-		cs.gridwidth = 1;
+		setGridBagConstraints (cs, true, rowNumber);
 		panel.add(lblProprietaire, cs);
 		textProprietaire = new JTextField(20);
-		cs.gridx = 1;
-		cs.gridy = 3;
-		cs.gridwidth = 2;
+		setGridBagConstraints (cs, false, rowNumber++);
 		panel.add(textProprietaire, cs);
 		
-		JLabel lblEmplacement = new JLabel("Emplacement : ");
-		cs.gridx = 0;
-		cs.gridy = 4;
-		cs.gridwidth = 1;
+		JLabel lblEmplacement = new JLabel("Emplacement numéro : ");
+		setGridBagConstraints (cs, true, rowNumber);
 		panel.add(lblEmplacement, cs);
 		textEmplacement = new JTextField(20);
-		cs.gridx = 1;
-		cs.gridy = 4;
-		cs.gridwidth = 2;
+		setGridBagConstraints (cs, false, rowNumber);
 		panel.add(textEmplacement, cs);
 		
 		panel.setBorder(new LineBorder(Color.GRAY));
@@ -83,18 +81,26 @@ public class AjouterVehicule extends JDialog {
 		btnLogin.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (getMarque().equals("test")) {
-					JOptionPane.showMessageDialog(AjouterVehicule.this,
-							"C'est bon", "Test OK",
-							JOptionPane.INFORMATION_MESSAGE);
+				if (tousChampsRemplisEtValides()) {
+					JFrame frameDemandeTypeVehicule = new JFrame("Type de véhicule");
+					JPanel panelDemandeTypeVehicule = new JPanel(new FlowLayout());
+					JButton boutonCamion = new JButton("Camion");
+					JButton boutonMoto = new JButton("Moto");
+					JButton boutonVoiture = new JButton("Voiture");
+					panelDemandeTypeVehicule.add(boutonCamion);
+					panelDemandeTypeVehicule.add(boutonMoto);
+					panelDemandeTypeVehicule.add(boutonVoiture);
+					frameDemandeTypeVehicule.add(panelDemandeTypeVehicule);
+					/*JOptionPane.showMessageDialog(AjouterVehicule.this,
+							"C'est bon", "Véhicule garé",
+							JOptionPane.INFORMATION_MESSAGE);*/
 					succeeded = true;
+					
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(AjouterVehicule.this,
 							"C'est pas bon", "Test pas OK",
 							JOptionPane.ERROR_MESSAGE);
-					textImmatriculation.setText("");
-					textMarque.setText("");
 					succeeded = false;
 				}
 			}
@@ -125,8 +131,44 @@ public class AjouterVehicule extends JDialog {
 	public String getMarque() {
 		return textMarque.getText().trim();
 	}
+	
+	public String getModele() {
+		return textModele.getText().trim();
+	}
 
-	public boolean isSucceeded() {
+	public String getProprietaire() {
+		return textProprietaire.getText().trim();
+	}
+
+	public Integer getEmplacement() {
+		Integer numero = -1;
+		try{
+			numero = Integer.parseInt(textEmplacement.getText().trim());
+			if (numero < Constante.NUMERO_PREMIERE_PLACE
+				|| numero >= Constante.NUMERO_PREMIERE_PLACE + Constante.NOMBRE_PLACES)
+				throw new PlaceInexistanteException();
+		}
+		catch (NumberFormatException e){
+			String msg = "Entrer un nombre entre " + Constante.NUMERO_PREMIERE_PLACE + " et " 
+						+ (Constante.NUMERO_PREMIERE_PLACE + Constante.NOMBRE_PLACES - 1);
+			JOptionPane.showMessageDialog(AjouterVehicule.this, msg, "C'est pas bon", JOptionPane.ERROR_MESSAGE);
+		} catch (PlaceInexistanteException e) {
+			String msg = "Entrer un nombre entre " + Constante.NUMERO_PREMIERE_PLACE + " et " 
+					+ (Constante.NUMERO_PREMIERE_PLACE + Constante.NOMBRE_PLACES - 1);
+			JOptionPane.showMessageDialog(AjouterVehicule.this, msg, "C'est pas bon", JOptionPane.ERROR_MESSAGE);
+		}
+		return numero;
+	}
+	
+	public boolean tousChampsRemplisEtValides(){
+		
+		return !(getImmatriculation().equals("")
+				|| getMarque().equals("")
+				|| getModele().equals("")
+				|| getProprietaire().equals(""));
+	}
+
+	public boolean hasSucceeded() {
 		return succeeded;
 	}
 
@@ -138,9 +180,9 @@ public class AjouterVehicule extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				AjouterVehicule buttonAdd = new AjouterVehicule(frame);
 				buttonAdd.setVisible(true);
-				if (buttonAdd.isSucceeded()) {
+				if (buttonAdd.hasSucceeded()) {
 					addButton.setText("Immatriculation "
-							+ buttonAdd.getImmatriculation() + " OK");
+							+ buttonAdd.getEmplacement() + " OK");
 				}
 			}
 		});
