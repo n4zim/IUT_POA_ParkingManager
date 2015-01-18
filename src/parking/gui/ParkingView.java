@@ -31,26 +31,37 @@ import parking.exception.PlaceOccupeeException;
 import parking.exception.PlaceReserveeException;
 import parking.exception.TypePlaceInvalideException;
 
+/**
+ * Affiche et gère la fenêtre qui montre l'état du parking
+ */
 public class ParkingView extends JFrame {
+	/**
+	 * Bouton qui fait office d'état
+	 */
 	private JButton statusButton;
 
-	private int nbCases;
-	private int nbColonnes;
-	private int nbLignes;
-
+	/**
+	 * Les cases correspondant aux places de parking de la fenêtre
+	 */
 	private Map<Integer, Bouton> boutons;
-	private Interface parent;
+	/**
+	 * Permet d'obtenir les informations sur le parking
+	 */
+	private ControlleurInterfaceGraphique parent;
 	
-	ParkingView(Interface parent) {
+	/**
+	 * Construit cette fenêtre
+	 * @param parent Instance de ControlleurInterfaceGraphique
+	 */
+	ParkingView(ControlleurInterfaceGraphique parent) {
 		super("Etat du parking");
 		
 		this.parent = parent;
 		boutons = new HashMap<>();
 		
-		nbCases = parent.getParking().getNombrePlaces();
-		nbColonnes = 10;
-		nbLignes = (int) Math.ceil(((double) nbCases)/nbColonnes);
-
+		int nbCases = parent.getParking().getNombrePlaces();
+		int nbColonnes = 10;
+		int nbLignes = (int) Math.ceil(((double) nbCases)/nbColonnes);
 
 		Container contenu = getContentPane();
 
@@ -99,6 +110,10 @@ public class ParkingView extends JFrame {
 		setVisible(true);
 	}
 	
+	/**
+	 * Permet de libérer une place
+	 * @param numPlace le numéro de la place
+	 */
 	public void liberer(Integer numPlace) {
 		try {
 			parent.libererPlace(numPlace);
@@ -107,6 +122,10 @@ public class ParkingView extends JFrame {
 		}
 	}
 	
+	/**
+	 * Demande de garer un véhicule sur une place
+	 * @param numPlace le numéro de la place
+	 */
 	public void garer(Integer numPlace) {
 		Vehicule aGarer = parent.demanderVehicule();
 		try {
@@ -120,6 +139,11 @@ public class ParkingView extends JFrame {
 		}
 	}
 	
+	/**
+	 * Doit être appellé quand l'état du parking change
+	 * Met à jour la grille ainsi que le message de status
+	 * @param placesMap L'état des places de parking
+	 */
 	public void parkingStateChanged(Map<Integer, Place> placesMap) {
 		Integer nbPlaces = parent.getParking().getNombrePlaces();
 		Integer nbLibres = 0;
