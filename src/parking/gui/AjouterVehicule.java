@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import parking.business.*;
-import parking.exception.PlaceInexistanteException;
+import parking.exception.*;
 
 public class AjouterVehicule extends JDialog {
 
@@ -18,6 +18,7 @@ public class AjouterVehicule extends JDialog {
 	private JTextField textModele;
 	private JTextField textProprietaire;
 	private JTextField textEmplacement;
+	private Integer numeroPlace;
 
 	private void setGridBagConstraints (GridBagConstraints cs, boolean isLabel, int rowNumber){
 		cs.gridy = rowNumber;
@@ -87,6 +88,42 @@ public class AjouterVehicule extends JDialog {
 					JButton boutonCamion = new JButton("Camion");
 					JButton boutonMoto = new JButton("Moto");
 					JButton boutonVoiture = new JButton("Voiture");
+					
+					boutonCamion.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							Camion camion = new Camion(getImmatriculation(), getMarque(), getModele(), getProprietaire());
+							try {
+								parking.business.Parking.getInstance().park(camion, numeroPlace);
+							} catch (TypePlaceInvalideException | PlaceOccupeeException | PlaceInexistanteException | PlaceReserveeException e1) {
+								e1.printStackTrace();
+							}
+						}
+					});
+					boutonMoto.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							Moto moto = new Moto(getImmatriculation(), getMarque(), getModele(), getProprietaire());
+							try {
+								parking.business.Parking.getInstance().park(moto, numeroPlace);
+							} catch (TypePlaceInvalideException | PlaceOccupeeException | PlaceInexistanteException | PlaceReserveeException e1) {
+								e1.printStackTrace();
+							}
+						}
+					});
+
+					boutonVoiture.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							Voiture voiture = new Voiture(getImmatriculation(), getMarque(), getModele(), getProprietaire());
+							try {
+								parking.business.Parking.getInstance().park(voiture, numeroPlace);
+							} catch (TypePlaceInvalideException | PlaceOccupeeException | PlaceInexistanteException | PlaceReserveeException e1) {
+								e1.printStackTrace();
+							}
+						}
+					});
+					
 					panelDemandeTypeVehicule.add(boutonCamion);
 					panelDemandeTypeVehicule.add(boutonMoto);
 					panelDemandeTypeVehicule.add(boutonVoiture);
@@ -99,7 +136,7 @@ public class AjouterVehicule extends JDialog {
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(AjouterVehicule.this,
-							"C'est pas bon", "Test pas OK",
+							"C'est pas bon", "Paramètres entrés invalides",
 							JOptionPane.ERROR_MESSAGE);
 					succeeded = false;
 				}
@@ -142,30 +179,27 @@ public class AjouterVehicule extends JDialog {
 
 	public Integer getEmplacement() {
 		Integer numero = -1;
-		try{
+		try {
 			numero = Integer.parseInt(textEmplacement.getText().trim());
 			if (numero < Constante.NUMERO_PREMIERE_PLACE
-				|| numero >= Constante.NUMERO_PREMIERE_PLACE + Constante.NOMBRE_PLACES)
-				throw new PlaceInexistanteException();
-		}
-		catch (NumberFormatException e){
-			String msg = "Entrer un nombre entre " + Constante.NUMERO_PREMIERE_PLACE + " et " 
-						+ (Constante.NUMERO_PREMIERE_PLACE + Constante.NOMBRE_PLACES - 1);
-			JOptionPane.showMessageDialog(AjouterVehicule.this, msg, "C'est pas bon", JOptionPane.ERROR_MESSAGE);
-		} catch (PlaceInexistanteException e) {
-			String msg = "Entrer un nombre entre " + Constante.NUMERO_PREMIERE_PLACE + " et " 
-					+ (Constante.NUMERO_PREMIERE_PLACE + Constante.NOMBRE_PLACES - 1);
-			JOptionPane.showMessageDialog(AjouterVehicule.this, msg, "C'est pas bon", JOptionPane.ERROR_MESSAGE);
-		}
+					|| numero >= Constante.NUMERO_PREMIERE_PLACE + Constante.NOMBRE_PLACES)
+							throw new PlaceInexistanteException();
+			} catch (PlaceInexistanteException e) {
+				e.printStackTrace();
+			} catch (NumberFormatException e){
+				e.printStackTrace();
+			}
+		numeroPlace = numero;
 		return numero;
 	}
 	
-	public boolean tousChampsRemplisEtValides(){
+	public boolean tousChampsRemplisEtValides() {
 		
 		return !(getImmatriculation().equals("")
 				|| getMarque().equals("")
 				|| getModele().equals("")
-				|| getProprietaire().equals(""));
+				|| getProprietaire().equals("")
+				|| getEmplacement() == -1);
 	}
 
 	public boolean hasSucceeded() {
@@ -181,7 +215,7 @@ public class AjouterVehicule extends JDialog {
 				AjouterVehicule buttonAdd = new AjouterVehicule(frame);
 				buttonAdd.setVisible(true);
 				if (buttonAdd.hasSucceeded()) {
-					addButton.setText("Immatriculation "
+					addButton.setText("Emplacement "
 							+ buttonAdd.getEmplacement() + " OK");
 				}
 			}
