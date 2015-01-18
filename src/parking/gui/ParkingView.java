@@ -52,7 +52,7 @@ public class ParkingView extends JFrame {
 			}
 		});
 
-		setUndecorated(true);
+		//setUndecorated(true);
 		Container contenu = getContentPane();
 
 		Container grille = new Container();
