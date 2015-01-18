@@ -206,6 +206,29 @@ public class TestProgramme {
 		// remise à zéro du parking
 		Parking.resetInstance();
 		p = Parking.getInstance();
+
+		System.out.println("Garer un véhicule à une place précise :");
+
+		try {
+			for(int i = p.getPremierNumeroDePlace(); i < p.getDernierNumeroDePlace(); i++) {
+				System.out.print(" -> Place " + i + "\t");
+				Vehicule aGarer = new Vehicule("voit"+i, "marque", "modèle", "être humain");
+				p.park(aGarer, i);
+				Vehicule vehiculeGare = p.getPlacesMap().get(i).getVehiculeGare();
+				
+				if(vehiculeGare == null) {
+					System.out.println(" le véhicule n'a pas été garé");
+					myAssert(false);
+				}
+				
+				myAssert(aGarer.equals(vehiculeGare));
+			}
+		} catch (TypePlaceInvalideException | PlaceOccupeeException
+				| PlaceInexistanteException | PlaceReserveeException e) {
+			System.out.println(" le véhicule n'a pu être garé ");
+			e.printStackTrace();
+			myAssert(false);
+		}
 	}
 	
 	public static void main(String[] args) {
