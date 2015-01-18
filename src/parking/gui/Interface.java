@@ -26,12 +26,18 @@ public class Interface extends JFrame {
 	ParkingView pv;
 	Parking parking;
 	
-	public Interface(Parking p) {
+	public Interface(Parking parking) {
+		this.parking = parking;
+		
 		pcv = new ParkingControlView();
 		pv = new ParkingView(this);
 		
 		pcv.afficher();
 		notifyParkingStateChanged();
+	}
+	
+	public Parking getParking() {
+		return parking;
 	}
 	
 	public void notifyParkingStateChanged() {
