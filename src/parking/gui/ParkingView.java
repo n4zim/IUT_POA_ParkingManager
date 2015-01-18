@@ -79,20 +79,9 @@ public class ParkingView extends JFrame {
 		for (int i = 0; i < nbLignes; i++)
 			for (int j = 0; j < nbColonnes; j++) {
 				final Integer index = (i * nbColonnes) + j + parent.getParking().getPremierNumeroDePlace();
-				
-				Random rand = new Random();
-				int nombre = rand.nextInt(3);
 
 				Bouton place = new Bouton(index);
 				place.setOpaque(true);
-				
-				if (nombre == 0)
-					place.setEtat(Bouton.ETAT_LIBRE);
-				if (nombre == 1)
-					place.setEtat(Bouton.ETAT_RESERVE);
-				if (nombre == 2)
-					place.setEtat(Bouton.ETAT_PRIS);
-
 				place.setText(index.toString());
 				place.setPreferredSize(new Dimension(50, 50));
 				grille.add(place);
@@ -111,7 +100,7 @@ public class ParkingView extends JFrame {
 			}
 		contenu.add(grille, BorderLayout.NORTH);
 
-		statusButton = new JButton("12 places, 3 prises et 9 libres");
+		statusButton = new JButton("status");
 		statusButton.setBackground(Color.RED);
 		contenu.add(statusButton);
 
