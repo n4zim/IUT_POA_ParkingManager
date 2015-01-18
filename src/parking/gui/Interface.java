@@ -41,7 +41,7 @@ public class Interface extends JFrame {
 	}
 	
 	public void notifyParkingStateChanged() {
-		pv.notifyParkingStateChanged(parking.getPlacesMap());
+		pv.parkingStateChanged(parking.getPlacesMap());
 	}
 	
 	public static void main(String[] args) {

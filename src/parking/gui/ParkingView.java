@@ -111,7 +111,7 @@ public class ParkingView extends JFrame {
 		setVisible(true);
 	}
 	
-	public void notifyParkingStateChanged(Map<Integer, Place> placesMap) {
+	public void parkingStateChanged(Map<Integer, Place> placesMap) {
 		Integer nbPlaces = parent.getParking().getNombrePlaces();
 		Integer nbLibres = 0;
 		Integer nbPrises = 0;
