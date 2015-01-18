@@ -2,12 +2,7 @@ package parking.gui;
 import javax.swing.*;
 
 import parking.business.*;
-import parking.exception.PlaceDisponibleException;
-import parking.exception.PlaceInexistanteException;
-import parking.exception.PlaceLibreException;
-import parking.exception.PlaceOccupeeException;
-import parking.exception.PlaceReserveeException;
-import parking.exception.TypePlaceInvalideException;
+import parking.exception.*;
 
 public class ControlleurInterfaceGraphique extends JFrame {
 

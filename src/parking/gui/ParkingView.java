@@ -7,25 +7,13 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Random;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-
+import javax.swing.*;
 import parking.business.Place;
 import parking.business.Vehicule;
-import parking.exception.PlaceDisponibleException;
-import parking.exception.PlaceInexistanteException;
 import parking.exception.PlaceLibreException;
 import parking.exception.PlaceOccupeeException;
 import parking.exception.PlaceReserveeException;
@@ -35,6 +23,9 @@ import parking.exception.TypePlaceInvalideException;
  * Affiche et gère la fenêtre qui montre l'état du parking
  */
 public class ParkingView extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Bouton qui fait office d'état
 	 */
