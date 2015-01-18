@@ -88,9 +88,9 @@ public class ParkingView extends JFrame {
 	}
 	
 	public void liberer(Integer numPlace) {
-		Place placeALibere = parent.getParking().getPlacesMap().get(numPlace);
+		Place placeALiberer = parent.getParking().getPlacesMap().get(numPlace);
 		try {
-			parent.getParking().freePlace(placeALibere);
+			parent.getParking().freePlace(placeALiberer);
 		} catch (PlaceDisponibleException e) {
 			JOptionPane.showMessageDialog(this, "Cette place est déjà libre.", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
