@@ -71,7 +71,7 @@ public class ParkingView extends JFrame {
 
 		for (int i = 0; i < Lignes; i++)
 			for (int j = 0; j < Colonnes; j++) {
-				Integer index = i*Colonnes+j;
+				final Integer index = i*Colonnes+j;
 				
 				Random rand = new Random();
 				int nombre = rand.nextInt(3);
