@@ -70,7 +70,7 @@ public class ControlleurInterfaceGraphique extends JFrame {
 			
 		}
 		
-		return gVehicules.getVehiculeSelectione();
+		return gVehicules.getVehiculeSelectionne();
 	}
 
 	/**

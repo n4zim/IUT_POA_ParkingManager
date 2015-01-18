@@ -206,27 +206,4 @@ public class AjouterVehicule extends JDialog {
 		return succeeded;
 	}
 
-	public static void main(String[] args) {
-		final JFrame frame = new JFrame("Fenête à ouvrir");
-		final JButton addButton = new JButton("AJOUTER");
-
-		addButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AjouterVehicule buttonAdd = new AjouterVehicule(frame);
-				buttonAdd.setVisible(true);
-				if (buttonAdd.hasSucceeded()) {
-					addButton.setText("Emplacement "
-							+ buttonAdd.getEmplacement() + " OK");
-				}
-			}
-		});
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(300, 100);
-		frame.setLayout(new FlowLayout());
-		frame.getContentPane().add(addButton);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-	}
-
 }

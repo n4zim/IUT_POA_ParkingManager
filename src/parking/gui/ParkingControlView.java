@@ -1,5 +1,6 @@
 package parking.gui;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import java.awt.print.PrinterJob;
 import java.io.IOException;
 
 import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -35,7 +37,8 @@ public class ParkingControlView extends JPanel {
 	}
 
 	/**
-	 * Demande à l'utilisateur si il est certain de vouloir quitter le programme.
+	 * Demande à l'utilisateur si il est certain de vouloir quitter le
+	 * programme.
 	 */
 	private void fenetreConfirmationFermer() {
 		String YesNo[] = { "Oui", "Non" };
@@ -46,23 +49,20 @@ public class ParkingControlView extends JPanel {
 		if (PromptResult == JOptionPane.YES_OPTION)
 			System.exit(0);
 	}
-	
+
 	private void fenetreImpression() {
-	      PrinterJob pj = PrinterJob.getPrinterJob();
-	      HashPrintRequestAttributeSet printAttr = new HashPrintRequestAttributeSet();
-	      if(pj.printDialog(printAttr))
-	      {
-	    	  try
-	    	  {
-	    		  pj.print(printAttr);
-	    	  }
-	    	  catch(PrinterException e)
-	    	  {
-	    		  JOptionPane.showMessageDialog(this,"Echec lors de l'impression "+e,"Error",JOptionPane.ERROR_MESSAGE);
-	    	  }
-	      }
+		PrinterJob pj = PrinterJob.getPrinterJob();
+		HashPrintRequestAttributeSet printAttr = new HashPrintRequestAttributeSet();
+		if (pj.printDialog(printAttr)) {
+			try {
+				pj.print(printAttr);
+			} catch (PrinterException e) {
+				JOptionPane.showMessageDialog(this,
+						"Echec lors de l'impression " + e, "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
-	
 
 	/**
 	 * Crée et affiche la fenêtre
@@ -79,21 +79,37 @@ public class ParkingControlView extends JPanel {
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		
+
 		JMenu addVh = new JMenu("AJOUTER");
-		addVh.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AjouterVehicule av = new AjouterVehicule(frame);
+		addVh.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				AjouterVehicule buttonAdd = new AjouterVehicule(frame);
+				buttonAdd.setVisible(true);
+				if (buttonAdd.hasSucceeded()) {
+					System.out.println("Emplacement " + buttonAdd.getEmplacement());
+				}
+			}
+
+			public void mouseEntered(MouseEvent arg0) {
+			}
+
+			public void mouseExited(MouseEvent arg0) {
+			}
+
+			public void mousePressed(MouseEvent arg0) {
+			}
+
+			public void mouseReleased(MouseEvent arg0) {
 			}
 		});
-		
+
 		JMenu delVh = new JMenu("SUPPRIMER");
 		delVh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 			}
 		});
-		
+
 		JMenu printMenu = new JMenu("Imprimer");
 		printMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
