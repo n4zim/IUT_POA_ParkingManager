@@ -14,6 +14,10 @@ import parking.business.Vehicule;
 
 /**
  * Gère les véhicules
+ * C'est un essai raté
+ * Puisque la problématique était de faire attendre le programme jusqu'à ce que l'utilisateur clique sur ok
+ * pour sélectionner son véhicule dans la liste
+ * Sauf que je n'a pas réussi à le faire marcher
  */
 public class GestionVehicule extends JDialog {
 	private static final long serialVersionUID = 1L;
@@ -80,9 +84,23 @@ public class GestionVehicule extends JDialog {
 	
 	public Vehicule demanderVehicule() {
 		setVisible(true);
-
+		setModal(true);
 		
-		return null;
+		/* La problématique ici est de faire attendre le programme jusqu'à ce que l'utilisateur clique sur ok */
+		
+		
+		while(wait) {
+	    try {
+	       Thread.sleep(200);
+	       validate();
+	       repaint();
+	    } catch(InterruptedException e) {
+	    }
+		}
+		
+	    setVisible(false);
+		
+		return vChoisi;
 	}
 	
 	public boolean getWait() {
@@ -96,6 +114,10 @@ public class GestionVehicule extends JDialog {
 		}
 	}
 	
+	public Vehicule getVehiculeSelectionne() {
+		return vChoisi;
+	}
+	
 	public void creerNouveau() {
 		String immat = JOptionPane.showInputDialog("Numéro d'immatriculation");
 		String marque = JOptionPane.showInputDialog("Marque");
@@ -104,9 +126,5 @@ public class GestionVehicule extends JDialog {
 		
 		vehicules.add(new Vehicule(immat, marque, modele, proprio));
 		mettreAJour();
-	}
-
-	public Vehicule getVehiculeSelectione() {
-		return vChoisi;
 	}
 }
