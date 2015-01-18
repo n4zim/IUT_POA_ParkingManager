@@ -23,8 +23,13 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import parking.business.Place;
+import parking.business.Vehicule;
 import parking.exception.PlaceDisponibleException;
+import parking.exception.PlaceInexistanteException;
 import parking.exception.PlaceLibreException;
+import parking.exception.PlaceOccupeeException;
+import parking.exception.PlaceReserveeException;
+import parking.exception.TypePlaceInvalideException;
 
 public class ParkingView extends JFrame {
 	private JButton statusButton;
@@ -69,6 +74,12 @@ public class ParkingView extends JFrame {
 					}
 				});
 				
+				boutonPlace.getMenuOccuper().addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						garer(index);
+					}
+				});
+				
 				boutons.put(index, boutonPlace);
 
 				JPanel panneau = new JPanel();
@@ -93,6 +104,19 @@ public class ParkingView extends JFrame {
 			parent.libererPlace(numPlace);
 		} catch (PlaceLibreException e) {
 			JOptionPane.showMessageDialog(this, "Cette place est déjà libre.", "Erreur", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void garer(Integer numPlace) {
+		Vehicule aGarer = parent.demanderVehicule();
+		try {
+			parent.garerVehicule(aGarer, numPlace);
+		} catch (TypePlaceInvalideException e) {
+			JOptionPane.showMessageDialog(this, "Cette place est inadaptée à ce véhicule.", "Erreur", JOptionPane.ERROR_MESSAGE);
+		} catch (PlaceOccupeeException e) {
+			JOptionPane.showMessageDialog(this, "Cette place est occupée", "Erreur", JOptionPane.ERROR_MESSAGE);
+		} catch (PlaceReserveeException e) {
+			JOptionPane.showMessageDialog(this, "Cette place est réservée par un autre véhicule.", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

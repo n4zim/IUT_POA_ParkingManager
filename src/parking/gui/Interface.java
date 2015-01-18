@@ -5,6 +5,9 @@ import parking.business.*;
 import parking.exception.PlaceDisponibleException;
 import parking.exception.PlaceInexistanteException;
 import parking.exception.PlaceLibreException;
+import parking.exception.PlaceOccupeeException;
+import parking.exception.PlaceReserveeException;
+import parking.exception.TypePlaceInvalideException;
 
 public class Interface extends JFrame {
 
@@ -46,6 +49,18 @@ public class Interface extends JFrame {
 	
 	public void notifyParkingStateChanged() {
 		pv.parkingStateChanged(parking.getPlacesMap());
+		
+		System.out.println("Parking modifié : ");
+		parking.EtatParking();
+	}
+	
+	public Vehicule demanderVehicule() {
+		String immat = JOptionPane.showInputDialog("Numéro d'immatriculation");
+		String marque = JOptionPane.showInputDialog("Marque");
+		String modele = JOptionPane.showInputDialog("Modèle");
+		String proprio = JOptionPane.showInputDialog("Nom du propriétaire");
+		
+		return new Vehicule(immat, marque, modele, proprio);
 	}
 	
 	public static void main(String[] args) {
@@ -72,11 +87,20 @@ public class Interface extends JFrame {
 
 	public void libererPlace(Integer numPlace) throws PlaceLibreException {
 		try {
-			getParking().unpark(numPlace);
+			parking.unpark(numPlace);
 		} catch (PlaceInexistanteException e) {
 			e.printStackTrace();
 		}
 		
+		notifyParkingStateChanged();
+	}
+
+	public void garerVehicule(Vehicule aGarer, Integer place) throws TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException {
+		try {
+			parking.park(aGarer, place);
+		} catch (PlaceInexistanteException e) {
+			e.printStackTrace();
+		}
 		notifyParkingStateChanged();
 	}
 }
