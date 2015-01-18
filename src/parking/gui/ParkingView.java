@@ -19,22 +19,29 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import parking.business.Place;
+
 public class ParkingView extends JFrame {
-
 	private static final long serialVersionUID = 1L;
-	final JPopupMenu popup = new JPopupMenu();
-	JButton statusButton;
-
-	private int nbCases = 40;
-	Map<Integer, Bouton> boutons;
 	
-	ParkingView() {
+	private final JPopupMenu popup = new JPopupMenu();
+	private JButton statusButton;
+
+	private int nbCases;
+	private int nbColonnes;
+	private int nbLignes;
+
+	private Map<Integer, Bouton> boutons;
+	private Interface parent;
+	
+	ParkingView(Interface parent) {
 		super("Etat du parking");
 		
+		this.parent = parent;
 		boutons = new HashMap<>();
 		
-		int Colonnes = 10;
-		int Lignes = (int) Math.ceil(((double) nbCases)/Colonnes);
+		nbColonnes = 10;
+		nbLignes = (int) Math.ceil(((double) nbCases)/nbColonnes);
 
 		JMenuItem menuLiberer = new JMenuItem("Libérer");
 		popup.add(menuLiberer);
@@ -59,19 +66,18 @@ public class ParkingView extends JFrame {
 			}
 		});
 
-		//setUndecorated(true);
 		Container contenu = getContentPane();
 
 		Container grille = new Container();
-		grille.setLayout(new GridLayout(Lignes, Colonnes));
+		grille.setLayout(new GridLayout(nbLignes, nbColonnes));
 
 		Color reserve = new Color(240, 177, 146);
 		Color libre = new Color(181, 229, 29);
 		Color prise = new Color(232, 60, 60);
 
-		for (int i = 0; i < Lignes; i++)
-			for (int j = 0; j < Colonnes; j++) {
-				final Integer index = i*Colonnes+j;
+		for (int i = 0; i < nbLignes; i++)
+			for (int j = 0; j < nbColonnes; j++) {
+				final Integer index = i*nbColonnes+j;
 				
 				Random rand = new Random();
 				int nombre = rand.nextInt(3);
@@ -113,6 +119,10 @@ public class ParkingView extends JFrame {
 
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setVisible(true);
+	}
+
+	public void notifyParkingStateChanged(Map<Integer, Place> placesMap) {
+		
 	}
 
 }
