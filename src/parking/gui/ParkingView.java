@@ -58,28 +58,26 @@ public class ParkingView extends JFrame {
 		Container grille = new Container();
 		grille.setLayout(new GridLayout(Lignes, Colonnes));
 
-		String Reserver = "data/reserver.jpg";
-		String Prise = "data/prise.jpg";
-		String Libre = "data/libre.jpg";
+		Color reserve = new Color(240, 177, 146);
+		Color libre = new Color(181, 229, 29);
+		Color prise = new Color(232, 60, 60);
+
 		for (int i = 0; i < Lignes; i++)
 			for (int j = 0; j < Colonnes; j++) {
 
 				Random rand = new Random();
 				int nombre = rand.nextInt(3);
 
+				Bouton place = new Bouton(i+j);
+				
 				String alea = new String();
-				if (nombre == 0) {
-					alea = Libre;
-				}
+				if (nombre == 0)
+					place.setBackground(libre);
+				if (nombre == 1)
+					place.setBackground(reserve);
+				if (nombre == 2)
+					place.setBackground(prise);
 
-				if (nombre == 1) {
-					alea = Reserver;
-				}
-
-				if (nombre == 2) {
-					alea = Prise;
-				}
-				Bouton place = new Bouton(1, alea, alea);
 				place.setText(Integer.toString(i));
 				place.setPreferredSize(new Dimension(50, 50));
 				grille.add(place);
