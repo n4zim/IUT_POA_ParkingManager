@@ -1,9 +1,23 @@
 package parking.gui;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.IOException;
+
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  * Fenêtre principale du programme, affiche les menus
@@ -32,6 +46,23 @@ public class ParkingControlView extends JPanel {
 		if (PromptResult == JOptionPane.YES_OPTION)
 			System.exit(0);
 	}
+	
+	private void fenetreImpression() {
+	      PrinterJob pj = PrinterJob.getPrinterJob();
+	      HashPrintRequestAttributeSet printAttr = new HashPrintRequestAttributeSet();
+	      if(pj.printDialog(printAttr))
+	      {
+	    	  try
+	    	  {
+	    		  pj.print(printAttr);
+	    	  }
+	    	  catch(PrinterException e)
+	    	  {
+	    		  JOptionPane.showMessageDialog(this,"Echec lors de l'impression "+e,"Error",JOptionPane.ERROR_MESSAGE);
+	    	  }
+	      }
+	}
+	
 
 	/**
 	 * Crée et affiche la fenêtre
@@ -51,7 +82,7 @@ public class ParkingControlView extends JPanel {
 		JMenu printMenu = new JMenu("Imprimer");
 		printMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/* ACTION DU BOUTON */
+				fenetreImpression();
 			}
 		});
 
