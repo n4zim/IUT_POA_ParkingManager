@@ -44,7 +44,6 @@ public class VehiculesView extends JPanel {
 	}
 	
 	static void afficher() {
-<<<<<<< HEAD
 		JFrame frame = new JFrame("Véhicules");
 
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -74,9 +73,6 @@ public class VehiculesView extends JPanel {
         
         /*ProgramAbout.addActionListener(new WindowAdapter() {
         JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");*/
-=======
-		JFrame frame = new JFrame("Véhicule");
->>>>>>> 4f90e62897593febf718f404083fab0b55ba31b9
 		
 		VehiculesView newContentPane = new VehiculesView();
 		newContentPane.setOpaque(true);
