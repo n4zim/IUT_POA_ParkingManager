@@ -231,6 +231,7 @@ public class Parking {
 		factures.add(facture);
 		
 		// On affiche la facture
+		System.out.println("\nFACTURE POUR LE VÉHICULE SORTANT :");
 		System.out.println(facture);
 	}
 
