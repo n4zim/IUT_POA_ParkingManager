@@ -7,7 +7,10 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -16,18 +19,29 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import parking.business.Place;
+
 public class ParkingView extends JFrame {
-
 	private static final long serialVersionUID = 1L;
-	final JPopupMenu popup = new JPopupMenu();
-
-	private int nbCases = 40;
 	
-	ParkingView() {
+	private final JPopupMenu popup = new JPopupMenu();
+	private JButton statusButton;
+
+	private int nbCases;
+	private int nbColonnes;
+	private int nbLignes;
+
+	private Map<Integer, Bouton> boutons;
+	private Interface parent;
+	
+	ParkingView(Interface parent) {
 		super("Etat du parking");
 		
-		int Colonnes = 10;
-		int Lignes = (int) Math.ceil(((double) nbCases)/Colonnes);
+		this.parent = parent;
+		boutons = new HashMap<>();
+		
+		nbColonnes = 10;
+		nbLignes = (int) Math.ceil(((double) nbCases)/nbColonnes);
 
 		JMenuItem menuLiberer = new JMenuItem("Libérer");
 		popup.add(menuLiberer);
@@ -52,23 +66,23 @@ public class ParkingView extends JFrame {
 			}
 		});
 
-		//setUndecorated(true);
 		Container contenu = getContentPane();
 
 		Container grille = new Container();
-		grille.setLayout(new GridLayout(Lignes, Colonnes));
+		grille.setLayout(new GridLayout(nbLignes, nbColonnes));
 
 		Color reserve = new Color(240, 177, 146);
 		Color libre = new Color(181, 229, 29);
 		Color prise = new Color(232, 60, 60);
 
-		for (int i = 0; i < Lignes; i++)
-			for (int j = 0; j < Colonnes; j++) {
-
+		for (int i = 0; i < nbLignes; i++)
+			for (int j = 0; j < nbColonnes; j++) {
+				final Integer index = i*nbColonnes+j;
+				
 				Random rand = new Random();
 				int nombre = rand.nextInt(3);
 
-				Bouton place = new Bouton(i+j);
+				Bouton place = new Bouton(index);
 				place.setOpaque(true);
 				
 				if (nombre == 0)
@@ -78,13 +92,15 @@ public class ParkingView extends JFrame {
 				if (nombre == 2)
 					place.setBackground(prise);
 
-				place.setText(Integer.toString(i));
+				place.setText(index.toString());
 				place.setPreferredSize(new Dimension(50, 50));
 				grille.add(place);
 
+				boutons.put(index, place);
+
 				place.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						popup.show(place, (getX() - 25), (getY() - 25));
+						popup.show(boutons.get(index), (getX() - 25), (getY() - 25));
 					}
 				});
 
@@ -94,19 +110,19 @@ public class ParkingView extends JFrame {
 			}
 		contenu.add(grille, BorderLayout.NORTH);
 
-		JButton bouton = new JButton("12 places, 3 prises et 9 libres");
-		bouton.setBackground(Color.RED);
-		contenu.add(bouton);
+		statusButton = new JButton("12 places, 3 prises et 9 libres");
+		statusButton.setBackground(Color.RED);
+		contenu.add(statusButton);
 
 		pack();
-		/*
-		 * setLocation((Toolkit.getDefaultToolkit().getScreenSize().width+600)/3,
-		 * (Toolkit.getDefaultToolkit().getScreenSize().height-600)/2);
-		 */
-		// setLocation(800, 200);
 		setLocation(50, 50);
 
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setVisible(true);
+	}
+
+	public void notifyParkingStateChanged(Map<Integer, Place> placesMap) {
+		
 	}
 
 }

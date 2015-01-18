@@ -366,7 +366,7 @@ public class Parking {
 	 * Retourne la map avec les places
 	 * @return la map
 	 **/
-	protected Map<Integer, Place> getPlacesMap() {
+	public Map<Integer, Place> getPlacesMap() {
 		return places;
 	}
 	

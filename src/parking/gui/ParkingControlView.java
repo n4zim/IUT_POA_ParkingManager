@@ -17,7 +17,7 @@ public class ParkingControlView extends JPanel {
 		super(new GridLayout(0, 1));
 	}
 
-	private static void fenetreConfirmationFermer() {
+	private void fenetreConfirmationFermer() {
 		String YesNo[] = { "Oui", "Non" };
 		int PromptResult = JOptionPane.showOptionDialog(null,
 				"Fermer le programme ?", "Marre des parkings ?",
@@ -27,7 +27,7 @@ public class ParkingControlView extends JPanel {
 			System.exit(0);
 	}
 
-	static void afficher() {
+	public void afficher() {
 		JFrame frame = new JFrame("Parking");
 
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
