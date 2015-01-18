@@ -1,19 +1,26 @@
 package parking.gui;
-import javax.swing.JFrame;
-
-import parking.business.Camion;
-import parking.business.Moto;
-import parking.business.Parking;
-import parking.business.Vehicule;
-import parking.business.Voiture;
+import javax.swing.*;
+import parking.business.*;
 
 public class Interface extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static void addLine() {
-		VehiculesView.ajouterLigne("1234", "marque", "modele", "John Stone");
-	}
+	/*private static void message(int type, String title, String msg, JFrame frame) {
+		switch (type) {
+		case 1:
+			JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");
+			break;
+		case 2:
+			JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.", "Inane error", JOptionPane.ERROR_MESSAGE);
+			break;
+		case 3:
+			JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.", "Inane warning", JOptionPane.WARNING_MESSAGE);
+			break;
+		default:
+			break;
+		}
+	}*/
 	
 	public static void main(String[] args) {
 		
@@ -37,8 +44,7 @@ public class Interface extends JFrame {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				new ParkingView();
-				VehiculesView.afficher();
-				addLine();
+				ParkingControlView.afficher();
 			}
 		});
 	}

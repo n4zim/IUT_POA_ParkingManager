@@ -12,12 +12,12 @@ public class VehiculesView extends JPanel {
 	public VehiculesView() {
 		super(new GridLayout(1, 0));
 
-		Object[][] data = { { "42424242Fr", "Marque de BG", "le plus beau", "Un BG", "7" } };
+		Object[][] data = { { "TestA", "TestB", "TestC", "TestD", "TestE" } };
 
 		final JTable table = new JTable(data,
 				new String[] { "Immatriculation", "Marque", "Modèle", "Propriétaire", "Emplacement" });
 		
-		table.setPreferredScrollableViewportSize(new Dimension(500, 500));
+		table.setPreferredScrollableViewportSize(new Dimension(600, 30));
 		table.setFillsViewportHeight(true);
 
 		table.addMouseListener(new MouseAdapter() {
@@ -38,12 +38,13 @@ public class VehiculesView extends JPanel {
 
 			}
 		});
+
+		JScrollPane scrollPane = new JScrollPane(table);
+		add(scrollPane);
 	}
 	
 	static void afficher() {
-		JFrame frame = new JFrame("Parking");
-
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		JFrame frame = new JFrame("Véhicule");
 		
 		VehiculesView newContentPane = new VehiculesView();
 		newContentPane.setOpaque(true);

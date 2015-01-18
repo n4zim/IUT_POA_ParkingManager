@@ -45,7 +45,7 @@ public class Facture {
 	 */
 	public void sauverDansFichier(String nomFichier) {
 		File dossier = new File(Constante.DOSSIER_FACTURES);
-		File fichier = new File(Constante.DOSSIER_FACTURES+File.separator+nomFichier);
+		File fichier = new File(Constante.DOSSIER_FACTURES+File.separator+nomFichier+".txt");
 		
 		try {
 			dossier.mkdirs();
@@ -65,6 +65,13 @@ public class Facture {
 		} catch (IOException e) {
 			System.out.println("Erreur : I/O error");
 		}
+	}
+	
+    /**
+	 * Sauvegarde une facture dans un fichier nommé automatiquement
+	 */
+	public void sauverDansFichier() {
+		sauverDansFichier(numFacture + " - " + ((nomClient == null) ? "" : nomClient));
 	}
 	
     /**
