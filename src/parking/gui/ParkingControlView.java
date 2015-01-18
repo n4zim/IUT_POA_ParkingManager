@@ -136,10 +136,10 @@ public class ParkingControlView extends JPanel {
 		helpMenu.add(ProgramAbout);
 		ProgramAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(frame,
+				JOptionPane.showMessageDialog(new JFrame(),
 						"Gestion de parking\nProjet CPOA 2015\nIUT Aix-en-Provence\n\n"
 								+ "Team :\n" + "Josua Gonzalez\n"
-								+ "Carole Lai\n" + "Nazim Lachter\n"
+								+ "Carole Lai Tong\n" + "Nazim Lachter\n"
 								+ "Alexis Delieux\n", "A propos...",
 						JOptionPane.INFORMATION_MESSAGE);
 			}

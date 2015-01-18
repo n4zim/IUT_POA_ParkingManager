@@ -23,6 +23,9 @@ public class ControlleurInterfaceGraphique extends JFrame {
 	 */
 	Parking parking;
 	
+	GestionVehicule gVehicules;
+	
+	
 	/**
 	 * Construit les interfaces
 	 * @param parking le parking à gérer
@@ -32,19 +35,23 @@ public class ControlleurInterfaceGraphique extends JFrame {
 		
 		pcv = new ParkingControlView();
 		pv = new ParkingView(this);
+		gVehicules = new GestionVehicule();
 		
 		pcv.afficher();
 		notifyParkingStateChanged();
 	}
 	
 	/**
-	 * Rend le parking
-	 * @return
+	 * Retourne l'état du parking
+	 * @return parking
 	 */
 	public Parking getParking() {
 		return parking;
 	}
 	
+	/**
+	 * Doit être appellée quand l'état du parking change. Se charge de mettre à jour les fenêtres qui ont besoin de l'état du parking.
+	 **/
 	public void notifyParkingStateChanged() {
 		pv.parkingStateChanged(parking.getPlacesMap());
 		
@@ -52,15 +59,25 @@ public class ControlleurInterfaceGraphique extends JFrame {
 		parking.EtatParking();
 	}
 	
+	/**
+	 * Demande à l'utilisateur de sélectionner un véhicule
+	 * @return véhicule sélectionné
+	 */
 	public Vehicule demanderVehicule() {
-		String immat = JOptionPane.showInputDialog("Numéro d'immatriculation");
-		String marque = JOptionPane.showInputDialog("Marque");
-		String modele = JOptionPane.showInputDialog("Modèle");
-		String proprio = JOptionPane.showInputDialog("Nom du propriétaire");
+		gVehicules.demanderVehicule();
 		
-		return new Vehicule(immat, marque, modele, proprio);
+		while(gVehicules.getWait()) {
+			
+		}
+		
+		return gVehicules.getVehiculeSelectione();
 	}
 
+	/**
+	 * Se cherge de libérer la place de parking indiquée
+	 * @param numPlace Numéro de la place à libérer
+	 * @throws PlaceLibreException La place est déjà libre
+	 */
 	public void libererPlace(Integer numPlace) throws PlaceLibreException {
 		try {
 			parking.unpark(numPlace);
@@ -71,6 +88,14 @@ public class ControlleurInterfaceGraphique extends JFrame {
 		notifyParkingStateChanged();
 	}
 
+	/**
+	 * Se charge de garer un véhicule à la place indiquée
+	 * @param aGarer le véhicule
+	 * @param place le numéro de place
+	 * @throws TypePlaceInvalideException La place n'est pas adaptée à ce type de véhicule
+	 * @throws PlaceOccupeeException La place est déjà occupée
+	 * @throws PlaceReserveeException La place est réservée
+	 */
 	public void garerVehicule(Vehicule aGarer, Integer place) throws TypePlaceInvalideException, PlaceOccupeeException, PlaceReserveeException {
 		try {
 			parking.park(aGarer, place);
@@ -80,6 +105,10 @@ public class ControlleurInterfaceGraphique extends JFrame {
 		notifyParkingStateChanged();
 	}
 	
+	/**
+	 * Programme principal
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		Parking p = Parking.getInstance();
