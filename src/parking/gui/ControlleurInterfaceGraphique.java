@@ -23,6 +23,9 @@ public class ControlleurInterfaceGraphique extends JFrame {
 	 */
 	Parking parking;
 	
+	GestionVehicule gVehicules;
+	
+	
 	/**
 	 * Construit les interfaces
 	 * @param parking le parking à gérer
@@ -32,6 +35,7 @@ public class ControlleurInterfaceGraphique extends JFrame {
 		
 		pcv = new ParkingControlView();
 		pv = new ParkingView(this);
+		gVehicules = new GestionVehicule();
 		
 		pcv.afficher();
 		notifyParkingStateChanged();
@@ -60,12 +64,13 @@ public class ControlleurInterfaceGraphique extends JFrame {
 	 * @return véhicule sélectionné
 	 */
 	public Vehicule demanderVehicule() {
-		String immat = JOptionPane.showInputDialog("Numéro d'immatriculation");
-		String marque = JOptionPane.showInputDialog("Marque");
-		String modele = JOptionPane.showInputDialog("Modèle");
-		String proprio = JOptionPane.showInputDialog("Nom du propriétaire");
+		gVehicules.demanderVehicule();
 		
-		return new Vehicule(immat, marque, modele, proprio);
+		while(gVehicules.getWait()) {
+			
+		}
+		
+		return gVehicules.getVehiculeSelectione();
 	}
 
 	/**
