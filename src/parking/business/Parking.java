@@ -76,6 +76,12 @@ public class Parking {
 		return instanceUniqueParking;
 	}
 	
+	/**
+	 * Permet de reset l'instance de parking pour les tests
+	 **/
+	protected static void resetInstance() {
+		instanceUniqueParking = null;
+	}
 
 	/**
 	 * Vérifie si un véhicule est garé dans le parking
@@ -315,12 +321,15 @@ public class Parking {
 	 * @throws PlaceLibreException La place était déjà libre
 	 * @throws PlaceInexistanteException La place n'existe pas
 	 */
-	public Vehicule retirerVehicule(String numeroImmatriculation) throws PlaceLibreException, PlaceInexistanteException {
+	public Vehicule retirerVehicule(String numeroImmatriculation) throws PlaceLibreException {
 		Integer numeroPlace = getLocation(numeroImmatriculation);
 		if (numeroPlace == -1)
 			return null;
 		Vehicule v = places.get(numeroPlace).getVehiculeGare();
-		unpark(numeroPlace);
+		try {
+			unpark(numeroPlace);
+		} catch (PlaceInexistanteException e) {
+		}
 		return v;
 	}
 
@@ -359,5 +368,25 @@ public class Parking {
 	 **/
 	protected Map<Integer, Place> getPlacesMap() {
 		return places;
+	}
+	
+	/**
+	 * Retourne la dernière facture qui à été générée
+	 * @return la facture en question
+	 */
+	public Facture getDerniereFacture() {
+		Facture derniereFacture = null;
+		for (Iterator<Facture> iterator = factures.iterator(); iterator.hasNext();) {
+			derniereFacture = iterator.next();
+		}
+		return derniereFacture;
+	}
+	
+	/**
+	 * Retourne le tarif hors taxe du parking
+	 * @return valeur décimale
+	 */
+	protected double getTarifHT() {
+		return tarifHT;
 	}
 }
