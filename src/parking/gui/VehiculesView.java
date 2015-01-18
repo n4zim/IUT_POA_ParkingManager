@@ -43,19 +43,4 @@ public class VehiculesView extends JPanel {
 		add(scrollPane);
 	}
 	
-	static void afficher() {
-		JFrame frame = new JFrame("Véhicule");
-		
-		VehiculesView newContentPane = new VehiculesView();
-		newContentPane.setOpaque(true);
-		frame.setContentPane(newContentPane);
-		frame.pack();
-		/*frame.setLocation(
-				(Toolkit.getDefaultToolkit().getScreenSize().width-500)/2,
-				(Toolkit.getDefaultToolkit().getScreenSize().height-500)/2
-				);*/
-		//frame.setLocation(200, 200);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-	}
 }
