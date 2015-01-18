@@ -61,11 +61,19 @@ public class Facture {
 		}
 	}
 	
+	/**
+	 * Génère un nom de fichier pour cette facture
+	 * @return chaîne de caractères correspondant au nom de fichier sans l'extention
+	 */
+	public String getNomFichier() {
+		return numFacture + " - " + ((optionsFacturation.getNomClient() == null) ? "" : optionsFacturation.getNomClient());
+	}
+	
     /**
 	 * Sauvegarde une facture dans un fichier nommé automatiquement
 	 */
 	public void sauverDansFichier() {
-		sauverDansFichier(numFacture + " - " + ((optionsFacturation.getNomClient() == null) ? "" : optionsFacturation.getNomClient()));
+		sauverDansFichier(getNomFichier());
 	}
 	
     /**
