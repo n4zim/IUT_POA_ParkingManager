@@ -187,10 +187,28 @@ public class TestProgramme {
 		}
 		myAssert(str.trim().equals(facture.toString().trim()));
 		
-		
 		// remise à zéro du parking
 		Parking.resetInstance();
 		p = Parking.getInstance();
+
+		System.out.print("Ne pas pouvoir garer si le parking est plein");
+		try {
+			// on remplit le parking
+			for(int i = p.getPremierNumeroDePlace(); i < p.getDernierNumeroDePlace(); i++) {
+				p.park(new Vehicule("voit"+i, "marque", "modèle", "être humain"));
+			}
+		} catch (PlusAucunePlaceException e) {
+		}
+		boolean parkImpossible = false;
+		try {
+			// on essaye de garer quelqu'un
+			p.park(vehicule);
+		} catch (PlusAucunePlaceException e) {
+			parkImpossible = true;
+		}
+		myAssert(parkImpossible);
+
+		
 
 	}
 	
