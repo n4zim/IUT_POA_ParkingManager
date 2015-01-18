@@ -24,6 +24,7 @@ import javax.swing.JPopupMenu;
 
 import parking.business.Place;
 import parking.exception.PlaceDisponibleException;
+import parking.exception.PlaceLibreException;
 
 public class ParkingView extends JFrame {
 	private JButton statusButton;
@@ -88,10 +89,9 @@ public class ParkingView extends JFrame {
 	}
 	
 	public void liberer(Integer numPlace) {
-		Place placeALiberer = parent.getParking().getPlacesMap().get(numPlace);
 		try {
-			parent.getParking().freePlace(placeALiberer);
-		} catch (PlaceDisponibleException e) {
+			parent.libererPlace(numPlace);
+		} catch (PlaceLibreException e) {
 			JOptionPane.showMessageDialog(this, "Cette place est déjà libre.", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
 	}

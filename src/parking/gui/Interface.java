@@ -3,6 +3,8 @@ import javax.swing.*;
 
 import parking.business.*;
 import parking.exception.PlaceDisponibleException;
+import parking.exception.PlaceInexistanteException;
+import parking.exception.PlaceLibreException;
 
 public class Interface extends JFrame {
 
@@ -66,5 +68,15 @@ public class Interface extends JFrame {
 		}
 		
 		new Interface(p);
+	}
+
+	public void libererPlace(Integer numPlace) throws PlaceLibreException {
+		try {
+			getParking().unpark(numPlace);
+		} catch (PlaceInexistanteException e) {
+			e.printStackTrace();
+		}
+		
+		notifyParkingStateChanged();
 	}
 }
