@@ -44,7 +44,35 @@ public class VehiculesView extends JPanel {
 	}
 	
 	static void afficher() {
-		JFrame frame = new JFrame("Véhicule");
+		JFrame frame = new JFrame("Véhicules");
+
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent we) {
+				String YesNo[] = {"Oui", "Non"};
+				int PromptResult = JOptionPane.showOptionDialog(null,
+						"Fermer le programme ?", "Marre des parkings ?",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+						null, YesNo, YesNo[1]);
+			  if(PromptResult==JOptionPane.YES_OPTION) System.exit(0);
+			}
+		});
+		
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+		JMenu printMenu = new JMenu("Imprimer");
+        JMenu helpMenu = new JMenu("Aide");
+        JMenu quitMenu = new JMenu("Quitter");
+        menuBar.add(printMenu);
+        menuBar.add(helpMenu);
+        menuBar.add(quitMenu);
+        JMenuItem ProgramHelp = new JMenuItem("Documentation");
+        helpMenu.add(ProgramHelp);
+        JMenuItem ProgramAbout = new JMenuItem("A propos...");
+        helpMenu.add(ProgramAbout);
+        
+        /*ProgramAbout.addActionListener(new WindowAdapter() {
+        JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");*/
 		
 		VehiculesView newContentPane = new VehiculesView();
 		newContentPane.setOpaque(true);
