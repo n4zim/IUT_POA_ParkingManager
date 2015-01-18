@@ -87,8 +87,8 @@ public class ParkingView extends JFrame {
 		setVisible(true);
 	}
 	
-	public void liberer(Integer place) {
-		Place placeALibere = parent.getParking().getPlacesMap().get(place);
+	public void liberer(Integer numPlace) {
+		Place placeALibere = parent.getParking().getPlacesMap().get(numPlace);
 		try {
 			parent.getParking().freePlace(placeALibere);
 		} catch (PlaceDisponibleException e) {
