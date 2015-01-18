@@ -18,10 +18,12 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import parking.business.Place;
+import parking.exception.PlaceDisponibleException;
 
 public class ParkingView extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -109,6 +111,15 @@ public class ParkingView extends JFrame {
 
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setVisible(true);
+	}
+	
+	public void liberer(Integer place) {
+		Place placeALibere = parent.getParking().getPlacesMap().get(place);
+		try {
+			parent.getParking().freePlace(placeALibere);
+		} catch (PlaceDisponibleException e) {
+			JOptionPane.showMessageDialog(this, "Cette place est déjà libre.", "Erreur", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public void parkingStateChanged(Map<Integer, Place> placesMap) {

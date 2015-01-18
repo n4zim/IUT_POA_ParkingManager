@@ -1,6 +1,8 @@
 package parking.gui;
 import javax.swing.*;
+
 import parking.business.*;
+import parking.exception.PlaceDisponibleException;
 
 public class Interface extends JFrame {
 
