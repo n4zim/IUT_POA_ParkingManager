@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -11,7 +12,11 @@ import java.util.Set;
 import parking.exception.*;
 
 public class TestProgramme {
-
+	/**
+	 * Arrête l'éxécution du programme si l'assertion est fausse.
+	 * Affiche OK si l'assertion est juste, ERREUR sinon.
+	 * @param assertion expresssion à vérifier
+	 */
 	private void myAssert(boolean assertion) {
 		if(assertion)
 			System.out.println(" - OK - ");
@@ -21,6 +26,9 @@ public class TestProgramme {
 		}
 	}
 	
+	/**
+	 * Teste la classe Vehicule
+	 */
 	private void testerVehicules() {
 		System.out.println("-- Test des véhicules --\n");
 		
@@ -57,6 +65,13 @@ public class TestProgramme {
 		System.out.println();		
 	}
 	
+	/**
+	 * Vérifie la présence d'un véhicule dans le parking
+	 * @param p Parking
+	 * @param v Véhicule à tester
+	 * @return true si le véhicule à été trouvé
+	 * @return false sinon
+	 */
 	public boolean verifierVehiculeDansParking(Parking p, Vehicule v) {
 		Collection<Place> places = p.getPlacesMap().values();
 		
@@ -68,6 +83,10 @@ public class TestProgramme {
 		return false;
 	}
 	
+	/**
+	 * Teste les places d'un parking
+	 * @param p Le parking
+	 */
 	public void testerParkingPlaces(Parking p) {
 		Set<Integer> numPlaces = p.getPlacesMap().keySet();
 		
@@ -113,6 +132,9 @@ public class TestProgramme {
 		System.out.println();
 	}
 	
+	/**
+	 * Teste la classe Parking
+	 */
 	public void testerParking() {
 		Parking p = Parking.getInstance();
 		
@@ -208,7 +230,7 @@ public class TestProgramme {
 		p = Parking.getInstance();
 
 		System.out.println("Garer un véhicule à une place précise :");
-
+		
 		try {
 			for(int i = p.getPremierNumeroDePlace(); i < p.getDernierNumeroDePlace(); i++) {
 				System.out.print(" -> Place " + i + "\t");
@@ -229,8 +251,37 @@ public class TestProgramme {
 			e.printStackTrace();
 			myAssert(false);
 		}
+
+		// remise à zéro du parking
+		Parking.resetInstance();
+		p = Parking.getInstance();
+		
+		System.out.println("\nRetirer un véhicule à une place précise :");
+		try {
+			for(int i = p.getPremierNumeroDePlace(); i < p.getDernierNumeroDePlace(); i++) {
+				System.out.print(" -> Place " + i + "\t");
+				Vehicule aGarer = new Vehicule("voit"+i, "marque", "modèle", "être humain");
+				p.park(aGarer, i);
+				Vehicule vehiculeGare = p.unpark(i);
+				
+				if(vehiculeGare == null) {
+					System.out.print(" aucun véhicule n'a été récupéré");
+					myAssert(false);
+				}
+				
+				myAssert(aGarer.equals(vehiculeGare));
+			}
+		} catch (PlaceLibreException | PlaceInexistanteException | TypePlaceInvalideException | PlaceOccupeeException
+				| PlaceReserveeException e) {
+			e.printStackTrace();
+			assert(false);
+		}
 	}
 	
+	/**
+	 * Programme de test principal
+	 * @param args Aucun argument n'est utilisé
+	 */
 	public static void main(String[] args) {
 		TestProgramme testParking = new TestProgramme();
 		testParking.testerVehicules();
