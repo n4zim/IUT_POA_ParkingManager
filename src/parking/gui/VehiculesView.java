@@ -5,13 +5,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class VehiculesView extends JPanel {
+public class VehiculesView extends JTable {
 
 	private static final long serialVersionUID = 1L;
 
 	public VehiculesView() {
-		super(new GridLayout(1, 0));
-
 		Object[][] data = { { "TestA", "TestB", "TestC", "TestD", "TestE" } };
 
 		final JTable table = new JTable(data,
@@ -38,9 +36,7 @@ public class VehiculesView extends JPanel {
 
 			}
 		});
-
-		JScrollPane scrollPane = new JScrollPane(table);
-		add(scrollPane);
+		
 	}
 	
 }

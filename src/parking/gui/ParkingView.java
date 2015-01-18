@@ -12,12 +12,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.swing.*;
-import parking.business.Place;
-import parking.business.Vehicule;
-import parking.exception.PlaceLibreException;
-import parking.exception.PlaceOccupeeException;
-import parking.exception.PlaceReserveeException;
-import parking.exception.TypePlaceInvalideException;
+import parking.business.*;
+import parking.exception.*;
 
 /**
  * Affiche et gère la fenêtre qui montre l'état du parking
