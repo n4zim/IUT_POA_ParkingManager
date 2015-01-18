@@ -87,18 +87,6 @@ public class Bouton extends JButton {
 		popup.add(menuReserver);
 		popup.add(menuLiberer);
 		popup.add(menuOccuper);
-
-		
-		menuReserver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Réservée");
-			}
-		});
-		menuOccuper.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Occupée");
-			}
-		});
     }
     
     /**
