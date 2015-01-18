@@ -276,6 +276,21 @@ public class TestProgramme {
 			e.printStackTrace();
 			assert(false);
 		}
+		
+
+		// remise à zéro du parking
+		Parking.resetInstance();
+		p = Parking.getInstance();
+		
+		System.out.println("\nTest de vehiculeExiste :");
+		try {
+			p.park(moto);
+		} catch (PlusAucunePlaceException e) {
+			e.printStackTrace();
+			myAssert(false);
+		}
+		myAssert(p.vehiculeExiste(moto));
+		
 	}
 	
 	/**
