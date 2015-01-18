@@ -1,7 +1,9 @@
 package parking.business;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import parking.exception.*;
 
@@ -80,11 +82,51 @@ public class TestProgramme {
 		System.out.println("-- Test de park --\n");
 
 		/* Places */
-		System.out.println("1ère place place particulier ");
+		Set<Integer> numPlaces = p.getPlacesMap().keySet();
 		
+		System.out.print("1er numéro de place = "+Constante.NUMERO_PREMIERE_PLACE);
+		Iterator<Integer> itNumPlaces = numPlaces.iterator();
+		myAssert(itNumPlaces.next().equals(Constante.NUMERO_PREMIERE_PLACE));
+
+		System.out.print("Numéros de places continus");
+		boolean numerosContinus = true;
+		Integer dernierNumPlace = null;
+		Integer nombrePlaces = 0;
+		for (Iterator<Integer> iterator = numPlaces.iterator(); iterator.hasNext();) {
+			Integer numPlace = iterator.next();
+			
+			if(dernierNumPlace != null) {
+				if(!numPlace.equals(dernierNumPlace+1)) {
+					numerosContinus = false;
+				}
+			}
+				
+			dernierNumPlace = numPlace;
+			nombrePlaces++;
+		}
+		myAssert(numerosContinus);
+
+		System.out.print("Nombre de places = "+Constante.NOMBRE_PLACES);
+		myAssert(nombrePlaces.equals(Constante.NOMBRE_PLACES));
 		
+		System.out.print("Dernier numéro de place = "+(Constante.NUMERO_PREMIERE_PLACE + Constante.NOMBRE_PLACES - 1));
+		myAssert(dernierNumPlace.equals(Constante.NUMERO_PREMIERE_PLACE + Constante.NOMBRE_PLACES - 1));
+		
+		System.out.print("1ère place place particulier");
+		myAssert(p.getPlacesMap().get(p.getPremierNumeroDePlace()).getClass().getName().equals(Particulier.class.getName()));
+
+		System.out.print("Dernière place transporteur");
+		Place dernierePlace = null;
+		for (Iterator<Place> iterator = p.getPlacesMap().values().iterator(); iterator.hasNext();) {
+			dernierePlace = iterator.next();
+		}
+		if(dernierePlace == null) myAssert(false);
+		else myAssert(dernierePlace.getClass().getName().equals(Transporteur.class.getName()));
 		
 		System.out.println();
+		
+		
+		
 		/* Park */
 		System.out.println("Garer n'importe quel type de véhicule :");
 		try {
