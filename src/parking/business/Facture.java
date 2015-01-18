@@ -12,20 +12,15 @@ public class Facture {
 	private int numFacture;
 	
 	/**
-	 * Tarif hors taxe
+	 * Les modalités de facturation
 	 */
-	private double tarifHT;
+	private Facturation optionsFacturation;
 	
 	/**
 	 * Tarif toutes taxes comprises
 	 */
 	private double tarifTTC;
 
-	/**
-	 * Nom du client pour qui les factures sont générées
-	 */
-	private String nomClient;
-	
 	/**
 	 * Construit une facture
 	 * 
@@ -34,9 +29,8 @@ public class Facture {
 	 */
 	public Facture(int numFacture, Facturation facturation) {
 		this.numFacture = numFacture;
-		this.tarifHT = facturation.getTarif();
-		this.tarifTTC = this.tarifHT * Constante.TVA;
-		this.nomClient = facturation.getNomClient();
+		this.optionsFacturation = facturation;
+		this.tarifTTC = this.optionsFacturation.getTarif() * Constante.TVA;
 	}
 	
     /**
@@ -71,7 +65,7 @@ public class Facture {
 	 * Sauvegarde une facture dans un fichier nommé automatiquement
 	 */
 	public void sauverDansFichier() {
-		sauverDansFichier(numFacture + " - " + ((nomClient == null) ? "" : nomClient));
+		sauverDansFichier(numFacture + " - " + ((optionsFacturation.getNomClient() == null) ? "" : optionsFacturation.getNomClient()));
 	}
 	
     /**
@@ -79,8 +73,8 @@ public class Facture {
      */
 	public String toString() {
 		return "=== FACTURE " + numFacture + " ===\n"
-               + ((nomClient == null) ? "Client non enregistré" : " Client : " + nomClient) + "\n"
-               + " Tarif HT  : " + tarifHT + "\n"
+               + ((optionsFacturation.getNomClient() == null) ? "Client non enregistré" : " Client : " + optionsFacturation.getNomClient()) + "\n"
+               + " Tarif HT  : " + optionsFacturation.getTarif() + "\n"
                + " Tarif TTC : " + tarifTTC + "\n";
 	}
 }

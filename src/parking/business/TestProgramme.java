@@ -1,7 +1,9 @@
 package parking.business;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import parking.exception.*;
 
@@ -10,8 +12,10 @@ public class TestProgramme {
 	private void myAssert(boolean assertion) {
 		if(assertion)
 			System.out.println(" - OK - ");
-		else
+		else {
 			System.out.println(" - ERREUR - ");
+			System.exit(-1);
+		}
 	}
 	
 	private void testerVehicules() {
@@ -59,78 +63,124 @@ public class TestProgramme {
 		Collection<Place> places = p.getPlacesMap().values();
 		
 		for (Place place : places) {
-			if(place.getVehiculeGare().equals(v))
+			if(!place.isFree() && place.getVehiculeGare().equals(v))
 				return true;
 		}
 
 		return false;
 	}
 	
+	public void testerParkingPlaces(Parking p) {
+		Set<Integer> numPlaces = p.getPlacesMap().keySet();
+		
+		System.out.print("1er numéro de place = "+Constante.NUMERO_PREMIERE_PLACE);
+		Iterator<Integer> itNumPlaces = numPlaces.iterator();
+		myAssert(itNumPlaces.next().equals(Constante.NUMERO_PREMIERE_PLACE));
+
+		System.out.print("Numéros de places continus");
+		boolean numerosContinus = true;
+		Integer dernierNumPlace = null;
+		Integer nombrePlaces = 0;
+		for (Iterator<Integer> iterator = numPlaces.iterator(); iterator.hasNext();) {
+			Integer numPlace = iterator.next();
+			
+			if(dernierNumPlace != null) {
+				if(!numPlace.equals(dernierNumPlace+1)) {
+					numerosContinus = false;
+				}
+			}
+				
+			dernierNumPlace = numPlace;
+			nombrePlaces++;
+		}
+		myAssert(numerosContinus);
+
+		System.out.print("Nombre de places = "+Constante.NOMBRE_PLACES);
+		myAssert(nombrePlaces.equals(Constante.NOMBRE_PLACES));
+		
+		System.out.print("Dernier numéro de place = "+(Constante.NUMERO_PREMIERE_PLACE + Constante.NOMBRE_PLACES - 1));
+		myAssert(dernierNumPlace.equals(Constante.NUMERO_PREMIERE_PLACE + Constante.NOMBRE_PLACES - 1));
+		
+		System.out.print("1ère place place particulier");
+		myAssert(p.getPlacesMap().get(p.getPremierNumeroDePlace()).getClass().getName().equals(Particulier.class.getName()));
+
+		System.out.print("Dernière place transporteur");
+		Place dernierePlace = null;
+		for (Iterator<Place> iterator = p.getPlacesMap().values().iterator(); iterator.hasNext();) {
+			dernierePlace = iterator.next();
+		}
+		if(dernierePlace == null) myAssert(false);
+		else myAssert(dernierePlace.getClass().getName().equals(Transporteur.class.getName()));
+		
+		System.out.println();
+	}
 	
 	public void testerParking() {
 		Parking p = Parking.getInstance();
 		
 		Vehicule moto = new Moto("3D", "marquise", "j'ai une frite qui déconne", "Jean Beurre-Gueurre");
-		Vehicule camion = new Camion("fqsdfas", "marque", "modele", "Jean Aimar");
-		Vehicule voiture = new Voiture("acxv", "marque", "modele", "John Stone");
-		Vehicule vehicule = new Vehicule("g43ewvrsd", "marque", "modele", "John Michael");
-		Vehicule v5 = new Voiture("FAf90ajsd", "marque", "modele", "John D'oeuf");
-		
+		Vehicule camion = new Camion("IMMATRICULATION", "marque", "modele", "Jean Aimar");
+		Vehicule voiture = new Voiture("PLAQUE", "marque", "modele", "John Stone");
+		Vehicule vehicule = new Vehicule("BONJOUR", "marque", "modele", "John Michael");
+		Vehicule voiture2 = new Voiture("DEVIL", "marque", "modele", "John Duff");
 		
 		System.out.println("-- Test de park --\n");
-
-		/* Places */
-		System.out.println("1ère place place particulier ");
+		testerParkingPlaces(p);
 		
-		
-		
-		System.out.println();
 		/* Park */
 		System.out.println("Garer n'importe quel type de véhicule :");
 		try {
-			p.park(moto);
 			System.out.print("Moto");
+			p.park(moto);
 			myAssert(verifierVehiculeDansParking(p, moto));
 
-			p.park(camion);
 			System.out.print("Camion");
+			p.park(camion);
 			myAssert(verifierVehiculeDansParking(p, camion));
 
-			p.park(voiture);
 			System.out.print("Voiture");
+			p.park(voiture);
 			myAssert(verifierVehiculeDansParking(p, voiture));
-			
-			p.park(vehicule);
+
 			System.out.print("Vehicule");
+			p.park(vehicule);
 			myAssert(verifierVehiculeDansParking(p, vehicule));		
-			
 		} catch (PlusAucunePlaceException e) {
 		}		
 		
+		System.out.println("Libérer les véhicules par plaque d'immatricuation :");
 		try {
-			p.park(moto);
-			p.park(camion, 3);
-			p.park(voiture);
-			p.park(vehicule);
-			p.bookPlace(v5);
+			System.out.print("Moto");
+			Vehicule v = p.retirerVehicule(moto.getNumeroImmatriculation());
+			myAssert(v.equals(moto));
 
-		} catch (parking.exception.ParkingException e) {
-			e.printStackTrace();
-		}
+			System.out.print("Camion");
+			v = p.retirerVehicule(camion.getNumeroImmatriculation());
+			myAssert(v.equals(camion));
 
-		System.out.println("v2 est dans le parking : " + p.vehiculeExiste(camion));
-		System.out.println("v5 est dans le parking : " + p.vehiculeExiste(v5));
+			System.out.print("Voiture");
+			v = p.retirerVehicule(voiture.getNumeroImmatriculation());
+			myAssert(v.equals(voiture));
 
-		p.EtatParking();
-		
-		try {
-			p.unpark(p.getLocation(camion.getNumeroImmatriculation()));
+			System.out.print("Vehicule");
+			v = p.retirerVehicule(vehicule.getNumeroImmatriculation());
+			myAssert(v.equals(vehicule));	
 		} catch (PlaceLibreException e) {
-			e.printStackTrace();
-		} catch (PlaceInexistanteException e) {
-			e.printStackTrace();
+			myAssert(false);
 		}
 		
+		System.out.print("Il y à 4 factures enregistrés");
+		myAssert(p.getFactures().size() == 4);
+		
+		Facture factureCorrecte = new Facture(3, new Facturation(vehicule.getProprietaire(), p.getTarifHT()));
+		System.out.print("La dernière facture est correcte");
+		myAssert(p.getDerniereFacture().equals(factureCorrecte));
+		
+		
+		// remise à zéro du parking
+		Parking.resetInstance();
+		p = Parking.getInstance();
+
 	}
 	
 	public static void main(String[] args) {
