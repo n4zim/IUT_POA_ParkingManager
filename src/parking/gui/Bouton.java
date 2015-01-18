@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 public class Bouton extends JButton {
+	public static final int ETAT_LIBRE = 1;
+	public static final int ETAT_RESERVE = 2;
+	public static final int ETAT_PRIS = 3;
 	 
     private static final long serialVersionUID = 1L;
  
@@ -21,4 +24,13 @@ public class Bouton extends JButton {
         setHorizontalAlignment(SwingConstants.CENTER);
         setHorizontalTextPosition(SwingConstants.CENTER);
     }
+    
+	public void setEtat(int etat) {
+		if(etat == ETAT_PRIS)
+			setBackground(new Color(232, 60, 60));
+		else if(etat == ETAT_RESERVE)
+			setBackground(new Color(240, 177, 146));
+		else
+			setBackground(new Color(181, 229, 29));
+	}
 }
