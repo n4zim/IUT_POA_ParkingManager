@@ -45,7 +45,7 @@ public class Facture {
 	 */
 	public void sauverDansFichier(String nomFichier) {
 		File dossier = new File(Constante.DOSSIER_FACTURES);
-		File fichier = new File(Constante.DOSSIER_FACTURES+File.separator+nomFichier);
+		File fichier = new File(Constante.DOSSIER_FACTURES+File.separator+nomFichier+".txt");
 		
 		try {
 			dossier.mkdirs();
