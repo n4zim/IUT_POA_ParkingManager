@@ -1,8 +1,6 @@
 package parking.gui;
 
 import java.awt.Color;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
