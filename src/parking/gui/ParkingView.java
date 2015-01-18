@@ -40,6 +40,7 @@ public class ParkingView extends JFrame {
 		this.parent = parent;
 		boutons = new HashMap<>();
 		
+		nbCases = parent.getParking().getNombrePlaces();
 		nbColonnes = 10;
 		nbLignes = (int) Math.ceil(((double) nbCases)/nbColonnes);
 
@@ -77,7 +78,7 @@ public class ParkingView extends JFrame {
 
 		for (int i = 0; i < nbLignes; i++)
 			for (int j = 0; j < nbColonnes; j++) {
-				final Integer index = i*nbColonnes+j;
+				final Integer index = i*nbColonnes+j + parent.getParking().getPremierNumeroDePlace();
 				
 				Random rand = new Random();
 				int nombre = rand.nextInt(3);
