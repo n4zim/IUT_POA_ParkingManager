@@ -7,7 +7,7 @@ public class TestParking {
 		Parking p = Parking.getInstance();
 
 		Vehicule v1 = new Moto("3D", "marquise", "j'ai une frite qui déconne", "Jean Beurre-Gueurre");
-		Vehicule v2 = new Camion("fqsdfas", "marque", "modele", "Jean Aimar");
+		Vehicule v2 = new Camion("fqsdfas", "marcacrin", "yodel", "Jean Aimar");
 		Vehicule v3 = new Voiture("acxv", "marque", "modele", "John Stone");
 		Vehicule v4 = new Voiture("g43ewvrsd", "marque", "modele", "John Michael");
 		Vehicule v5 = new Voiture("FAf90ajsd", "marque", "modele", "John D'oeuf");
